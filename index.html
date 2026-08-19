@@ -1,0 +1,3016 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Management — Exam Notes</title>
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#7a1f2b">
+  <style>
+    :root {
+      --maroon: #7a1f2b;
+      --maroon-dark: #5c1620;
+      --gold: #c8973a;
+      --cream: #faf6ef;
+      --paper: #fffdf9;
+      --ink: #2a2320;
+      --ink-soft: #5a5049;
+      --border: #e8ddc9;
+      --green: #2f6b4f;
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Noto Sans Bengali", "Hind Siliguri", "SolaimanLipi", "Vrinda", "Nirmala UI", "Kalpurush", system-ui, sans-serif;
+      background: var(--cream);
+      color: var(--ink);
+      line-height: 1.75;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    .toc-num {
+      font-family: "Noto Serif Bengali", "Noto Sans Bengali", "Hind Siliguri", serif;
+    }
+
+    header.top {
+      background: linear-gradient(135deg, var(--maroon), var(--maroon-dark));
+      color: #fdf3e7;
+      padding: 14px 20px;
+      text-align: center;
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.15);
+    }
+
+    header.top h1 {
+      margin: 0;
+      font-size: 1.25rem;
+      letter-spacing: 0.3px;
+    }
+
+    .controls {
+      background: var(--paper);
+      border-bottom: 2px solid var(--border);
+      padding: 8px 14px;
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    }
+
+    .controls input[type="text"] {
+      flex: 1 1 220px;
+      max-width: 340px;
+      padding: 7px 12px;
+      border-radius: 8px;
+      border: 1.5px solid var(--border);
+      font-family: inherit;
+      font-size: 0.85rem;
+      outline: none;
+      background: #fff;
+    }
+
+    .controls input[type="text"]:focus {
+      border-color: var(--maroon);
+    }
+
+    .controls button {
+      padding: 7px 12px;
+      border-radius: 8px;
+      border: 1.5px solid var(--maroon);
+      background: #fff;
+      color: var(--maroon);
+      font-family: inherit;
+      font-weight: 600;
+      font-size: 0.78rem;
+      cursor: pointer;
+      transition: 0.15s;
+    }
+
+    .controls button:hover {
+      background: var(--maroon);
+      color: #fff;
+    }
+
+    .chapter-filter {
+      background: var(--paper);
+      border-bottom: 2px solid var(--border);
+      padding: 8px 14px;
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .chapter-filter button {
+      padding: 5px 12px;
+      border-radius: 20px;
+      border: 1.5px solid var(--border);
+      background: #fbf4e6;
+      color: var(--ink-soft);
+      font-family: inherit;
+      font-weight: 600;
+      font-size: 0.76rem;
+      cursor: pointer;
+      transition: 0.15s;
+      white-space: nowrap;
+    }
+
+    .chapter-filter button:hover {
+      border-color: var(--maroon);
+      color: var(--maroon-dark);
+    }
+
+    .chapter-filter button.active {
+      background: var(--maroon);
+      border-color: var(--maroon);
+      color: #fff;
+    }
+
+    .layout {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 20px 0;
+    }
+
+    details.toc-wrap {
+      background: var(--paper);
+      border: 1.5px solid var(--border);
+      border-radius: 14px;
+      margin-bottom: 24px;
+      padding: 4px 18px;
+    }
+
+    details.toc-wrap>summary {
+      cursor: pointer;
+      font-weight: 700;
+      padding: 14px 0;
+      color: var(--maroon-dark);
+      font-size: 1.05rem;
+      list-style: none;
+    }
+
+    details.toc-wrap>summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .toc-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 8px;
+      padding-bottom: 16px;
+    }
+
+    .toc-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 10px;
+      border-radius: 8px;
+      text-decoration: none;
+      color: var(--ink);
+      background: #fbf4e6;
+      border: 1px solid var(--border);
+      font-size: 0.85rem;
+      transition: 0.15s;
+    }
+
+    .toc-item:hover {
+      background: #f3e5c8;
+    }
+
+    #resetDone {
+      border-color: var(--ink-soft);
+      color: var(--ink-soft);
+    }
+
+    #resetDone:hover {
+      background: var(--ink-soft);
+      color: #fff;
+    }
+
+    .progress-wrap {
+      max-width: 1100px;
+      margin: 14px auto 0;
+      padding: 0 16px;
+    }
+
+    .progress-info {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--maroon-dark);
+      margin-bottom: 6px;
+    }
+
+    .progress-track {
+      background: var(--border);
+      border-radius: 20px;
+      height: 10px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--green), #4a9d74);
+      border-radius: 20px;
+      transition: width 0.3s ease;
+    }
+
+    .done-check {
+      flex-shrink: 0;
+      width: 17px;
+      height: 17px;
+      cursor: pointer;
+      accent-color: var(--green);
+    }
+
+    .toc-item.is-done {
+      background: #e9f3ec;
+      border-color: #bfe0cc;
+    }
+
+    .toc-item.is-done .toc-text {
+      text-decoration: line-through;
+      color: var(--ink-soft);
+    }
+
+    .qcard.is-done>.qsummary {
+      background: #e9f3ec;
+    }
+
+    .qcard.is-done>.qsummary .qtext {
+      text-decoration: line-through;
+      color: var(--ink-soft);
+    }
+
+    .done-bottom-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      margin-top: 18px;
+      padding: 13px 16px;
+      background: #e9f3ec;
+      border: 1.5px solid #bfe0cc;
+      border-radius: 12px;
+      color: var(--green);
+      font-weight: 700;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: background 0.15s ease, transform 0.1s ease;
+      font-family: inherit;
+    }
+
+    .done-bottom-btn:hover {
+      background: #d9ecdf;
+    }
+
+    .done-bottom-btn:active {
+      transform: scale(0.98);
+    }
+
+    .done-bottom-btn.is-marked {
+      background: var(--green);
+      color: #fff;
+      border-color: var(--green);
+    }
+
+    .toc-num {
+      font-weight: 700;
+      color: var(--maroon);
+      flex-shrink: 0;
+      font-size: 0.85rem;
+    }
+
+    .toc-text {
+      flex: 1;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .qcard {
+      background: var(--paper);
+      border: 1.5px solid var(--border);
+      border-radius: 16px;
+      margin-bottom: 18px;
+      overflow: hidden;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+      scroll-margin-top: 14px;
+    }
+
+    .qcard[open] {
+      box-shadow: 0 6px 20px rgba(122, 31, 43, 0.1);
+    }
+
+    .qsummary {
+      cursor: pointer;
+      list-style: none;
+      padding: 16px 18px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: #fbf4e6;
+    }
+
+    .qsummary::-webkit-details-marker {
+      display: none;
+    }
+
+    .qtext {
+      font-weight: 600;
+      flex: 1;
+      font-size: 1.02rem;
+      color: var(--ink);
+    }
+
+    .qtext b {
+      font-weight: 700;
+    }
+
+    .chev {
+      transition: transform 0.2s;
+      color: var(--ink-soft);
+      flex-shrink: 0;
+    }
+
+    .qcard[open] .chev {
+      transform: rotate(180deg);
+    }
+
+    .tag {
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 20px;
+      flex-shrink: 0;
+      white-space: nowrap;
+    }
+
+    .tag-supreme {
+      background: #6b1220;
+      color: #fff;
+    }
+
+    .tag-important {
+      background: var(--gold);
+      color: #402c00;
+    }
+
+    .tag-top10 {
+      background: #2f6b4f;
+      color: #fff;
+    }
+
+    .tag-top20 {
+      background: #2b6a8f;
+      color: #fff;
+    }
+
+    .tag-top30 {
+      background: #7a4fa0;
+      color: #fff;
+    }
+
+    .tag-extra {
+      background: #999;
+      color: #fff;
+    }
+
+    .tag-star {
+      background: #b5661e;
+      color: #fff;
+    }
+
+    .tag-normal {
+      background: #ccc;
+      color: #333;
+    }
+
+    .qbody {
+      padding: 10px 6px;
+    }
+
+    .note-box {
+      background: #fff8e6;
+      border-left: 4px solid var(--gold);
+      border-radius: 8px;
+      padding: 10px 14px;
+      margin-bottom: 14px;
+      font-size: 0.88rem;
+      color: var(--ink-soft);
+      font-style: italic;
+    }
+
+    .intro-box,
+    .conclusion-box {
+      border-radius: 10px;
+      padding: 14px 16px;
+      margin-bottom: 16px;
+      font-size: 0.96rem;
+    }
+
+    .intro-box {
+      background: #eef3ee;
+      border-left: 4px solid var(--green);
+    }
+
+    .conclusion-box {
+      background: #f3ecf7;
+      border-left: 4px solid #7a4fa0;
+    }
+
+    .sec-label {
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 6px;
+      color: var(--ink-soft);
+    }
+
+    .intro-box p,
+    .conclusion-box p {
+      margin: 0;
+    }
+
+    .sub-section {
+      margin-bottom: 18px;
+    }
+
+    .sub-title {
+      color: var(--maroon-dark);
+      font-size: 1.05rem;
+      margin: 0 0 10px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--gold);
+      display: inline-block;
+    }
+
+    .points-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .point {
+      background: #fdfaf3;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px 14px;
+      margin-bottom: 8px;
+      font-size: 0.95rem;
+      color: var(--ink-soft);
+    }
+
+    .point b {
+      display: block;
+      color: var(--maroon-dark);
+      font-weight: 700;
+      margin-bottom: 3px;
+      font-size: 0.98rem;
+    }
+
+    .feat-label {
+      color: var(--maroon-dark);
+      font-weight: 600;
+      margin-top: 6px;
+      margin-bottom: 2px;
+      font-size: 0.93rem;
+    }
+
+    .feat-list {
+      margin: 0 0 6px;
+      padding-left: 20px;
+    }
+
+    .feat-list li {
+      margin-bottom: 3px;
+    }
+
+    .feat-example {
+      margin: 4px 0 0;
+    }
+
+    .cheat-wrap {
+      margin-top: 4px;
+    }
+
+    .cheat-wrap table {
+      border: 3px solid var(--maroon);
+    }
+
+    .compare-wrap {
+      padding-bottom: 14px;
+    }
+
+    .compare-wrap table.cheat-table {
+      border: 3px solid green;
+    }
+
+    .compare-wrap table.cheat-table thead th {
+      background: var(--green);
+    }
+
+    .table-scroll {
+      overflow-x: auto;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+    }
+
+    table.cheat-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+      min-width: 420px;
+    }
+
+    table.cheat-table thead th {
+      background: var(--maroon);
+      color: #fff;
+      text-align: left;
+      padding: 10px 12px;
+    }
+
+    table.cheat-table td {
+      padding: 9px 12px;
+      border-bottom: 1px solid var(--border);
+      color: var(--ink-soft);
+    }
+
+    table.cheat-table tr:nth-child(even) td {
+      background: #fbf6ea;
+    }
+
+    footer {
+      text-align: center;
+      padding: 24px;
+      color: var(--ink-soft);
+      font-size: 0.85rem;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    @media (max-width: 640px) {
+      body {
+        line-height: 1.75;
+        font-size: 1rem;
+      }
+
+      header.top {
+        padding: 12px 16px;
+      }
+
+      header.top h1 {
+        font-size: 1.05rem;
+      }
+
+      .controls {
+        padding: 10px 12px;
+        gap: 8px;
+      }
+
+      .controls input[type="text"] {
+        flex: 1 1 100%;
+        max-width: none;
+        padding: 9px 12px;
+        font-size: 0.92rem;
+      }
+
+      .controls button {
+        flex: 1 1 auto;
+        padding: 8px 10px;
+        font-size: 0.8rem;
+      }
+
+      .chapter-filter {
+        padding: 8px 10px;
+        gap: 5px;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .chapter-filter button {
+        padding: 6px 10px;
+        font-size: 0.72rem;
+        flex-shrink: 0;
+      }
+
+      .layout {
+        padding: 18px 0;
+      }
+
+      details.toc-wrap {
+        margin-bottom: 22px;
+        padding: 4px;
+      }
+
+      details.toc-wrap>summary {
+        padding: 14px 0;
+        font-size: 1.08rem;
+      }
+
+      details.toc-wrap,
+      details.qcard {
+        border-radius: 12px;
+      }
+
+      .toc-grid {
+        grid-template-columns: 1fr;
+        gap: 10px;
+        padding-bottom: 14px;
+      }
+
+      .toc-item {
+        align-items: flex-start;
+        padding: 11px 8px;
+      }
+
+      .toc-text {
+        white-space: normal;
+        overflow: visible;
+        text-overflow: clip;
+        font-size: 1rem;
+      }
+
+      .qcard {
+        margin-bottom: 16px;
+      }
+
+      .qsummary {
+        padding: 16px 10px;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+
+      .qtext {
+        font-size: 1.14rem;
+        flex-basis: 100%;
+      }
+
+      .qbody {
+        padding: 10px 6px;
+      }
+
+      .note-box {
+        padding: 11px 10px;
+        margin-bottom: 14px;
+        font-size: 0.98rem;
+      }
+
+      .intro-box,
+      .conclusion-box {
+        padding: 15px 10px;
+        margin-bottom: 16px;
+        font-size: 1.06rem;
+      }
+
+      .sub-section {
+        margin-bottom: 18px;
+      }
+
+      .sub-title {
+        font-size: 1.18rem;
+        margin-bottom: 12px;
+      }
+
+      .point {
+        padding: 13px 10px;
+        margin-bottom: 10px;
+        font-size: 1.04rem;
+      }
+
+      .point b {
+        font-size: 1.06rem;
+      }
+
+      .tag {
+        font-size: 0.8rem;
+      }
+
+      table.cheat-table {
+        font-size: 0.98rem;
+      }
+
+      table.cheat-table td,
+      table.cheat-table thead th {
+        padding: 11px 13px;
+      }
+    }
+
+    @media (max-width: 380px) {
+      header.top h1 {
+        font-size: 0.95rem;
+      }
+
+      .controls button {
+        font-size: 0.78rem;
+        padding: 8px 9px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="top">
+    <h1>📖 Management — পরীক্ষা প্রস্তুতি নোট</h1>
+  </header>
+
+  <div class="controls">
+    <input type="text" id="searchBox" placeholder="🔍 প্রশ্ন খুঁজুন (যেমন: কীওয়ার্ড লিখুন)">
+    <button id="expandAll">সব খুলুন</button>
+    <button id="collapseAll">সব বন্ধ করুন</button>
+    <button id="resetDone">✖ সব রিসেট</button>
+  </div>
+
+  <div class="chapter-filter" id="chapterFilter">
+        <button class="active" data-chapter="all">সব চ্যাপ্টার</button>
+        <button data-chapter="1">Chapter 1</button>
+        <button data-chapter="2">Chapter 2</button>
+        <button data-chapter="3">Chapter 3</button>
+        <button data-chapter="4">Chapter 4</button>
+        <button data-chapter="5">Chapter 5</button>
+        <button data-chapter="6">Chapter 6</button>
+        <button data-chapter="7">Chapter 7</button>
+        <button data-chapter="8">Chapter 8</button>
+        <button data-chapter="9">Chapter 9</button>
+        <button data-chapter="10">Chapter 10</button>
+        <button data-chapter="11">Chapter 11</button>
+  </div>
+
+  <div class="progress-wrap" id="progressWrap">
+    <div class="progress-info">
+      <span id="progressLabel">সম্পন্ন: 0 / 21</span>
+      <span id="progressPct">0%</span>
+    </div>
+    <div class="progress-track">
+      <div class="progress-fill" id="progressFill"></div>
+    </div>
+  </div>
+
+  <div class="layout">
+
+    <details class="toc-wrap" open>
+      <summary>📑 সূচিপত্র — সবগুলো প্রশ্ন এক নজরে (Chapter 1-11 — 21টি)</summary>
+      <div class="toc-grid">
+        <a href="#q-0" class="toc-item" data-target="q-0" data-chapter="1"><span class="toc-text">1.2: ব্যবস্থাপনার উদ্দেশ্যসমূহ বর্ণনা কর।</span></a>
+        <a href="#q-1" class="toc-item" data-target="q-1" data-chapter="1"><span class="toc-text">1.4: ব্যবস্থাপনা চক্রটি ব্যাখ্যা কর। (চিত্র)</span></a>
+        <a href="#q-2" class="toc-item" data-target="q-2" data-chapter="1"><span class="toc-text">1.5: ব্যবস্থাপনার কয়টি স্তর ও কী কী? কোন স্তরে কী ধরনের দক্ষতার প্রয়োজন হয় এবং কেন?</span></a>
+        <a href="#q-3" class="toc-item" data-target="q-3" data-chapter="1"><span class="toc-text">1.8: "ব্যবস্থাপনা একটি সামাজিক প্রক্রিয়া" - ব্যাখ্যা কর।</span></a>
+        <a href="#q-4" class="toc-item" data-target="q-4" data-chapter="1"><span class="toc-text">1.10: "ব্যবস্থাপনা হলো পরিবেশনির্ভর" - আলোচনা কর।</span></a>
+        <a href="#q-5" class="toc-item" data-target="q-5" data-chapter="1"><span class="toc-text">1.12: ব্যবস্থাপনা ও প্রশাসনের মধ্যে পার্থক্য দেখাও।</span></a>
+        <a href="#q-6" class="toc-item" data-target="q-6" data-chapter="1"><span class="toc-text">1.14: SWOT-এর উপাদানগুলো ব্যাখ্যা কর।</span></a>
+        <a href="#q-7" class="toc-item" data-target="q-7" data-chapter="1"><span class="toc-text">1.16: সার্বিক মান ব্যবস্থাপনার কৌশলসমূহ বর্ণনা কর।</span></a>
+
+        <a href="#q-8" class="toc-item" data-target="q-8" data-chapter="2"><span class="toc-text">2.3: বৈজ্ঞানিক ব্যবস্থাপনার বিভিন্ন সুবিধা আলোচনা কর।</span></a>
+        <a href="#q-9" class="toc-item" data-target="q-9" data-chapter="2"><span class="toc-text">2.5: "আধুনিক ব্যবস্থাপনার জনক হেনরী ফেয়ল।"-কেন?</span></a>
+        <a href="#q-10" class="toc-item" data-target="q-10" data-chapter="2"><span class="toc-text">2.6: গতানুগতিক ব্যবস্থাপনা ও বৈজ্ঞানিক ব্যবস্থাপনার মধ্যে পার্থক্য দেখাও।</span></a>
+        <a href="#q-11" class="toc-item" data-target="q-11" data-chapter="2"><span class="toc-text">2.7: আদেশের ঐক্য ও নির্দেশনার ঐক্যের মধ্যে পার্থক্য দেখাও।</span></a>
+
+        <a href="#q-12" class="toc-item" data-target="q-12" data-chapter="3"><span class="toc-text">3.1: পরিকল্পনা কী?</span></a>
+        <a href="#q-13" class="toc-item" data-target="q-13" data-chapter="3"><span class="toc-text">3.3: একটি উত্তম পরিকল্পনার বৈশিষ্ট্য লেখ।</span></a>
+        <a href="#q-14" class="toc-item" data-target="q-14" data-chapter="3"><span class="toc-text">3.4: পরিকল্পনা কীভাবে লক্ষ্য অর্জনে সহায়তা করে?</span></a>
+        <a href="#q-15" class="toc-item" data-target="q-15" data-chapter="3"><span class="toc-text">3.6: পরিকল্পনার কার্যাবলি বর্ণনা কর।</span></a>
+        <a href="#q-16" class="toc-item" data-target="q-16" data-chapter="3"><span class="toc-text">3.7: পরিকল্পনায় প্রভাববিস্তারকারী উপাদানসমূহ বর্ণনা কর।</span></a>
+        <a href="#q-17" class="toc-item" data-target="q-17" data-chapter="3"><span class="toc-text">3.10: একার্থিক ও স্থায়ী পরিকল্পনার পার্থক্য বর্ণনা কর।</span></a>
+        <a href="#q-18" class="toc-item" data-target="q-18" data-chapter="3"><span class="toc-text">3.12: কৌশলগত পরিকল্পনা নির্ধারণে বিবেচ্য বিষয়সমূহ কী কী?</span></a>
+        <a href="#q-19" class="toc-item" data-target="q-19" data-chapter="3"><span class="toc-text">3.14: উদ্দেশ্যভিত্তিক ব্যবস্থাপনা কী?</span></a>
+        <a href="#q-20" class="toc-item" data-target="q-20" data-chapter="3"><span class="toc-text">3.18: ব্যবস্থাপনা হলো সিদ্ধান্ত গ্রহণ প্রক্রিয়া-ব্যাখ্যা কর।</span></a>
+      </div>
+    </details>
+
+    <div>
+      <details class="qcard" id="q-0" data-chapter="1">
+        <summary class="qsummary">
+          <span class="qtext">1.2: ব্যবস্থাপনার উদ্দেশ্যসমূহ বর্ণনা কর।</span>
+          <span class="chev">▼</span>
+        </summary>
+        <div class="qbody">
+<div class="intro-box">
+<div class="sec-label">ভূমিকা</div>
+<p>প্রতিটি প্রতিষ্ঠান কিছু নির্দিষ্ট লক্ষ্য অর্জনের জন্য গঠিত হয়, আর সেই লক্ষ্য অর্জনের প্রধান মাধ্যম হলো ব্যবস্থাপনা। ব্যবস্থাপনা ছাড়া কোনো প্রতিষ্ঠানের সম্পদ, জনবল ও কার্যক্রম সঠিকভাবে পরিচালনা করা সম্ভব নয়। তাই প্রতিষ্ঠানের সফলতার জন্য ব্যবস্থাপনার উদ্দেশ্যসমূহ সুস্পষ্টভাবে নির্ধারণ করা অত্যন্ত গুরুত্বপূর্ণ। নিচে ব্যবস্থাপনার প্রধান উদ্দেশ্যসমূহ আলোচনা করা হলো।</p>
+</div>
+<div class="sub-section">
+<h3 class="sub-title">সংজ্ঞা</h3>
+<p>ব্যবস্থাপনা হলো সীমিত সম্পদের সর্বোত্তম ব্যবহারের মাধ্যমে পূর্বনির্ধারিত লক্ষ্য অর্জনের জন্য পরিকল্পনা, সংগঠন, নেতৃত্বদান ও নিয়ন্ত্রণের একটি প্রক্রিয়া। যেমন, একটি পোশাক কারখানায় ব্যবস্থাপক কাঁচামাল, শ্রমিক ও যন্ত্রপাতির সমন্বয় করে নির্দিষ্ট সময়ে পোশাক উৎপাদনের লক্ষ্য অর্জন করেন।</p>
+</div>
+<div class="sub-section">
+<h3 class="sub-title">ব্যবস্থাপনার উদ্দেশ্যসমূহ</h3>
+<ol class="points-list">
+  <li class="point"><b>১. লক্ষ্য অর্জন</b> প্রতিষ্ঠানের পূর্বনির্ধারিত লক্ষ্য যথাসময়ে অর্জন করাই ব্যবস্থাপনার প্রধান উদ্দেশ্য। ব্যবস্থাপনা বিভিন্ন কার্যক্রম পরিকল্পনা ও সমন্বয় করে এই লক্ষ্য পূরণে সহায়তা করে।</li>
+  <li class="point"><b>২. সম্পদের সর্বোত্তম ব্যবহার</b> প্রতিষ্ঠানের অর্থ, জনবল, কাঁচামাল ও যন্ত্রপাতির মতো সীমিত সম্পদকে সর্বোচ্চ দক্ষতার সাথে ব্যবহার করা ব্যবস্থাপনার একটি গুরুত্বপূর্ণ উদ্দেশ্য। এতে অপচয় কমে এবং উৎপাদনশীলতা বৃদ্ধি পায়।</li>
+  <li class="point"><b>৩. উৎপাদন বৃদ্ধি</b> কম খরচে বেশি পরিমাণ ও মানসম্পন্ন পণ্য বা সেবা উৎপাদন করাও ব্যবস্থাপনার লক্ষ্য। এর মাধ্যমে প্রতিষ্ঠানের উৎপাদন ক্ষমতা বৃদ্ধি পায়।</li>
+  <li class="point"><b>৪. মুনাফা অর্জন</b> ব্যবসায়িক প্রতিষ্ঠানের ক্ষেত্রে যুক্তিসঙ্গত মুনাফা অর্জন করা একটি অন্যতম উদ্দেশ্য। মুনাফা ছাড়া প্রতিষ্ঠান দীর্ঘমেয়াদে টিকে থাকতে পারে না।</li>
+  <li class="point"><b>৫. দক্ষতা বৃদ্ধি</b> কর্মীদের দক্ষতা ও কর্মদক্ষতা বাড়িয়ে কাজের গুণগত মান উন্নত করা ব্যবস্থাপনার লক্ষ্য। প্রশিক্ষণ ও উন্নয়নের মাধ্যমে এটি অর্জন করা হয়।</li>
+  <li class="point"><b>৬. সমন্বয় সাধন</b> প্রতিষ্ঠানের বিভিন্ন বিভাগ ও কর্মীদের মধ্যে সমন্বয় সাধন করা ব্যবস্থাপনার গুরুত্বপূর্ণ উদ্দেশ্য। এতে সব কার্যক্রম একসাথে সঠিকভাবে পরিচালিত হয়।</li>
+  <li class="point"><b>৭. কর্মী সন্তুষ্টি</b> কর্মীদের ন্যায্য বেতন, নিরাপদ কর্মপরিবেশ ও উপযুক্ত সুযোগ-সুবিধা প্রদানের মাধ্যমে তাদের সন্তুষ্ট রাখা ব্যবস্থাপনার একটি লক্ষ্য। সন্তুষ্ট কর্মী বেশি উৎপাদনশীল হয়।</li>
+  <li class="point"><b>৮. গ্রাহক সন্তুষ্টি</b> মানসম্পন্ন পণ্য ও সেবা প্রদানের মাধ্যমে গ্রাহকের চাহিদা পূরণ করা ব্যবস্থাপনার উদ্দেশ্য। গ্রাহক সন্তুষ্ট হলে প্রতিষ্ঠানের সুনাম ও বিক্রয় বৃদ্ধি পায়।</li>
+  <li class="point"><b>৯. প্রতিষ্ঠানের স্থিতিশীলতা</b> প্রতিষ্ঠানকে দীর্ঘমেয়াদে টিকিয়ে রাখা এবং স্থিতিশীল অবস্থায় পরিচালনা করাও ব্যবস্থাপনার একটি লক্ষ্য। এতে প্রতিষ্ঠান বাজারের প্রতিকূল পরিস্থিতি মোকাবেলা করতে পারে।</li>
+  <li class="point"><b>১০. প্রবৃদ্ধি ও সম্প্রসারণ</b> প্রতিষ্ঠানের ব্যবসায়িক কার্যক্রম বৃদ্ধি করে নতুন বাজারে সম্প্রসারণ করাও ব্যবস্থাপনার একটি উদ্দেশ্য। এতে প্রতিষ্ঠানের আকার ও প্রভাব বৃদ্ধি পায়।</li>
+  <li class="point"><b>১১. সামাজিক দায়িত্ব পালন</b> প্রতিষ্ঠান শুধু নিজের স্বার্থ নয়, সমাজের কল্যাণের দিকেও লক্ষ্য রাখে। পরিবেশ রক্ষা, কর্মসংস্থান সৃষ্টি ও সমাজসেবার মাধ্যমে এই দায়িত্ব পালন করা হয়।</li>
+  <li class="point"><b>১২. ঝুঁকি হ্রাস</b> ব্যবসায় পরিচালনার ক্ষেত্রে বিভিন্ন ধরনের ঝুঁকি ও অনিশ্চয়তা থাকে। ব্যবস্থাপনা সঠিক পরিকল্পনা ও পূর্বাভাসের মাধ্যমে এসব ঝুঁকি কমানোর চেষ্টা করে।</li>
+  <li class="point"><b>১৩. উদ্ভাবন ও পরিবর্তন</b> প্রতিযোগিতামূলক বাজারে টিকে থাকতে নতুন নতুন পদ্ধতি, প্রযুক্তি ও ধারণা প্রয়োগ করাও ব্যবস্থাপনার লক্ষ্য। এতে প্রতিষ্ঠান সময়ের সাথে খাপ খাইয়ে নিতে পারে।</li>
+  <li class="point"><b>১৪. আইন মেনে চলা</b> রাষ্ট্রীয় আইন-কানুন ও নিয়মনীতি মেনে ব্যবসায় পরিচালনা করাও ব্যবস্থাপনার একটি গুরুত্বপূর্ণ উদ্দেশ্য। এতে প্রতিষ্ঠান আইনি জটিলতা থেকে মুক্ত থাকে।</li>
+  <li class="point"><b>১৫. নিয়ন্ত্রণ প্রতিষ্ঠা</b> প্রতিষ্ঠানের সকল কার্যক্রম পরিকল্পনা অনুযায়ী চলছে কিনা তা তদারকি করে প্রয়োজনে সংশোধন করাও ব্যবস্থাপনার লক্ষ্য। এতে ভুল-ত্রুটি সময়মতো ধরা পড়ে।</li>
+</ol>
+</div>
+<div class="conclusion-box">
+<div class="sec-label">উপসংহার</div>
+<p>উপরের আলোচনা থেকে বোঝা যায়, ব্যবস্থাপনার উদ্দেশ্য শুধু মুনাফা অর্জনের মধ্যেই সীমাবদ্ধ নয়, বরং এটি প্রতিষ্ঠানের সার্বিক উন্নয়ন, কর্মী ও গ্রাহকের সন্তুষ্টি এবং সমাজের কল্যাণের সাথেও সম্পৃক্ত। তাই একটি প্রতিষ্ঠানের দীর্ঘমেয়াদি সফলতার জন্য এসব উদ্দেশ্য বাস্তবায়ন করা অপরিহার্য।</p>
+</div>
+<div class="cheat-wrap">
+<div class="sec-label">📋 চিট শীট</div>
+<div class="table-scroll">
+<table class="cheat-table">
+  <thead>
+    <tr>
+      <th>পয়েন্ট</th>
+      <th>ইশারা</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>লক্ষ্য অর্জন</td>
+      <td>প্রতিষ্ঠানের পূর্বনির্ধারিত লক্ষ্য যথাসময়ে অর্জন করাই ব্যবস্থাপনার প্রধান</td>
+    </tr>
+    <tr>
+      <td>সম্পদের সর্বোত্তম ব্যবহার</td>
+      <td>প্রতিষ্ঠানের অর্থ</td>
+    </tr>
+    <tr>
+      <td>উৎপাদন বৃদ্ধি</td>
+      <td>কম খরচে বেশি পরিমাণ ও মানসম্পন্ন পণ্য বা</td>
+    </tr>
+    <tr>
+      <td>মুনাফা অর্জন</td>
+      <td>ব্যবসায়িক প্রতিষ্ঠানের ক্ষেত্রে যুক্তিসঙ্গত মুনাফা অর্জন করা একটি</td>
+    </tr>
+    <tr>
+      <td>দক্ষতা বৃদ্ধি</td>
+      <td>কর্মীদের দক্ষতা ও কর্মদক্ষতা বাড়িয়ে কাজের গুণগত মান</td>
+    </tr>
+    <tr>
+      <td>সমন্বয় সাধন</td>
+      <td>প্রতিষ্ঠানের বিভিন্ন বিভাগ ও কর্মীদের মধ্যে সমন্বয় সাধন</td>
+    </tr>
+    <tr>
+      <td>কর্মী সন্তুষ্টি</td>
+      <td>কর্মীদের ন্যায্য বেতন</td>
+    </tr>
+    <tr>
+      <td>গ্রাহক সন্তুষ্টি</td>
+      <td>মানসম্পন্ন পণ্য ও সেবা প্রদানের মাধ্যমে গ্রাহকের চাহিদা</td>
+    </tr>
+    <tr>
+      <td>প্রতিষ্ঠানের স্থিতিশীলতা</td>
+      <td>প্রতিষ্ঠানকে দীর্ঘমেয়াদে টিকিয়ে রাখা এবং স্থিতিশীল অবস্থায় পরিচালনা</td>
+    </tr>
+    <tr>
+      <td>প্রবৃদ্ধি ও সম্প্রসারণ</td>
+      <td>প্রতিষ্ঠানের ব্যবসায়িক কার্যক্রম বৃদ্ধি করে নতুন বাজারে সম্প্রসারণ</td>
+    </tr>
+    <tr>
+      <td>সামাজিক দায়িত্ব পালন</td>
+      <td>প্রতিষ্ঠান শুধু নিজের স্বার্থ নয়</td>
+    </tr>
+    <tr>
+      <td>ঝুঁকি হ্রাস</td>
+      <td>ব্যবসায় পরিচালনার ক্ষেত্রে বিভিন্ন ধরনের ঝুঁকি ও অনিশ্চয়তা</td>
+    </tr>
+    <tr>
+      <td>উদ্ভাবন ও পরিবর্তন</td>
+      <td>প্রতিযোগিতামূলক বাজারে টিকে থাকতে নতুন নতুন পদ্ধতি</td>
+    </tr>
+    <tr>
+      <td>আইন মেনে চলা</td>
+      <td>রাষ্ট্রীয় আইন-কানুন ও নিয়মনীতি মেনে ব্যবসায় পরিচালনা করাও</td>
+    </tr>
+    <tr>
+      <td>নিয়ন্ত্রণ প্রতিষ্ঠা</td>
+      <td>প্রতিষ্ঠানের সকল কার্যক্রম পরিকল্পনা অনুযায়ী চলছে কিনা তা</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+        </div>
+      </details>
+
+      <details class="qcard" id="q-1" data-chapter="1">
+        <summary class="qsummary">
+          <span class="qtext">1.4: ব্যবস্থাপনা চক্রটি ব্যাখ্যা কর। (চিত্র)</span>
+          <span class="chev">▼</span>
+        </summary>
+        <div class="qbody">
+<div class="intro-box">
+<div class="sec-label">ভূমিকা</div>
+<p>ব্যবস্থাপনা একটি ধারাবাহিক ও চক্রাকার প্রক্রিয়া, যেখানে কতিপয় নির্দিষ্ট কাজ একের পর এক সম্পন্ন হয়ে আবার শুরুর অবস্থায় ফিরে আসে। এই ধারাবাহিক কাজগুলোকে একত্রে ব্যবস্থাপনা চক্র বলা হয়। প্রতিষ্ঠানের লক্ষ্য অর্জনের জন্য এই চক্রের প্রতিটি ধাপ সঠিকভাবে পালন করা অত্যন্ত জরুরি। নিচে ব্যবস্থাপনা চক্রের ধাপগুলো বিস্তারিতভাবে আলোচনা করা হলো।</p>
+</div>
+<div class="sub-section">
+<h3 class="sub-title">সংজ্ঞা</h3>
+<p>ব্যবস্থাপনা চক্র বলতে পরিকল্পনা প্রণয়ন থেকে শুরু করে নিয়ন্ত্রণ পর্যন্ত পরস্পর সম্পর্কযুক্ত ধারাবাহিক কার্যাবলির সমষ্টিকে বোঝায়, যা একটি চক্রের মতো বারবার পুনরাবৃত্তি হয়। যেমন, একটি প্রতিষ্ঠানে পরিকল্পনা তৈরির পর সংগঠন গড়া হয়, তারপর জনবল নিয়োগ, নির্দেশনা, প্রেষণা ও নিয়ন্ত্রণের মাধ্যমে কাজ শেষ হয়ে আবার নতুন পরিকল্পনার প্রয়োজন দেখা দেয়।</p>
+</div>
+<div class="sub-section">
+<h3 class="sub-title">ব্যবস্থাপনা চক্রের ধাপসমূহ</h3>
+<ol class="points-list">
+  <li class="point"><b>১. পরিকল্পনা প্রণয়ন</b> ব্যবস্থাপনা চক্রের প্রথম ও সবচেয়ে গুরুত্বপূর্ণ ধাপ হলো পরিকল্পনা প্রণয়ন। এই ধাপে প্রতিষ্ঠানের ভবিষ্যৎ লক্ষ্য কী হবে তা নির্ধারণ করা হয় এবং সেই লক্ষ্য অর্জনের জন্য কোন কোন কাজ কীভাবে, কখন এবং কার মাধ্যমে সম্পন্ন হবে তার একটি সুনির্দিষ্ট রূপরেখা তৈরি করা হয়। সঠিক পরিকল্পনা ছাড়া প্রতিষ্ঠানের পরবর্তী কোনো কাজই কার্যকরভাবে পরিচালিত হতে পারে না, তাই একে ব্যবস্থাপনার ভিত্তি বলা হয়।</li>
+  <li class="point"><b>২. সংগঠন গঠন</b> পরিকল্পনা প্রণয়নের পর সেই পরিকল্পনা বাস্তবায়নের জন্য একটি উপযুক্ত কাঠামো তৈরি করা হয়, যাকে সংগঠন বলা হয়। এই ধাপে কাজগুলোকে ভাগ করে বিভিন্ন বিভাগ ও পদে বণ্টন করা হয়, প্রতিটি পদের দায়িত্ব ও ক্ষমতা নির্ধারণ করা হয় এবং কর্মীদের মধ্যে পারস্পরিক সম্পর্ক ও রিপোর্টিং লাইন স্পষ্ট করা হয়, যাতে কাজে কোনো বিভ্রান্তি না থাকে।</li>
+  <li class="point"><b>৩. জনবল সংগ্রহ</b> সংগঠনের কাঠামোতে সৃষ্ট বিভিন্ন পদের জন্য উপযুক্ত ও দক্ষ জনবল খুঁজে বের করে নিয়োগ দেওয়াই এই ধাপের কাজ। এর মধ্যে জনবল পরিকল্পনা, নিয়োগ, নির্বাচন, প্রশিক্ষণ ও উন্নয়ন অন্তর্ভুক্ত থাকে। সঠিক জনবল ছাড়া সংগঠনের কাঠামো কার্যকর হয় না, তাই এই ধাপ ব্যবস্থাপনা চক্রে গুরুত্বপূর্ণ স্থান দখল করে।</li>
+  <li class="point"><b>৪. নির্দেশনা প্রদান</b> নিয়োগকৃত কর্মীরা কী কাজ করবে এবং কীভাবে করবে তা স্পষ্টভাবে বুঝিয়ে দেওয়াই নির্দেশনার মূল কাজ। এই ধাপে নেতৃত্বদানের মাধ্যমে কর্মীদের সঠিক পথে পরিচালিত করা হয়, যাতে তারা প্রতিষ্ঠানের লক্ষ্য অর্জনের জন্য সঠিকভাবে কাজ করতে পারে।</li>
+  <li class="point"><b>৫. প্রেষণা দান</b> কর্মীদের কাজে আগ্রহী ও উদ্বুদ্ধ করার জন্য আর্থিক (বেতন-ভাতা, বোনাস) ও অনার্থিক (স্বীকৃতি, প্রশংসা) প্রণোদনা প্রদান করা হয়। প্রেষিত কর্মী মন থেকে কাজ করে, যার ফলে কাজের গুণগত মান ও প্রতিষ্ঠানের উৎপাদনশীলতা উভয়ই বৃদ্ধি পায়।</li>
+  <li class="point"><b>৬. সমন্বয় সাধন</b> প্রতিষ্ঠানের বিভিন্ন বিভাগ, কর্মী ও কার্যক্রমের মধ্যে সামঞ্জস্য বজায় রেখে সবাইকে একই লক্ষ্যের দিকে পরিচালিত করাই সমন্বয়ের কাজ। এতে বিভিন্ন বিভাগের মধ্যে কাজের দ্বৈততা, সংঘর্ষ বা বিশৃঙ্খলা এড়ানো যায় এবং প্রতিষ্ঠানের সামগ্রিক কর্মকাণ্ড সুষ্ঠুভাবে পরিচালিত হয়।</li>
+  <li class="point"><b>৭. নিয়ন্ত্রণ প্রতিষ্ঠা</b> ব্যবস্থাপনা চক্রের শেষ ধাপ হলো নিয়ন্ত্রণ, যেখানে প্রকৃত কাজ পূর্বনির্ধারিত পরিকল্পনা অনুযায়ী হচ্ছে কিনা তা মূল্যায়ন করা হয়। কোনো ব্যত্যয় বা ভুল ধরা পড়লে তা সঙ্গে সঙ্গে সংশোধন করা হয়। এই ধাপ সম্পন্ন হওয়ার পর প্রাপ্ত ফলাফলের ভিত্তিতে আবার নতুন পরিকল্পনা তৈরি হয়, যার ফলে পুরো প্রক্রিয়াটি চক্রাকারে চলতে থাকে।</li>
+</ol>
+</div>
+<div class="conclusion-box">
+<div class="sec-label">উপসংহার</div>
+<p>উপরের আলোচনা থেকে দেখা যায়, ব্যবস্থাপনা চক্র হলো পরিকল্পনা থেকে নিয়ন্ত্রণ পর্যন্ত পরস্পর সংযুক্ত ও ধারাবাহিক একটি প্রক্রিয়া, যা বারবার পুনরাবৃত্তি হতে থাকে। এই চক্রের প্রতিটি ধাপ সঠিকভাবে পালিত হলেই প্রতিষ্ঠান তার লক্ষ্য সফলভাবে অর্জন করতে পারে।</p>
+</div>
+<div class="cheat-wrap">
+<div class="sec-label">📋 চিট শীট</div>
+<div class="table-scroll">
+<table class="cheat-table">
+  <thead>
+    <tr>
+      <th>পয়েন্ট</th>
+      <th>ইশারা</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>পরিকল্পনা প্রণয়ন</td>
+      <td>ব্যবস্থাপনা চক্রের প্রথম ও সবচেয়ে গুরুত্বপূর্ণ ধাপ হলো</td>
+    </tr>
+    <tr>
+      <td>সংগঠন গঠন</td>
+      <td>পরিকল্পনা প্রণয়নের পর সেই পরিকল্পনা বাস্তবায়নের জন্য একটি</td>
+    </tr>
+    <tr>
+      <td>জনবল সংগ্রহ</td>
+      <td>সংগঠনের কাঠামোতে সৃষ্ট বিভিন্ন পদের জন্য উপযুক্ত ও</td>
+    </tr>
+    <tr>
+      <td>নির্দেশনা প্রদান</td>
+      <td>নিয়োগকৃত কর্মীরা কী কাজ করবে এবং কীভাবে করবে</td>
+    </tr>
+    <tr>
+      <td>প্রেষণা দান</td>
+      <td>কর্মীদের কাজে আগ্রহী ও উদ্বুদ্ধ করার জন্য আর্থিক (বেতন-ভাতা</td>
+    </tr>
+    <tr>
+      <td>সমন্বয় সাধন</td>
+      <td>প্রতিষ্ঠানের বিভিন্ন বিভাগ</td>
+    </tr>
+    <tr>
+      <td>নিয়ন্ত্রণ প্রতিষ্ঠা</td>
+      <td>ব্যবস্থাপনা চক্রের শেষ ধাপ হলো নিয়ন্ত্রণ</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+        </div>
+      </details>
+
+      <details class="qcard" id="q-2" data-chapter="1">
+        <summary class="qsummary">
+          <span class="qtext">1.5: ব্যবস্থাপনার কয়টি স্তর ও কী কী? কোন স্তরে কী ধরনের দক্ষতার প্রয়োজন হয় এবং কেন?</span>
+          <span class="chev">▼</span>
+        </summary>
+        <div class="qbody">
+<div class="intro-box">
+<div class="sec-label">ভূমিকা</div>
+<p>একটি প্রতিষ্ঠানের আকার যত বড় হয়, তত বেশি কাজ ও দায়িত্ব বিভিন্ন পর্যায়ে ভাগ করে দিতে হয়। এই দায়িত্ব বণ্টনের ভিত্তিতে ব্যবস্থাপনাকে কয়েকটি স্তরে বিভক্ত করা হয়। প্রতিটি স্তরের দায়িত্বের ধরন আলাদা হওয়ায় সেখানে কর্মরত ব্যবস্থাপকদের ভিন্ন ভিন্ন দক্ষতার প্রয়োজন হয়। নিচে ব্যবস্থাপনার স্তরসমূহ এবং প্রতিটি স্তরে প্রয়োজনীয় দক্ষতা বিস্তারিতভাবে আলোচনা করা হলো।</p>
+</div>
+<div class="sub-section">
+<h3 class="sub-title">সংজ্ঞা</h3>
+<p>ব্যবস্থাপনার স্তর বলতে প্রতিষ্ঠানের কর্তৃত্ব ও দায়িত্বের ক্রমানুসারে ব্যবস্থাপকদের বিভিন্ন স্থানে বিন্যস্ত করাকে বোঝায়, যেখানে প্রতিটি স্তরের ব্যবস্থাপকের ক্ষমতা, দায়িত্ব ও কাজের প্রকৃতি ভিন্ন হয়ে থাকে। যেমন, একটি পোশাক কারখানায় পরিচালক (উচ্চ স্তর) সামগ্রিক নীতি নির্ধারণ করেন, বিভাগীয় ব্যবস্থাপক (মধ্য স্তর) সেই নীতি বাস্তবায়নের পরিকল্পনা করেন, আর সুপারভাইজার (নিম্ন স্তর) সরাসরি শ্রমিকদের কাজ তদারকি করেন।</p>
+</div>
+<div class="sub-section">
+<h3 class="sub-title">১ম অংশ: ব্যবস্থাপনার স্তরসমূহ</h3>
+<p>সাধারণত ব্যবস্থাপনাকে তিনটি স্তরে ভাগ করা হয়:</p>
+<ol class="points-list">
+  <li class="point"><b>১. উচ্চ স্তর (Top Level Management)</b> এটি প্রতিষ্ঠানের সর্বোচ্চ স্তর, যেখানে পরিচালনা পর্ষদ, চেয়ারম্যান, ব্যবস্থাপনা পরিচালক প্রমুখ অন্তর্ভুক্ত থাকেন। এই স্তর প্রতিষ্ঠানের দীর্ঘমেয়াদি লক্ষ্য, নীতি ও কৌশল নির্ধারণ করে এবং সামগ্রিক কার্যক্রমের দিকনির্দেশনা দেয়। প্রতিষ্ঠানের ভবিষ্যৎ কী হবে, তা মূলত এই স্তরেই সিদ্ধান্ত হয়।</li>
+  <li class="point"><b>২. মধ্য স্তর (Middle Level Management)</b> এই স্তরে বিভাগীয় প্রধান, শাখা ব্যবস্থাপক প্রমুখ কাজ করেন। এদের প্রধান কাজ হলো উচ্চ স্তরের নির্ধারিত নীতি ও পরিকল্পনাকে বাস্তবায়নযোগ্য কর্মসূচিতে রূপান্তর করা এবং নিম্ন স্তরের কাজ তদারকি করা। এই স্তর উচ্চ স্তর ও নিম্ন স্তরের মধ্যে সংযোগ স্থাপনকারী হিসেবে কাজ করে।</li>
+  <li class="point"><b>৩. নিম্ন স্তর (Lower/First Line Management)</b> এই স্তরে সুপারভাইজার, ফোরম্যান, শিফট ইনচার্জ প্রমুখ অন্তর্ভুক্ত থাকেন, যারা সরাসরি শ্রমিক বা কর্মীদের সাথে কাজ করেন। এদের মূল দায়িত্ব হলো দৈনন্দিন কাজ তদারকি করা, কর্মীদের নির্দেশনা দেওয়া এবং কাজের গুণগত মান নিশ্চিত করা।</li>
+</ol>
+</div>
+<div class="sub-section">
+<h3 class="sub-title">২য় অংশ: স্তরভেদে প্রয়োজনীয় দক্ষতা ও কারণ</h3>
+<p>ব্যবস্থাপনা বিশেষজ্ঞ Robert L. Katz তিন ধরনের দক্ষতার কথা উল্লেখ করেছেন — ধারণাগত দক্ষতা (Conceptual Skill), মানবিক দক্ষতা (Human Skill) এবং কারিগরি দক্ষতা (Technical Skill)। প্রতিটি স্তরে এই দক্ষতাগুলোর প্রয়োজনীয়তা ভিন্ন মাত্রায় দেখা যায়।</p>
+<ol class="points-list">
+  <li class="point"><b>৪. উচ্চ স্তরে ধারণাগত দক্ষতা</b> উচ্চ স্তরের ব্যবস্থাপকদের ধারণাগত দক্ষতা সবচেয়ে বেশি প্রয়োজন হয়, কারণ তাদের প্রতিষ্ঠানকে একটি সামগ্রিক সত্তা হিসেবে দেখতে হয় এবং জটিল পরিস্থিতি বিশ্লেষণ করে দীর্ঘমেয়াদি সিদ্ধান্ত নিতে হয়। বাজারের পরিবর্তন, প্রতিযোগিতা ও ভবিষ্যৎ ঝুঁকি বিবেচনা করে কৌশল ঠিক করতে এই দক্ষতা অপরিহার্য।</li>
+  <li class="point"><b>৫. মধ্য স্তরে মানবিক দক্ষতা</b> মধ্য স্তরের ব্যবস্থাপকদের মানবিক দক্ষতার প্রয়োজন সবচেয়ে বেশি, কারণ তাদের একদিকে উচ্চ স্তরের সাথে এবং অন্যদিকে নিম্ন স্তরের কর্মীদের সাথে সম্পর্ক বজায় রেখে কাজ করতে হয়। দুই পক্ষের মধ্যে সমন্বয়, যোগাযোগ ও দলগত কাজ পরিচালনার জন্য এই দক্ষতা অত্যন্ত গুরুত্বপূর্ণ।</li>
+  <li class="point"><b>৬. নিম্ন স্তরে কারিগরি দক্ষতা</b> নিম্ন স্তরের ব্যবস্থাপকদের কারিগরি দক্ষতা সবচেয়ে বেশি প্রয়োজন হয়, কারণ তাদের সরাসরি উৎপাদন প্রক্রিয়া, যন্ত্রপাতি পরিচালনা ও দৈনন্দিন কারিগরি কাজে কর্মীদের নির্দেশনা দিতে হয়। প্রায়োগিক জ্ঞান ছাড়া তারা কর্মীদের সমস্যা সমাধানে সহায়তা করতে পারবেন না।</li>
+  <li class="point"><b>৭. সকল স্তরে মানবিক দক্ষতার প্রয়োজনীয়তা</b> যদিও মানবিক দক্ষতা মধ্য স্তরে সবচেয়ে বেশি গুরুত্বপূর্ণ, তবে এটি প্রতিটি স্তরেই কমবেশি প্রয়োজন হয়, কারণ প্রতিটি স্তরের ব্যবস্থাপককেই মানুষের সাথে কাজ করতে হয় এবং তাদের কাছ থেকে কাজ আদায় করতে হয়। মানবিক সম্পর্ক ভালো না হলে যেকোনো স্তরেই কাজের পরিবেশ নষ্ট হয়ে যেতে পারে।</li>
+</ol>
+</div>
+<div class="conclusion-box">
+<div class="sec-label">উপসংহার</div>
+<p>উপরের আলোচনা থেকে বোঝা যায়, ব্যবস্থাপনা মূলত উচ্চ, মধ্য ও নিম্ন — এই তিনটি স্তরে বিভক্ত এবং প্রতিটি স্তরের কাজের প্রকৃতি অনুযায়ী ধারণাগত, মানবিক ও কারিগরি দক্ষতার প্রয়োজনীয়তা ভিন্ন হয়। এই দক্ষতাগুলোর সঠিক প্রয়োগের মাধ্যমেই প্রতিটি স্তরের ব্যবস্থাপক তার দায়িত্ব যথাযথভাবে পালন করতে পারেন।</p>
+</div>
+<div class="cheat-wrap">
+<div class="sec-label">📋 চিট শীট</div>
+<div class="table-scroll">
+<table class="cheat-table">
+  <thead>
+    <tr>
+      <th>পয়েন্ট</th>
+      <th>ইশারা</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>উচ্চ স্তর (Top Level Management)</td>
+      <td>এটি প্রতিষ্ঠানের সর্বোচ্চ স্তর</td>
+    </tr>
+    <tr>
+      <td>মধ্য স্তর (Middle Level Management)</td>
+      <td>এই স্তরে বিভাগীয় প্রধান</td>
+    </tr>
+    <tr>
+      <td>নিম্ন স্তর (Lower/First Line Management)</td>
+      <td>এই স্তরে সুপারভাইজার</td>
+    </tr>
+    <tr>
+      <td>উচ্চ স্তরে ধারণাগত দক্ষতা</td>
+      <td>উচ্চ স্তরের ব্যবস্থাপকদের ধারণাগত দক্ষতা সবচেয়ে বেশি প্রয়োজন</td>
+    </tr>
+    <tr>
+      <td>মধ্য স্তরে মানবিক দক্ষতা</td>
+      <td>মধ্য স্তরের ব্যবস্থাপকদের মানবিক দক্ষতার প্রয়োজন সবচেয়ে বেশি</td>
+    </tr>
+    <tr>
+      <td>নিম্ন স্তরে কারিগরি দক্ষতা</td>
+      <td>নিম্ন স্তরের ব্যবস্থাপকদের কারিগরি দক্ষতা সবচেয়ে বেশি প্রয়োজন</td>
+    </tr>
+    <tr>
+      <td>সকল স্তরে মানবিক দক্ষতার প্রয়োজনীয়তা</td>
+      <td>যদিও মানবিক দক্ষতা মধ্য স্তরে সবচেয়ে বেশি গুরুত্বপূর্ণ</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+        </div>
+      </details>
+
+      <details class="qcard" id="q-3" data-chapter="1">
+        <summary class="qsummary">
+          <span class="qtext">1.8: "ব্যবস্থাপনা একটি সামাজিক প্রক্রিয়া" - ব্যাখ্যা কর।</span>
+          <span class="chev">▼</span>
+        </summary>
+        <div class="qbody">
+<div class="intro-box">
+<div class="sec-label">ভূমিকা</div>
+<p>ব্যবস্থাপনা কোনো যান্ত্রিক বা একক ব্যক্তির কাজ নয়, বরং এটি মানুষের সাথে মানুষের মিথস্ক্রিয়ার মধ্য দিয়ে পরিচালিত একটি প্রক্রিয়া। প্রতিষ্ঠানের লক্ষ্য অর্জনের জন্য ব্যবস্থাপককে বিভিন্ন স্তরের মানুষের সাথে সম্পর্ক গড়ে তুলতে হয় এবং তাদের নিয়ে একসাথে কাজ করতে হয়। এই কারণেই ব্যবস্থাপনাকে একটি সামাজিক প্রক্রিয়া বলা হয়। নিচে এই বিষয়টি বিস্তারিতভাবে ব্যাখ্যা করা হলো।</p>
+</div>
+<div class="sub-section">
+<h3 class="sub-title">সংজ্ঞা</h3>
+<p>ব্যবস্থাপনা হলো এমন একটি প্রক্রিয়া, যেখানে মানুষের মাধ্যমে ও মানুষের সাথে কাজ করে প্রতিষ্ঠানের পূর্বনির্ধারিত লক্ষ্য অর্জন করা হয়। যেহেতু এই প্রক্রিয়ার কেন্দ্রবিন্দুতে থাকে মানুষ এবং মানুষের মধ্যকার সম্পর্ক, তাই একে সামাজিক প্রক্রিয়া বলা হয়। যেমন, একজন ব্যবস্থাপক একা কোনো পণ্য উৎপাদন করতে পারেন না; তাকে শ্রমিক, সহকর্মী ও ঊর্ধ্বতনদের সাথে মিলেমিশে কাজ করতে হয়।</p>
+</div>
+<div class="sub-section">
+<h3 class="sub-title">ব্যবস্থাপনা কেন সামাজিক প্রক্রিয়া</h3>
+<ol class="points-list">
+  <li class="point"><b>১. মানুষের মাধ্যমে কাজ সম্পাদন</b> ব্যবস্থাপনার মূল কাজই হলো মানুষের মাধ্যমে কাজ করিয়ে নেওয়া। ব্যবস্থাপক নিজে সরাসরি সব কাজ করেন না, বরং কর্মীদের নির্দেশনা দিয়ে, তাদের দক্ষতা ব্যবহার করে লক্ষ্য অর্জন করেন। মানুষ ছাড়া ব্যবস্থাপনার কোনো অস্তিত্বই থাকে না, তাই এটি সামাজিক প্রক্রিয়া হিসেবে বিবেচিত হয়।</li>
+  <li class="point"><b>২. আন্তঃব্যক্তিক সম্পর্কের উপস্থিতি</b> প্রতিষ্ঠানের ভেতরে ব্যবস্থাপক, কর্মী, সহকর্মী ও ঊর্ধ্বতনদের মধ্যে নিয়মিত মিথস্ক্রিয়া ও সম্পর্ক গড়ে ওঠে। এই সম্পর্কের ওপর ভিত্তি করেই কাজের পরিবেশ তৈরি হয় এবং একে অপরের সহযোগিতা ছাড়া কোনো কাজ সম্পন্ন করা সম্ভব হয় না, যা ব্যবস্থাপনাকে সামাজিক চরিত্র প্রদান করে।</li>
+  <li class="point"><b>৩. দলগত প্রচেষ্টার প্রয়োজনীয়তা</b> প্রতিষ্ঠানের লক্ষ্য অর্জন কখনোই একক প্রচেষ্টায় সম্ভব হয় না, বরং বিভিন্ন ব্যক্তির সম্মিলিত ও দলগত প্রচেষ্টার মাধ্যমে তা অর্জিত হয়। ব্যবস্থাপক বিভিন্ন ব্যক্তির মধ্যে সমন্বয় সাধন করে তাদের সবার প্রচেষ্টাকে একটি অভিন্ন লক্ষ্যের দিকে পরিচালিত করেন, যা সামাজিক মিথস্ক্রিয়ারই একটি রূপ।</li>
+  <li class="point"><b>৪. প্রেষণা ও নেতৃত্বের ভূমিকা</b> কর্মীদের কাছ থেকে সর্বোচ্চ কর্মদক্ষতা আদায় করার জন্য ব্যবস্থাপককে তাদের মনস্তত্ত্ব বুঝে প্রেষণা দিতে হয় এবং যথাযথ নেতৃত্ব প্রদান করতে হয়। এই কাজগুলো সম্পূর্ণভাবে মানুষের আচরণ, চাহিদা ও মনোভাবের সাথে সম্পর্কিত, যা ব্যবস্থাপনাকে সামাজিক বিজ্ঞানের কাছাকাছি নিয়ে যায়।</li>
+  <li class="point"><b>৫. সমাজের সাথে সম্পর্ক</b> প্রতিষ্ঠান কোনো বিচ্ছিন্ন সত্তা নয়; এটি সমাজেরই একটি অংশ হিসেবে কাজ করে এবং গ্রাহক, সরবরাহকারী, সরকার ও স্থানীয় জনগোষ্ঠীর সাথে সম্পর্ক বজায় রেখে চলে। ব্যবস্থাপনাকে এই বহিঃস্থ পক্ষগুলোর চাহিদা ও প্রত্যাশা বিবেচনা করেই সিদ্ধান্ত নিতে হয়, যা এর সামাজিক প্রকৃতিকে আরও স্পষ্ট করে।</li>
+  <li class="point"><b>৬. সামাজিক দায়বদ্ধতা</b> প্রতিষ্ঠান শুধু নিজের মুনাফার কথা চিন্তা করলেই চলে না, বরং সমাজের প্রতি তার একটি নৈতিক ও সামাজিক দায়বদ্ধতা থাকে, যেমন পরিবেশ রক্ষা, কর্মসংস্থান সৃষ্টি ও ন্যায্য আচরণ নিশ্চিত করা। এই দায়বদ্ধতা পালনের মধ্য দিয়েও ব্যবস্থাপনার সামাজিক রূপ প্রকাশ পায়।</li>
+</ol>
+</div>
+<div class="conclusion-box">
+<div class="sec-label">উপসংহার</div>
+<p>উপরের আলোচনা থেকে স্পষ্ট যে, ব্যবস্থাপনা মূলত মানুষকে কেন্দ্র করে গড়ে ওঠা একটি প্রক্রিয়া, যেখানে মানুষের সাথে সম্পর্ক, সহযোগিতা ও মিথস্ক্রিয়ার মাধ্যমে প্রতিষ্ঠানের লক্ষ্য অর্জিত হয়। এই কারণেই ব্যবস্থাপনাকে যথার্থভাবে একটি সামাজিক প্রক্রিয়া বলা হয়।</p>
+</div>
+<div class="cheat-wrap">
+<div class="sec-label">📋 চিট শীট</div>
+<div class="table-scroll">
+<table class="cheat-table">
+  <thead>
+    <tr>
+      <th>পয়েন্ট</th>
+      <th>ইশারা</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>মানুষের মাধ্যমে কাজ সম্পাদন</td>
+      <td>ব্যবস্থাপনার মূল কাজই হলো মানুষের মাধ্যমে কাজ করিয়ে</td>
+    </tr>
+    <tr>
+      <td>আন্তঃব্যক্তিক সম্পর্কের উপস্থিতি</td>
+      <td>প্রতিষ্ঠানের ভেতরে ব্যবস্থাপক</td>
+    </tr>
+    <tr>
+      <td>দলগত প্রচেষ্টার প্রয়োজনীয়তা</td>
+      <td>প্রতিষ্ঠানের লক্ষ্য অর্জন কখনোই একক প্রচেষ্টায় সম্ভব হয় না</td>
+    </tr>
+    <tr>
+      <td>প্রেষণা ও নেতৃত্বের ভূমিকা</td>
+      <td>কর্মীদের কাছ থেকে সর্বোচ্চ কর্মদক্ষতা আদায় করার জন্য</td>
+    </tr>
+    <tr>
+      <td>সমাজের সাথে সম্পর্ক</td>
+      <td>প্রতিষ্ঠান কোনো বিচ্ছিন্ন সত্তা নয়; এটি সমাজেরই একটি</td>
+    </tr>
+    <tr>
+      <td>সামাজিক দায়বদ্ধতা</td>
+      <td>প্রতিষ্ঠান শুধু নিজের মুনাফার কথা চিন্তা করলেই চলে না</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+        </div>
+      </details>
+
+      <details class="qcard" id="q-4" data-chapter="1">
+        <summary class="qsummary">
+          <span class="qtext">1.10: "ব্যবস্থাপনা হলো পরিবেশনির্ভর" - আলোচনা কর।</span>
+          <span class="chev">▼</span>
+        </summary>
+        <div class="qbody">
+<div class="intro-box">
+<div class="sec-label">ভূমিকা</div>
+<p>কোনো প্রতিষ্ঠান বিচ্ছিন্নভাবে কাজ করতে পারে না; এটি সবসময় তার চারপাশের অর্থনৈতিক, সামাজিক, রাজনৈতিক ও প্রযুক্তিগত পরিবেশের সাথে সম্পর্কযুক্ত থেকে কাজ করে। প্রতিষ্ঠানের ব্যবস্থাপনাকে এই পরিবেশের সাথে খাপ খাইয়ে সিদ্ধান্ত নিতে হয় এবং পরিবেশের পরিবর্তনের সাথে সাথে নিজেদের কৌশলও পরিবর্তন করতে হয়। এই কারণেই বলা হয়, ব্যবস্থাপনা হলো পরিবেশনির্ভর। নিচে বিষয়টি বিস্তারিতভাবে আলোচনা করা হলো।</p>
+</div>
+<div class="sub-section">
+<h3 class="sub-title">সংজ্ঞা</h3>
+<p>পরিবেশনির্ভর ব্যবস্থাপনা বলতে বোঝায় এমন একটি ব্যবস্থাপনা প্রক্রিয়া, যা প্রতিষ্ঠানের অভ্যন্তরীণ ও বহিঃস্থ পরিবেশের বিভিন্ন উপাদান দ্বারা প্রভাবিত হয় এবং সেই পরিবেশের সাথে সামঞ্জস্য রেখে সিদ্ধান্ত গ্রহণ করে। যেমন, সরকার নতুন কর নীতি প্রণয়ন করলে প্রতিষ্ঠানকে তার মূল্য নির্ধারণ ও উৎপাদন পরিকল্পনায় পরিবর্তন আনতে হয়, যা প্রমাণ করে ব্যবস্থাপনা পরিবেশ থেকে বিচ্ছিন্ন নয়।</p>
+</div>
+<div class="sub-section">
+<h3 class="sub-title">ব্যবস্থাপনা কেন পরিবেশনির্ভর</h3>
+<ol class="points-list">
+  <li class="point"><b>১. অর্থনৈতিক পরিবেশের প্রভাব</b> দেশের মূল্যস্ফীতি, সুদের হার, বিনিময় হার, বাজার চাহিদা ও সরবরাহ পরিস্থিতি প্রতিষ্ঠানের সিদ্ধান্তকে সরাসরি প্রভাবিত করে। অর্থনৈতিক মন্দা দেখা দিলে ব্যবস্থাপনাকে উৎপাদন কমানো বা খরচ সংকোচনের সিদ্ধান্ত নিতে হয়, যা দেখায় ব্যবস্থাপনা অর্থনৈতিক পরিবেশের সাথে ঘনিষ্ঠভাবে যুক্ত।</li>
+  <li class="point"><b>২. সামাজিক ও সাংস্কৃতিক পরিবেশের প্রভাব</b> সমাজের রীতিনীতি, মূল্যবোধ, ভোক্তার রুচি ও জীবনযাত্রার ধরন পরিবর্তিত হলে প্রতিষ্ঠানকে তার পণ্য, সেবা ও বিপণন কৌশল সেই অনুযায়ী পরিবর্তন করতে হয়। সমাজের চাহিদা উপেক্ষা করে কোনো প্রতিষ্ঠান দীর্ঘমেয়াদে টিকে থাকতে পারে না।</li>
+  <li class="point"><b>৩. রাজনৈতিক ও আইনগত পরিবেশের প্রভাব</b> সরকারের নীতি, আইন-কানুন, শিল্পনীতি ও রাজনৈতিক স্থিতিশীলতা প্রতিষ্ঠানের কার্যক্রমকে প্রভাবিত করে। নতুন আইন বা শুল্কনীতি প্রণয়ন হলে ব্যবস্থাপনাকে তার ব্যবসায়িক কৌশল সেই আইনের সাথে সামঞ্জস্যপূর্ণ করে তুলতে হয়, নয়তো আইনি জটিলতায় পড়তে হয়।</li>
+  <li class="point"><b>৪. প্রযুক্তিগত পরিবেশের প্রভাব</b> প্রযুক্তির দ্রুত পরিবর্তনের সাথে তাল মিলিয়ে প্রতিষ্ঠানকে নতুন যন্ত্রপাতি, সফটওয়্যার ও উৎপাদন পদ্ধতি গ্রহণ করতে হয়। যে প্রতিষ্ঠান সময়মতো প্রযুক্তিগত পরিবর্তন গ্রহণ করে না, সে প্রতিযোগিতায় পিছিয়ে পড়ে, যা প্রমাণ করে ব্যবস্থাপনা প্রযুক্তিগত পরিবেশ দ্বারাও নিয়ন্ত্রিত।</li>
+  <li class="point"><b>৫. প্রতিযোগিতামূলক পরিবেশের প্রভাব</b> বাজারে প্রতিদ্বন্দ্বী প্রতিষ্ঠানের কার্যক্রম, তাদের মূল্য নির্ধারণ ও নতুন পণ্য উদ্ভাবন প্রতিষ্ঠানের সিদ্ধান্তকে প্রভাবিত করে। প্রতিযোগীদের কৌশল বিবেচনা না করে সিদ্ধান্ত নিলে প্রতিষ্ঠান বাজারে টিকে থাকতে ব্যর্থ হতে পারে, তাই ব্যবস্থাপনাকে সবসময় প্রতিযোগিতামূলক পরিবেশ পর্যবেক্ষণ করতে হয়।</li>
+  <li class="point"><b>৬. অভ্যন্তরীণ পরিবেশের প্রভাব</b> প্রতিষ্ঠানের নিজস্ব সম্পদ, কর্মী দক্ষতা, সাংগঠনিক কাঠামো ও প্রতিষ্ঠানের সংস্কৃতিও ব্যবস্থাপনার সিদ্ধান্তকে প্রভাবিত করে। এই অভ্যন্তরীণ উপাদানগুলোর সীমাবদ্ধতা বিবেচনা করেই ব্যবস্থাপনাকে বাস্তবসম্মত পরিকল্পনা তৈরি করতে হয়।</li>
+  <li class="point"><b>৭. পরিবর্তনের সাথে অভিযোজন</b> পরিবেশ সবসময় পরিবর্তনশীল, তাই ব্যবস্থাপনাকেও নমনীয় হয়ে পরিবেশের পরিবর্তনের সাথে নিজেকে খাপ খাইয়ে নিতে হয়। যে প্রতিষ্ঠান পরিবেশের পরিবর্তন বুঝে দ্রুত সিদ্ধান্ত নিতে পারে, সেই প্রতিষ্ঠানই দীর্ঘমেয়াদে সফল হয়।</li>
+</ol>
+</div>
+<div class="conclusion-box">
+<div class="sec-label">উপসংহার</div>
+<p>উপরের আলোচনা থেকে স্পষ্ট যে, ব্যবস্থাপনা কখনোই পরিবেশ থেকে বিচ্ছিন্নভাবে কাজ করতে পারে না। অর্থনৈতিক, সামাজিক, রাজনৈতিক, প্রযুক্তিগত ও প্রতিযোগিতামূলক পরিবেশের প্রতিটি উপাদান প্রতিষ্ঠানের সিদ্ধান্তকে প্রভাবিত করে। তাই সফল ব্যবস্থাপনার জন্য পরিবেশ পর্যবেক্ষণ করে তার সাথে খাপ খাইয়ে চলা অপরিহার্য।</p>
+</div>
+<div class="cheat-wrap">
+<div class="sec-label">📋 চিট শীট</div>
+<div class="table-scroll">
+<table class="cheat-table">
+  <thead>
+    <tr>
+      <th>পয়েন্ট</th>
+      <th>ইশারা</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>অর্থনৈতিক পরিবেশের প্রভাব</td>
+      <td>দেশের মূল্যস্ফীতি</td>
+    </tr>
+    <tr>
+      <td>সামাজিক ও সাংস্কৃতিক পরিবেশের প্রভাব</td>
+      <td>সমাজের রীতিনীতি</td>
+    </tr>
+    <tr>
+      <td>রাজনৈতিক ও আইনগত পরিবেশের প্রভাব</td>
+      <td>সরকারের নীতি</td>
+    </tr>
+    <tr>
+      <td>প্রযুক্তিগত পরিবেশের প্রভাব</td>
+      <td>প্রযুক্তির দ্রুত পরিবর্তনের সাথে তাল মিলিয়ে প্রতিষ্ঠানকে নতুন</td>
+    </tr>
+    <tr>
+      <td>প্রতিযোগিতামূলক পরিবেশের প্রভাব</td>
+      <td>বাজারে প্রতিদ্বন্দ্বী প্রতিষ্ঠানের কার্যক্রম</td>
+    </tr>
+    <tr>
+      <td>অভ্যন্তরীণ পরিবেশের প্রভাব</td>
+      <td>প্রতিষ্ঠানের নিজস্ব সম্পদ</td>
+    </tr>
+    <tr>
+      <td>পরিবর্তনের সাথে অভিযোজন</td>
+      <td>পরিবেশ সবসময় পরিবর্তনশীল</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+        </div>
+      </details>
+
+      <details class="qcard" id="q-5" data-chapter="1">
+        <summary class="qsummary">
+          <span class="qtext">1.12: ব্যবস্থাপনা ও প্রশাসনের মধ্যে পার্থক্য দেখাও।</span>
+          <span class="chev">▼</span>
+        </summary>
+        <div class="qbody">
+<div class="intro-box">
+<div class="sec-label">ভূমিকা</div>
+<p>যেকোনো প্রতিষ্ঠান পরিচালনার জন্য দুইটি গুরুত্বপূর্ণ কাজ থাকে — নীতি নির্ধারণ করা এবং সেই নীতি বাস্তবায়ন করা। প্রথমটাকে বলা হয় প্রশাসন (Administration) আর দ্বিতীয়টাকে বলা হয় ব্যবস্থাপনা (Management)। দুটি শব্দ প্রায়ই একসাথে ব্যবহার করা হলেও এদের কাজ, স্তর ও দায়িত্বের মধ্যে স্পষ্ট পার্থক্য আছে।</p>
+</div>
+<div class="sub-section">
+<h3 class="sub-title">ব্যবস্থাপনা (Management)</h3>
+<p>ব্যবস্থাপনা বলতে বোঝায় প্রতিষ্ঠানের সম্পদ (জনবল, অর্থ, উপকরণ) সঠিকভাবে ব্যবহার করে পূর্বনির্ধারিত লক্ষ্য অর্জনের প্রক্রিয়া। এটি মূলত পরিকল্পনা বাস্তবায়নের কাজ করে — অর্থাৎ প্রশাসন যে নীতি ঠিক করে দেয়, ব্যবস্থাপনা সেই নীতি অনুযায়ী প্রতিদিনের কাজ পরিচালনা করে। এটি সাধারণত মধ্যম ও নিম্ন পর্যায়ের কর্মকর্তাদের (Middle &amp; Lower level) কাজ। উদাহরণ হিসেবে বলা যায়, একটি ফ্যাক্টরির প্রোডাকশন ম্যানেজার প্রতিদিন কতটি পণ্য উৎপাদন হবে, কর্মীদের কাজ কীভাবে ভাগ হবে — এসব ঠিক করেন।</p>
+</div>
+<div class="sub-section">
+<h3 class="sub-title">প্রশাসন (Administration)</h3>
+<p>প্রশাসন বলতে বোঝায় প্রতিষ্ঠানের সামগ্রিক নীতি, উদ্দেশ্য ও দিকনির্দেশনা নির্ধারণের প্রক্রিয়া। এটি প্রতিষ্ঠানের সর্বোচ্চ পর্যায়ের (Top level) কাজ, যেখানে বড় সিদ্ধান্ত নেওয়া হয় যে প্রতিষ্ঠান কী করবে, কোন দিকে যাবে। প্রশাসন মূলত চিন্তাভাবনা ও নীতি নির্ধারণ কেন্দ্রিক, বাস্তবায়নের কাজ এটি নিজে করে না বরং ব্যবস্থাপনার মাধ্যমে করায়। উদাহরণ হিসেবে, একটি কোম্পানির বোর্ড অব ডিরেক্টরস ঠিক করেন কোম্পানি নতুন কোন বাজারে ব্যবসা সম্প্রসারণ করবে।</p>
+</div>
+<div class="cheat-wrap compare-wrap">
+<div class="sec-label">📊 তুলনামূলক টেবিল</div>
+<div class="table-scroll">
+<table class="cheat-table">
+  <thead>
+    <tr>
+      <th>বিষয়</th>
+      <th>ব্যবস্থাপনা (Management)</th>
+      <th>প্রশাসন (Administration)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>অর্থ</td>
+      <td>পরিকল্পনা বাস্তবায়নের প্রক্রিয়া</td>
+      <td>নীতি নির্ধারণের প্রক্রিয়া</td>
+    </tr>
+    <tr>
+      <td>কাজের ধরন</td>
+      <td>কার্যকর করা (Execution)</td>
+      <td>সিদ্ধান্ত নেওয়া (Decision making)</td>
+    </tr>
+    <tr>
+      <td>পর্যায়</td>
+      <td>মধ্যম ও নিম্ন পর্যায়</td>
+      <td>উচ্চ পর্যায়</td>
+    </tr>
+    <tr>
+      <td>দক্ষতা</td>
+      <td>কারিগরি ও মানবিক দক্ষতা বেশি দরকার</td>
+      <td>চিন্তাশীল ও সাংগঠনিক দক্ষতা বেশি দরকার</td>
+    </tr>
+    <tr>
+      <td>প্রয়োগ ক্ষেত্র</td>
+      <td>ব্যবসায়িক প্রতিষ্ঠানে বেশি ব্যবহৃত</td>
+      <td>সরকারি, সামরিক, অলাভজনক প্রতিষ্ঠানে বেশি ব্যবহৃত</td>
+    </tr>
+    <tr>
+      <td>প্রভাবের উৎস</td>
+      <td>নির্বাহী ক্ষমতা (Executive)</td>
+      <td>মালিকানা বা কর্তৃত্ব (Ownership/Authority)</td>
+    </tr>
+    <tr>
+      <td>প্রকৃতি</td>
+      <td>কার্যক্রম নিয়ন্ত্রণকারী</td>
+      <td>নীতি নির্ধারণকারী</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+<div class="conclusion-box">
+<div class="sec-label">উপসংহার</div>
+<p>সংক্ষেপে বলা যায়, প্রশাসন ঠিক করে "কী করতে হবে" আর ব্যবস্থাপনা ঠিক করে "কীভাবে করতে হবে"। দুটোই একটি প্রতিষ্ঠানের সফলতার জন্য অপরিহার্য এবং একে অপরের পরিপূরক।</p>
+</div>
+<div class="cheat-wrap">
+<div class="sec-label">📋 চিট শীট</div>
+<div class="table-scroll">
+<table class="cheat-table">
+  <thead>
+    <tr>
+      <th>পয়েন্ট</th>
+      <th>ইশারা</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>অর্থ</td>
+      <td>পরিকল্পনা বাস্তবায়নের প্রক্রিয়া / নীতি নির্ধারণের প্রক্রিয়া</td>
+    </tr>
+    <tr>
+      <td>কাজের ধরন</td>
+      <td>কার্যকর করা (Execution) / সিদ্ধান্ত নেওয়া (Decision making)</td>
+    </tr>
+    <tr>
+      <td>পর্যায়</td>
+      <td>মধ্যম ও নিম্ন পর্যায় / উচ্চ পর্যায়</td>
+    </tr>
+    <tr>
+      <td>দক্ষতা</td>
+      <td>কারিগরি ও মানবিক দক্ষতা বেশি দরকার / চিন্তাশীল ও</td>
+    </tr>
+    <tr>
+      <td>প্রয়োগ ক্ষেত্র</td>
+      <td>ব্যবসায়িক প্রতিষ্ঠানে বেশি ব্যবহৃত / সরকারি</td>
+    </tr>
+    <tr>
+      <td>প্রভাবের উৎস</td>
+      <td>নির্বাহী ক্ষমতা (Executive) / মালিকানা বা কর্তৃত্ব (Ownership/Authority)</td>
+    </tr>
+    <tr>
+      <td>প্রকৃতি</td>
+      <td>কার্যক্রম নিয়ন্ত্রণকারী / নীতি নির্ধারণকারী</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+        </div>
+      </details>
+
+      <details class="qcard" id="q-6" data-chapter="1">
+        <summary class="qsummary">
+          <span class="qtext">1.14: SWOT-এর উপাদানগুলো ব্যাখ্যা কর।</span>
+          <span class="chev">▼</span>
+        </summary>
+        <div class="qbody">
+<div class="intro-box">
+<div class="sec-label">ভূমিকা</div>
+<p>কোনো প্রতিষ্ঠান পরিকল্পনা করার আগে নিজের অবস্থান বুঝে নেওয়া জরুরি — নিজের কোথায় শক্তি আছে, কোথায় দুর্বলতা আছে, বাইরের কোন সুযোগ কাজে লাগানো যায় আর কোন হুমকি মোকাবিলা করতে হবে। এই বিশ্লেষণের জন্য ব্যবহৃত হয় SWOT Analysis, যা কৌশলগত পরিকল্পনার (Strategic Planning) একটি গুরুত্বপূর্ণ হাতিয়ার।</p>
+</div>
+<div class="sub-section">
+<h3 class="sub-title">সংজ্ঞা</h3>
+<p>SWOT হলো একটি বিশ্লেষণী কাঠামো যার মাধ্যমে একটি প্রতিষ্ঠানের অভ্যন্তরীণ শক্তি ও দুর্বলতা এবং বাহ্যিক সুযোগ ও হুমকি চিহ্নিত করে ভবিষ্যৎ পরিকল্পনা তৈরি করা হয়। SWOT শব্দটি এসেছে চারটি ইংরেজি শব্দের আদ্যক্ষর থেকে — Strengths, Weaknesses, Opportunities এবং Threats। উদাহরণস্বরূপ, একটি মোবাইল কোম্পানি নতুন বাজারে প্রবেশের আগে SWOT বিশ্লেষণ করে বুঝে নেয় তাদের ব্র্যান্ড ভ্যালু কতটা শক্তিশালী, প্রতিযোগী বাজারে কী ঝুঁকি আছে।</p>
+</div>
+<div class="sub-section">
+<h3 class="sub-title">SWOT-এর উপাদানসমূহ</h3>
+<ol class="points-list">
+  <li class="point"><b>১. Strengths (শক্তি)</b> এটি প্রতিষ্ঠানের অভ্যন্তরীণ ইতিবাচক দিকগুলো নির্দেশ করে — যেমন দক্ষ জনবল, শক্তিশালী ব্র্যান্ড, ভালো আর্থিক অবস্থা বা উন্নত প্রযুক্তি। এই শক্তিগুলো প্রতিষ্ঠানকে প্রতিযোগীদের চেয়ে এগিয়ে রাখতে সাহায্য করে। যেমন, একটি কোম্পানির যদি অভিজ্ঞ ও দক্ষ কর্মী থাকে, তাহলে সেটি তাদের বড় শক্তি। প্রতিষ্ঠান পরিকল্পনা করার সময় এই শক্তিগুলোকে আরও কাজে লাগানোর চেষ্টা করা হয়।</li>
+  <li class="point"><b>২. Weaknesses (দুর্বলতা)</b> এটি প্রতিষ্ঠানের অভ্যন্তরীণ নেতিবাচক দিকগুলো নির্দেশ করে, যেগুলো লক্ষ্য অর্জনে বাধা সৃষ্টি করতে পারে — যেমন সীমিত মূলধন, পুরনো প্রযুক্তি, দুর্বল ব্যবস্থাপনা বা কম দক্ষ জনবল। নিজের দুর্বলতা চিহ্নিত করতে পারলে প্রতিষ্ঠান সেগুলো সময়মতো সংশোধনের সুযোগ পায়। যেমন, একটি নতুন কোম্পানির পর্যাপ্ত পুঁজি না থাকা তাদের একটি বড় দুর্বলতা হতে পারে।</li>
+  <li class="point"><b>৩. Opportunities (সুযোগ)</b> এটি প্রতিষ্ঠানের বাহ্যিক পরিবেশে থাকা ইতিবাচক সম্ভাবনাগুলো নির্দেশ করে, যা কাজে লাগিয়ে প্রতিষ্ঠান লাভবান হতে পারে — যেমন নতুন বাজারের চাহিদা, প্রযুক্তির উন্নয়ন বা সরকারি নীতিগত সুবিধা। বাহ্যিক পরিবেশ পর্যবেক্ষণ করে এই সুযোগগুলো চিহ্নিত করতে হয়, কারণ এগুলো সরাসরি প্রতিষ্ঠানের নিয়ন্ত্রণে থাকে না। যেমন, ই-কমার্সের প্রসার একটি পোশাক কোম্পানির জন্য অনলাইনে ব্যবসা বাড়ানোর বড় সুযোগ হতে পারে।</li>
+  <li class="point"><b>৪. Threats (হুমকি)</b> এটি প্রতিষ্ঠানের বাহ্যিক পরিবেশে থাকা নেতিবাচক বিষয়গুলো নির্দেশ করে, যা প্রতিষ্ঠানের সাফল্যকে ব্যাহত করতে পারে — যেমন নতুন প্রতিযোগী, অর্থনৈতিক মন্দা, রাজনৈতিক অস্থিরতা বা পরিবর্তিত সরকারি নীতি। এগুলো প্রতিষ্ঠানের নিয়ন্ত্রণের বাইরে হলেও আগে থেকে চিহ্নিত করতে পারলে ঝুঁকি মোকাবিলার প্রস্তুতি নেওয়া যায়। যেমন, বাজারে নতুন প্রতিযোগী কোম্পানির আগমন একটি প্রতিষ্ঠানের বিক্রয়ের জন্য বড় হুমকি হতে পারে।</li>
+</ol>
+</div>
+<div class="conclusion-box">
+<div class="sec-label">উপসংহার</div>
+<p>সংক্ষেপে বলা যায়, SWOT বিশ্লেষণের চারটি উপাদান — Strengths, Weaknesses, Opportunities ও Threats — একটি প্রতিষ্ঠানকে নিজের অবস্থান বুঝতে ও সঠিক কৌশল ঠিক করতে সাহায্য করে। এই বিশ্লেষণ ছাড়া কার্যকর পরিকল্পনা করা কঠিন হয়ে পড়ে।</p>
+</div>
+<div class="cheat-wrap">
+<div class="sec-label">📋 চিট শীট</div>
+<div class="table-scroll">
+<table class="cheat-table">
+  <thead>
+    <tr>
+      <th>পয়েন্ট</th>
+      <th>ইশারা</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Strengths (শক্তি)</td>
+      <td>এটি প্রতিষ্ঠানের অভ্যন্তরীণ ইতিবাচক দিকগুলো নির্দেশ করে</td>
+    </tr>
+    <tr>
+      <td>Weaknesses (দুর্বলতা)</td>
+      <td>এটি প্রতিষ্ঠানের অভ্যন্তরীণ নেতিবাচক দিকগুলো নির্দেশ করে</td>
+    </tr>
+    <tr>
+      <td>Opportunities (সুযোগ)</td>
+      <td>এটি প্রতিষ্ঠানের বাহ্যিক পরিবেশে থাকা ইতিবাচক সম্ভাবনাগুলো নির্দেশ</td>
+    </tr>
+    <tr>
+      <td>Threats (হুমকি)</td>
+      <td>এটি প্রতিষ্ঠানের বাহ্যিক পরিবেশে থাকা নেতিবাচক বিষয়গুলো নির্দেশ</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+        </div>
+      </details>
+
+      <details class="qcard" id="q-7" data-chapter="1">
+        <summary class="qsummary">
+          <span class="qtext">1.16: সার্বিক মান ব্যবস্থাপনার কৌশলসমূহ বর্ণনা কর।</span>
+          <span class="chev">▼</span>
+        </summary>
+        <div class="qbody">
+<div class="intro-box">
+<div class="sec-label">ভূমিকা</div>
+<p>আধুনিক ব্যবসায় প্রতিযোগিতায় টিকে থাকতে হলে প্রতিষ্ঠানকে শুধু পণ্য উৎপাদন করলেই চলে না, বরং সেই পণ্য বা সেবার মান নিয়মিত উন্নত করতে হয়। এই লক্ষ্য অর্জনের জন্য ব্যবহৃত হয় সার্বিক মান ব্যবস্থাপনা বা Total Quality Management (TQM), যা প্রতিষ্ঠানের প্রতিটি স্তরে গুণগত মান বজায় রাখার একটি সংগঠিত পদ্ধতি।</p>
+</div>
+<div class="sub-section">
+<h3 class="sub-title">সংজ্ঞা</h3>
+<p>সার্বিক মান ব্যবস্থাপনা হলো এমন একটি ব্যবস্থাপনা দর্শন বা কৌশল, যেখানে প্রতিষ্ঠানের সকল কর্মী, বিভাগ ও প্রক্রিয়াকে একত্রিত করে পণ্য বা সেবার মান ক্রমাগতভাবে উন্নত করার চেষ্টা করা হয়, যাতে গ্রাহকের সন্তুষ্টি নিশ্চিত করা যায়। উদাহরণস্বরূপ, একটি মোবাইল প্রস্তুতকারী কোম্পানি যদি উৎপাদনের প্রতিটি ধাপে গুণগত মান পরীক্ষা করে এবং কর্মীদের মতামত নিয়ে প্রক্রিয়া উন্নত করে, তাহলে সেটি TQM চর্চার একটি উদাহরণ।</p>
+</div>
+<div class="sub-section">
+<h3 class="sub-title">সার্বিক মান ব্যবস্থাপনার কৌশলসমূহ</h3>
+<ol class="points-list">
+  <li class="point"><b>১. গ্রাহক কেন্দ্রিকতা</b> TQM-এর মূল ভিত্তি হলো গ্রাহকের চাহিদা ও সন্তুষ্টিকে সর্বোচ্চ গুরুত্ব দেওয়া। প্রতিষ্ঠানের প্রতিটি সিদ্ধান্ত এমনভাবে নেওয়া হয় যাতে গ্রাহক সর্বোচ্চ মানের পণ্য বা সেবা পায়। গ্রাহকের প্রতিক্রিয়া নিয়মিত সংগ্রহ করে সেই অনুযায়ী পরিবর্তন আনা হয়।</li>
+  <li class="point"><b>২. শীর্ষ ব্যবস্থাপনার প্রতিশ্রুতি</b> TQM সফল করতে হলে প্রতিষ্ঠানের শীর্ষ কর্তৃপক্ষকে এই প্রক্রিয়ায় সম্পূর্ণভাবে যুক্ত থাকতে হয়। শীর্ষ ব্যবস্থাপনা যদি মান উন্নয়নের গুরুত্ব না বোঝে, তাহলে নিচের স্তরে এটি বাস্তবায়ন করা কঠিন হয়ে পড়ে।</li>
+  <li class="point"><b>৩. ক্রমাগত উন্নয়ন</b> এটি Kaizen নামেও পরিচিত, যেখানে প্রতিষ্ঠান কখনোই একটি নির্দিষ্ট মানকে চূড়ান্ত মনে না করে সবসময় আরও ভালো করার চেষ্টা করে। ছোট ছোট পরিবর্তনের মাধ্যমে দীর্ঘমেয়াদে বড় উন্নতি আনা এই কৌশলের মূল লক্ষ্য।</li>
+  <li class="point"><b>৪. কর্মী সম্পৃক্তকরণ</b> প্রতিষ্ঠানের প্রতিটি স্তরের কর্মীকে মান উন্নয়ন প্রক্রিয়ায় অংশগ্রহণের সুযোগ দেওয়া হয়। কর্মীরা যেহেতু প্রতিদিনের কাজের সাথে সরাসরি জড়িত, তাদের মতামত ও পরামর্শ মান উন্নয়নে গুরুত্বপূর্ণ ভূমিকা রাখে।</li>
+  <li class="point"><b>৫. প্রক্রিয়া কেন্দ্রিক পদ্ধতি</b> TQM-এ শুধু চূড়ান্ত পণ্যের মান নয়, বরং উৎপাদনের প্রতিটি ধাপ বা প্রক্রিয়াকে গুরুত্ব দেওয়া হয়। প্রতিটি প্রক্রিয়া সঠিকভাবে পরিচালিত হলে চূড়ান্ত ফলাফলও ভালো হয়, এই ধারণার ভিত্তিতে কাজ করা হয়।</li>
+  <li class="point"><b>৬. সমন্বিত ব্যবস্থা</b> প্রতিষ্ঠানের বিভিন্ন বিভাগ (উৎপাদন, বিপণন, অর্থ, মানবসম্পদ) আলাদাভাবে কাজ না করে একটি সমন্বিত ব্যবস্থা হিসেবে কাজ করে, যাতে সামগ্রিক লক্ষ্য অর্জন সহজ হয়।</li>
+  <li class="point"><b>৭. কৌশলগত ও পদ্ধতিগত দৃষ্টিভঙ্গি</b> মান উন্নয়নকে হঠাৎ করে নেওয়া কোনো সিদ্ধান্ত হিসেবে না দেখে একটি সুপরিকল্পিত ও ধারাবাহিক প্রক্রিয়া হিসেবে দেখা হয়, যার একটি নির্দিষ্ট কৌশলগত পরিকল্পনা থাকে।</li>
+  <li class="point"><b>৮. তথ্যভিত্তিক সিদ্ধান্ত গ্রহণ</b> TQM-এ ধারণা বা অনুমানের ভিত্তিতে নয়, বরং সঠিক তথ্য ও উপাত্ত বিশ্লেষণ করে সিদ্ধান্ত নেওয়া হয়। এতে সিদ্ধান্তের নির্ভুলতা বাড়ে এবং ভুল কমে।</li>
+  <li class="point"><b>৯. কার্যকর যোগাযোগ</b> প্রতিষ্ঠানের বিভিন্ন স্তরের মধ্যে সঠিক ও স্বচ্ছ যোগাযোগ ব্যবস্থা থাকা জরুরি, যাতে মান সংক্রান্ত তথ্য ও সিদ্ধান্ত সহজে সবার কাছে পৌঁছায়।</li>
+  <li class="point"><b>১০. প্রশিক্ষণ ও শিক্ষা</b> কর্মীদের নিয়মিত প্রশিক্ষণের মাধ্যমে দক্ষতা বৃদ্ধি করা হয়, যাতে তারা মান উন্নয়নের কৌশলগুলো সঠিকভাবে বুঝে কাজে প্রয়োগ করতে পারে।</li>
+  <li class="point"><b>১১. দলগত কাজ</b> TQM ব্যক্তিগত প্রচেষ্টার চেয়ে দলগত প্রচেষ্টাকে বেশি গুরুত্ব দেয়। বিভিন্ন বিভাগের কর্মীরা একসাথে কাজ করে সমস্যা সমাধান ও মান উন্নয়নে ভূমিকা রাখে।</li>
+  <li class="point"><b>১২. বেঞ্চমার্কিং</b> প্রতিষ্ঠান নিজেদের কার্যক্রমকে শিল্পের সেরা প্রতিষ্ঠানগুলোর মানদণ্ডের সাথে তুলনা করে দেখে যে তারা কোথায় পিছিয়ে আছে এবং কীভাবে উন্নতি করা যায়।</li>
+  <li class="point"><b>১৩. শূন্য ত্রুটি লক্ষ্য</b> পণ্য বা সেবায় ত্রুটির পরিমাণ শূন্যের কাছাকাছি নামিয়ে আনাই TQM-এর একটি বড় লক্ষ্য, যাতে গ্রাহক সর্বোচ্চ মানের সেবা পায়।</li>
+  <li class="point"><b>১৪. সরবরাহকারীর সাথে অংশীদারিত্ব</b> শুধু নিজস্ব প্রতিষ্ঠান নয়, কাঁচামাল সরবরাহকারীদের সাথেও দীর্ঘমেয়াদী ও মানসম্মত সম্পর্ক গড়ে তোলা হয়, যাতে শুরু থেকেই ভালো মানের উপকরণ পাওয়া যায়।</li>
+</ol>
+</div>
+<div class="conclusion-box">
+<div class="sec-label">উপসংহার</div>
+<p>সংক্ষেপে বলা যায়, সার্বিক মান ব্যবস্থাপনা কোনো একক কৌশল নয়, বরং একগুচ্ছ পারস্পরিক সম্পর্কিত কৌশলের সমন্বয়, যেখানে প্রতিষ্ঠানের প্রতিটি স্তর ও কর্মী একসাথে কাজ করে মান উন্নয়নে ভূমিকা রাখে। এই কৌশলগুলো সঠিকভাবে প্রয়োগ করতে পারলে প্রতিষ্ঠান দীর্ঘমেয়াদে গ্রাহক সন্তুষ্টি ও প্রতিযোগিতামূলক সুবিধা অর্জন করতে পারে।</p>
+</div>
+<div class="cheat-wrap">
+<div class="sec-label">📋 চিট শীট</div>
+<div class="table-scroll">
+<table class="cheat-table">
+  <thead>
+    <tr>
+      <th>পয়েন্ট</th>
+      <th>ইশারা</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>গ্রাহক কেন্দ্রিকতা</td>
+      <td>TQM-এর মূল ভিত্তি হলো গ্রাহকের চাহিদা ও সন্তুষ্টিকে</td>
+    </tr>
+    <tr>
+      <td>শীর্ষ ব্যবস্থাপনার প্রতিশ্রুতি</td>
+      <td>TQM সফল করতে হলে প্রতিষ্ঠানের শীর্ষ কর্তৃপক্ষকে এই</td>
+    </tr>
+    <tr>
+      <td>ক্রমাগত উন্নয়ন</td>
+      <td>এটি Kaizen নামেও পরিচিত</td>
+    </tr>
+    <tr>
+      <td>কর্মী সম্পৃক্তকরণ</td>
+      <td>প্রতিষ্ঠানের প্রতিটি স্তরের কর্মীকে মান উন্নয়ন প্রক্রিয়ায় অংশগ্রহণের</td>
+    </tr>
+    <tr>
+      <td>প্রক্রিয়া কেন্দ্রিক পদ্ধতি</td>
+      <td>TQM-এ শুধু চূড়ান্ত পণ্যের মান নয়</td>
+    </tr>
+    <tr>
+      <td>সমন্বিত ব্যবস্থা</td>
+      <td>প্রতিষ্ঠানের বিভিন্ন বিভাগ (উৎপাদন</td>
+    </tr>
+    <tr>
+      <td>কৌশলগত ও পদ্ধতিগত দৃষ্টিভঙ্গি</td>
+      <td>মান উন্নয়নকে হঠাৎ করে নেওয়া কোনো সিদ্ধান্ত হিসেবে</td>
+    </tr>
+    <tr>
+      <td>তথ্যভিত্তিক সিদ্ধান্ত গ্রহণ</td>
+      <td>TQM-এ ধারণা বা অনুমানের ভিত্তিতে নয়</td>
+    </tr>
+    <tr>
+      <td>কার্যকর যোগাযোগ</td>
+      <td>প্রতিষ্ঠানের বিভিন্ন স্তরের মধ্যে সঠিক ও স্বচ্ছ যোগাযোগ</td>
+    </tr>
+    <tr>
+      <td>প্রশিক্ষণ ও শিক্ষা</td>
+      <td>কর্মীদের নিয়মিত প্রশিক্ষণের মাধ্যমে দক্ষতা বৃদ্ধি করা হয়</td>
+    </tr>
+    <tr>
+      <td>দলগত কাজ</td>
+      <td>TQM ব্যক্তিগত প্রচেষ্টার চেয়ে দলগত প্রচেষ্টাকে বেশি গুরুত্ব</td>
+    </tr>
+    <tr>
+      <td>বেঞ্চমার্কিং</td>
+      <td>প্রতিষ্ঠান নিজেদের কার্যক্রমকে শিল্পের সেরা প্রতিষ্ঠানগুলোর মানদণ্ডের সাথে</td>
+    </tr>
+    <tr>
+      <td>শূন্য ত্রুটি লক্ষ্য</td>
+      <td>পণ্য বা সেবায় ত্রুটির পরিমাণ শূন্যের কাছাকাছি নামিয়ে</td>
+    </tr>
+    <tr>
+      <td>সরবরাহকারীর সাথে অংশীদারিত্ব</td>
+      <td>শুধু নিজস্ব প্রতিষ্ঠান নয়</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+        </div>
+      </details>
+
+      <details class="qcard" id="q-8" data-chapter="2">
+        <summary class="qsummary">
+          <span class="qtext">2.3: বৈজ্ঞানিক ব্যবস্থাপনার বিভিন্ন সুবিধা আলোচনা কর।</span>
+          <span class="chev">▼</span>
+        </summary>
+        <div class="qbody">
+<div class="intro-box">
+<div class="sec-label">ভূমিকা</div>
+<p>শিল্প বিপ্লবের পর কারখানাগুলোতে উৎপাদন বাড়ানোর জন্য বৈজ্ঞানিক পদ্ধতির প্রয়োজনীয়তা দেখা দেয়। এর ফলে ফ্রেডরিক টেইলর প্রবর্তন করেন বৈজ্ঞানিক ব্যবস্থাপনা, যা অনুমান বা ঐতিহ্যগত পদ্ধতির পরিবর্তে যুক্তি ও বিশ্লেষণের ভিত্তিতে কাজ পরিচালনার একটি পদ্ধতি। এই পদ্ধতি প্রতিষ্ঠানকে বিভিন্নভাবে উপকৃত করে।</p>
+</div>
+<div class="sub-section">
+<h3 class="sub-title">সংজ্ঞা</h3>
+<p>বৈজ্ঞানিক ব্যবস্থাপনা হলো এমন একটি পদ্ধতি, যেখানে কাজের প্রতিটি ধাপ বৈজ্ঞানিক গবেষণা, পর্যবেক্ষণ ও বিশ্লেষণের মাধ্যমে নির্ধারণ করা হয়, যাতে ন্যূনতম সময় ও শ্রমে সর্বোচ্চ উৎপাদন অর্জন করা যায়। উদাহরণস্বরূপ, একটি কারখানায় শ্রমিকের কাজের সময় ও গতিবিধি পরিমাপ (Time and Motion Study) করে সবচেয়ে কার্যকর পদ্ধতি নির্ধারণ করা বৈজ্ঞানিক ব্যবস্থাপনার একটি উদাহরণ।</p>
+</div>
+<div class="sub-section">
+<h3 class="sub-title">বৈজ্ঞানিক ব্যবস্থাপনার সুবিধাসমূহ</h3>
+<ol class="points-list">
+  <li class="point"><b>১. উৎপাদনশীলতা বৃদ্ধি</b> কাজের সবচেয়ে কার্যকর পদ্ধতি বৈজ্ঞানিকভাবে নির্ধারণ করার ফলে একই সময়ে বেশি উৎপাদন করা সম্ভব হয়। এতে সময় ও শ্রমের অপচয় কমে এবং সামগ্রিক উৎপাদনশীলতা উল্লেখযোগ্যভাবে বৃদ্ধি পায়।</li>
+  <li class="point"><b>২. খরচ হ্রাস</b> অপ্রয়োজনীয় সময়, উপকরণ ও শ্রমের অপচয় রোধ হওয়ায় উৎপাদন খরচ কমে যায়। এতে প্রতিষ্ঠানের মুনাফা বৃদ্ধি পায় এবং পণ্যের দামও প্রতিযোগিতামূলক রাখা সম্ভব হয়।</li>
+  <li class="point"><b>৩. মান উন্নয়ন</b> কাজের প্রতিটি ধাপ মান নির্ধারণ করে করা হয় বলে পণ্যের গুণগত মান আগের তুলনায় বৃদ্ধি পায়। এতে ত্রুটিপূর্ণ পণ্যের পরিমাণ কমে এবং গ্রাহক সন্তুষ্টি বাড়ে।</li>
+  <li class="point"><b>৪. শ্রমিকের দক্ষতা বৃদ্ধি</b> বৈজ্ঞানিক নির্বাচন ও প্রশিক্ষণ পদ্ধতির মাধ্যমে সঠিক কাজের জন্য সঠিক শ্রমিক নির্বাচন করা হয় এবং তাদের প্রয়োজনীয় প্রশিক্ষণ দেওয়া হয়। এর ফলে শ্রমিকদের দক্ষতা ও কর্মদক্ষতা বৃদ্ধি পায়।</li>
+  <li class="point"><b>৫. মজুরি বৃদ্ধি</b> উৎপাদনশীলতা বৃদ্ধি পাওয়ায় শ্রমিকদের ভিন্নমুখী মজুরি হার (Differential Piece Rate) অনুযায়ী বেশি মজুরি অর্জনের সুযোগ তৈরি হয়। এতে শ্রমিকরা আর্থিকভাবে উপকৃত হন এবং কাজে উদ্বুদ্ধ হন।</li>
+  <li class="point"><b>৬. সময়ের সাশ্রয়</b> টাইম অ্যান্ড মোশন স্টাডির মাধ্যমে প্রতিটি কাজের জন্য প্রয়োজনীয় সঠিক সময় নির্ধারণ করা হয়, যার ফলে অপ্রয়োজনীয় সময় নষ্ট হওয়া রোধ হয় এবং কাজ দ্রুত সম্পন্ন হয়।</li>
+  <li class="point"><b>৭. শ্রম বিভাজন</b> কাজকে ছোট ছোট অংশে ভাগ করে প্রতিটি শ্রমিককে নির্দিষ্ট কাজে দক্ষ করে তোলা হয়। এতে একই কাজ বারবার করার ফলে শ্রমিকরা সেই কাজে বিশেষজ্ঞ হয়ে ওঠেন, যা সামগ্রিক দক্ষতা বাড়ায়।</li>
+  <li class="point"><b>৮. শ্রমিক-ব্যবস্থাপনা সম্পর্ক উন্নয়ন</b> বৈজ্ঞানিক ব্যবস্থাপনা শ্রমিক ও ব্যবস্থাপনার মধ্যে পারস্পরিক সহযোগিতার ওপর গুরুত্ব দেয়, ফলে উভয়ের মধ্যে দ্বন্দ্ব কমে এবং কর্মপরিবেশ উন্নত হয়।</li>
+  <li class="point"><b>৯. আদর্শিকরণ (Standardization)</b> কাজের পদ্ধতি, যন্ত্রপাতি ও উপকরণের ক্ষেত্রে নির্দিষ্ট মানদণ্ড বা স্ট্যান্ডার্ড নির্ধারণ করা হয়, যার ফলে প্রতিটি কাজ একই মানে সম্পন্ন হয় এবং বিভ্রান্তি কমে।</li>
+  <li class="point"><b>১০. পরিকল্পনা ও নিয়ন্ত্রণ সহজীকরণ</b> কাজ শুরুর আগেই বৈজ্ঞানিকভাবে পরিকল্পনা করা হয় বলে ব্যবস্থাপকদের জন্য কাজ তদারকি ও নিয়ন্ত্রণ করা সহজ হয়ে যায়।</li>
+  <li class="point"><b>১১. সিদ্ধান্তে বৈজ্ঞানিকতা</b> ব্যক্তিগত অনুমান বা অভিজ্ঞতার বদলে তথ্য ও গবেষণার ভিত্তিতে সিদ্ধান্ত নেওয়া হয় বলে সিদ্ধান্তের নির্ভুলতা বাড়ে এবং ভুল সিদ্ধান্তের সম্ভাবনা কমে।</li>
+  <li class="point"><b>১২. সম্পদের সর্বোত্তম ব্যবহার</b> জনবল, সময়, অর্থ ও উপকরণ — এই সবকিছুর সর্বোত্তম ব্যবহার নিশ্চিত করা হয়, যাতে ন্যূনতম সম্পদে সর্বোচ্চ ফলাফল পাওয়া যায়।</li>
+</ol>
+</div>
+<div class="conclusion-box">
+<div class="sec-label">উপসংহার</div>
+<p>সংক্ষেপে বলা যায়, বৈজ্ঞানিক ব্যবস্থাপনা প্রতিষ্ঠানের উৎপাদনশীলতা, খরচ, মান ও শ্রমিক-ব্যবস্থাপনা সম্পর্কের ক্ষেত্রে ব্যাপক ইতিবাচক প্রভাব ফেলে। সঠিকভাবে প্রয়োগ করা গেলে এই পদ্ধতি একটি প্রতিষ্ঠানকে দীর্ঘমেয়াদে প্রতিযোগিতামূলক সুবিধা এনে দিতে পারে।</p>
+</div>
+<div class="cheat-wrap">
+<div class="sec-label">📋 চিট শীট</div>
+<div class="table-scroll">
+<table class="cheat-table">
+  <thead>
+    <tr>
+      <th>পয়েন্ট</th>
+      <th>ইশারা</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>উৎপাদনশীলতা বৃদ্ধি</td>
+      <td>কাজের সবচেয়ে কার্যকর পদ্ধতি বৈজ্ঞানিকভাবে নির্ধারণ করার ফলে</td>
+    </tr>
+    <tr>
+      <td>খরচ হ্রাস</td>
+      <td>অপ্রয়োজনীয় সময়</td>
+    </tr>
+    <tr>
+      <td>মান উন্নয়ন</td>
+      <td>কাজের প্রতিটি ধাপ মান নির্ধারণ করে করা হয়</td>
+    </tr>
+    <tr>
+      <td>শ্রমিকের দক্ষতা বৃদ্ধি</td>
+      <td>বৈজ্ঞানিক নির্বাচন ও প্রশিক্ষণ পদ্ধতির মাধ্যমে সঠিক কাজের</td>
+    </tr>
+    <tr>
+      <td>মজুরি বৃদ্ধি</td>
+      <td>উৎপাদনশীলতা বৃদ্ধি পাওয়ায় শ্রমিকদের ভিন্নমুখী মজুরি হার (Differential</td>
+    </tr>
+    <tr>
+      <td>সময়ের সাশ্রয়</td>
+      <td>টাইম অ্যান্ড মোশন স্টাডির মাধ্যমে প্রতিটি কাজের জন্য</td>
+    </tr>
+    <tr>
+      <td>শ্রম বিভাজন</td>
+      <td>কাজকে ছোট ছোট অংশে ভাগ করে প্রতিটি শ্রমিককে</td>
+    </tr>
+    <tr>
+      <td>শ্রমিক-ব্যবস্থাপনা সম্পর্ক উন্নয়ন</td>
+      <td>বৈজ্ঞানিক ব্যবস্থাপনা শ্রমিক ও ব্যবস্থাপনার মধ্যে পারস্পরিক সহযোগিতার</td>
+    </tr>
+    <tr>
+      <td>আদর্শিকরণ (Standardization)</td>
+      <td>কাজের পদ্ধতি</td>
+    </tr>
+    <tr>
+      <td>পরিকল্পনা ও নিয়ন্ত্রণ সহজীকরণ</td>
+      <td>কাজ শুরুর আগেই বৈজ্ঞানিকভাবে পরিকল্পনা করা হয় বলে</td>
+    </tr>
+    <tr>
+      <td>সিদ্ধান্তে বৈজ্ঞানিকতা</td>
+      <td>ব্যক্তিগত অনুমান বা অভিজ্ঞতার বদলে তথ্য ও গবেষণার</td>
+    </tr>
+    <tr>
+      <td>সম্পদের সর্বোত্তম ব্যবহার</td>
+      <td>জনবল, সময়</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+        </div>
+      </details>
+
+      <details class="qcard" id="q-9" data-chapter="2">
+        <summary class="qsummary">
+          <span class="qtext">2.5: "আধুনিক ব্যবস্থাপনার জনক হেনরী ফেয়ল।"-কেন?</span>
+          <span class="chev">▼</span>
+        </summary>
+        <div class="qbody">
+<div class="intro-box">
+<div class="sec-label">ভূমিকা</div>
+<p>ব্যবস্থাপনা বিজ্ঞানের ইতিহাসে অনেকেই অবদান রেখেছেন, কিন্তু হেনরী ফেয়লকে বিশেষভাবে "আধুনিক ব্যবস্থাপনার জনক" বলা হয়। তিনি ব্যবস্থাপনাকে একটি সার্বজনীন প্রক্রিয়া হিসেবে উপস্থাপন করেন, যা শুধু কারখানায় নয়, যেকোনো ধরনের প্রতিষ্ঠানে প্রয়োগ করা যায়। তার এই অবদানের কারণেই তাকে এই উপাধি দেওয়া হয়।</p>
+</div>
+<div class="sub-section">
+<h3 class="sub-title">হেনরী ফেয়লকে আধুনিক ব্যবস্থাপনার জনক বলার কারণ</h3>
+<ol class="points-list">
+  <li class="point"><b>১. সার্বজনীন ব্যবস্থাপনা তত্ত্ব</b> ফেয়ল প্রথম ব্যক্তি যিনি দেখান যে ব্যবস্থাপনার নীতিগুলো শুধু ব্যবসা প্রতিষ্ঠানে নয়, সরকারি, সামরিক বা সামাজিক যেকোনো প্রতিষ্ঠানেই প্রযোজ্য। এই সার্বজনীনতাই তার তত্ত্বকে আধুনিক ও গুরুত্বপূর্ণ করে তোলে।</li>
+  <li class="point"><b>২. ব্যবস্থাপনার পাঁচটি কাজ চিহ্নিতকরণ</b> তিনি ব্যবস্থাপনাকে পাঁচটি মূল কাজে ভাগ করেন — পরিকল্পনা, সংগঠন, নির্দেশনা, সমন্বয় ও নিয়ন্ত্রণ। এই কাঠামো আজও ব্যবস্থাপনা শিক্ষার মূল ভিত্তি হিসেবে ব্যবহৃত হয়।</li>
+  <li class="point"><b>৩. চৌদ্দটি নীতি প্রণয়ন</b> ফেয়ল ব্যবস্থাপনার জন্য চৌদ্দটি সাধারণ নীতি (যেমন শ্রম বিভাজন, কর্তৃত্ব ও দায়িত্ব, শৃঙ্খলা, আদেশের ঐক্য) প্রণয়ন করেন, যা প্রতিষ্ঠান পরিচালনার ক্ষেত্রে দিকনির্দেশনা হিসেবে কাজ করে।</li>
+  <li class="point"><b>৪. উপরের স্তর থেকে দৃষ্টিভঙ্গি</b> টেইলর যেখানে কারখানার শ্রমিক পর্যায়ের কাজ নিয়ে গবেষণা করেছিলেন, ফেয়ল সেখানে শীর্ষ ব্যবস্থাপনার দৃষ্টিকোণ থেকে প্রতিষ্ঠান পরিচালনার বিষয়টি বিশ্লেষণ করেন। এতে ব্যবস্থাপনার একটি সম্পূর্ণ ও ব্যাপক চিত্র পাওয়া যায়।</li>
+  <li class="point"><b>৫. ব্যবস্থাপনাকে শেখার বিষয় হিসেবে প্রতিষ্ঠা</b> তিনি প্রথম দাবি করেন যে ব্যবস্থাপনা একটি দক্ষতা, যা প্রশিক্ষণ ও শিক্ষার মাধ্যমে অর্জন করা সম্ভব — এটি কোনো জন্মগত গুণ নয়। এই ধারণা ব্যবস্থাপনা শিক্ষার ভিত্তি স্থাপন করে।</li>
+  <li class="point"><b>৬. সাংগঠনিক কাঠামোর গুরুত্ব</b> তিনি প্রতিষ্ঠানের সুশৃঙ্খল কাঠামো, দায়িত্ব বণ্টন ও কর্তৃত্বের সঠিক প্রবাহের ওপর গুরুত্ব দেন, যা আধুনিক প্রতিষ্ঠানের সাংগঠনিক নকশার ভিত্তি হয়ে ওঠে।</li>
+  <li class="point"><b>৭. দীর্ঘমেয়াদী প্রভাব</b> ফেয়লের তত্ত্ব ও নীতিগুলো আজও আধুনিক ব্যবস্থাপনা শিক্ষা, ব্যবসায় প্রশাসন ও প্রাতিষ্ঠানিক গবেষণায় ব্যাপকভাবে ব্যবহৃত হয়, যা প্রমাণ করে তার তত্ত্বের কালোত্তীর্ণতা।</li>
+</ol>
+</div>
+<div class="conclusion-box">
+<div class="sec-label">উপসংহার</div>
+<p>সংক্ষেপে বলা যায়, হেনরী ফেয়ল ব্যবস্থাপনাকে একটি সার্বজনীন, শিক্ষণীয় ও কাঠামোবদ্ধ প্রক্রিয়া হিসেবে প্রতিষ্ঠিত করেন, যা আজও আধুনিক ব্যবস্থাপনার মূল ভিত্তি হিসেবে বিবেচিত হয়। এই কারণেই তাকে আধুনিক ব্যবস্থাপনার জনক বলা হয়।</p>
+</div>
+<div class="cheat-wrap">
+<div class="sec-label">📋 চিট শীট</div>
+<div class="table-scroll">
+<table class="cheat-table">
+  <thead>
+    <tr>
+      <th>পয়েন্ট</th>
+      <th>ইশারা</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>সার্বজনীন ব্যবস্থাপনা তত্ত্ব</td>
+      <td>ফেয়ল প্রথম ব্যক্তি যিনি দেখান যে ব্যবস্থাপনার নীতিগুলো</td>
+    </tr>
+    <tr>
+      <td>ব্যবস্থাপনার পাঁচটি কাজ চিহ্নিতকরণ</td>
+      <td>তিনি ব্যবস্থাপনাকে পাঁচটি মূল কাজে ভাগ করেন</td>
+    </tr>
+    <tr>
+      <td>চৌদ্দটি নীতি প্রণয়ন</td>
+      <td>ফেয়ল ব্যবস্থাপনার জন্য চৌদ্দটি সাধারণ নীতি (যেমন শ্রম</td>
+    </tr>
+    <tr>
+      <td>উপরের স্তর থেকে দৃষ্টিভঙ্গি</td>
+      <td>টেইলর যেখানে কারখানার শ্রমিক পর্যায়ের কাজ নিয়ে গবেষণা</td>
+    </tr>
+    <tr>
+      <td>ব্যবস্থাপনাকে শেখার বিষয় হিসেবে প্রতিষ্ঠা</td>
+      <td>তিনি প্রথম দাবি করেন যে ব্যবস্থাপনা একটি দক্ষতা</td>
+    </tr>
+    <tr>
+      <td>সাংগঠনিক কাঠামোর গুরুত্ব</td>
+      <td>তিনি প্রতিষ্ঠানের সুশৃঙ্খল কাঠামো</td>
+    </tr>
+    <tr>
+      <td>দীর্ঘমেয়াদী প্রভাব</td>
+      <td>ফেয়লের তত্ত্ব ও নীতিগুলো আজও আধুনিক ব্যবস্থাপনা শিক্ষা</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+        </div>
+      </details>
+
+      <details class="qcard" id="q-10" data-chapter="2">
+        <summary class="qsummary">
+          <span class="qtext">2.6: গতানুগতিক ব্যবস্থাপনা ও বৈজ্ঞানিক ব্যবস্থাপনার মধ্যে পার্থক্য দেখাও।</span>
+          <span class="chev">▼</span>
+        </summary>
+        <div class="qbody">
+<div class="intro-box">
+<div class="sec-label">ভূমিকা</div>
+<p>শিল্প বিপ্লবের আগে প্রতিষ্ঠান পরিচালিত হতো অভিজ্ঞতা, অনুমান ও প্রথাগত নিয়মের ওপর ভিত্তি করে, যাকে বলা হয় গতানুগতিক ব্যবস্থাপনা। কিন্তু ফ্রেডরিক টেইলর এই পদ্ধতির পরিবর্তে যুক্তি ও গবেষণাভিত্তিক একটি নতুন পদ্ধতি প্রবর্তন করেন, যাকে বলা হয় বৈজ্ঞানিক ব্যবস্থাপনা। এই দুই পদ্ধতির মধ্যে চিন্তাভাবনা, কার্যপ্রণালী ও ফলাফলের দিক থেকে উল্লেখযোগ্য পার্থক্য রয়েছে।</p>
+</div>
+<div class="sub-section">
+<h3 class="sub-title">গতানুগতিক ব্যবস্থাপনা</h3>
+<p>গতানুগতিক ব্যবস্থাপনা হলো এমন একটি পদ্ধতি, যেখানে কাজ পরিচালিত হয় পুরনো রীতি, ব্যক্তিগত অভিজ্ঞতা ও অনুমানের ভিত্তিতে, কোনো বৈজ্ঞানিক গবেষণা বা বিশ্লেষণ ছাড়াই। এখানে ব্যবস্থাপক নিজের বিচার-বুদ্ধি অনুযায়ী সিদ্ধান্ত নেন, কোনো নির্দিষ্ট মানদণ্ড অনুসরণ করা হয় না। উদাহরণস্বরূপ, একজন কারখানা মালিক যদি শ্রমিকের কাজের সময় নির্ধারণ না করে শুধু নিজের অভিজ্ঞতার ভিত্তিতে কাজ ভাগ করে দেন, তাহলে সেটি গতানুগতিক ব্যবস্থাপনার উদাহরণ। এই পদ্ধতিতে উৎপাদনশীলতা কম থাকে এবং শ্রমিক-মালিক সম্পর্কেও প্রায়ই দ্বন্দ্ব দেখা যায়।</p>
+</div>
+<div class="sub-section">
+<h3 class="sub-title">বৈজ্ঞানিক ব্যবস্থাপনা</h3>
+<p>বৈজ্ঞানিক ব্যবস্থাপনা হলো এমন একটি পদ্ধতি, যেখানে কাজের প্রতিটি ধাপ বৈজ্ঞানিক গবেষণা, পর্যবেক্ষণ ও বিশ্লেষণের মাধ্যমে নির্ধারণ করা হয়, যাতে ন্যূনতম সময় ও শ্রমে সর্বোচ্চ উৎপাদন অর্জন করা যায়। এখানে টাইম অ্যান্ড মোশন স্টাডির মাধ্যমে সবচেয়ে কার্যকর কাজের পদ্ধতি নির্ধারণ করা হয় এবং শ্রমিকদের বৈজ্ঞানিকভাবে নির্বাচন ও প্রশিক্ষণ দেওয়া হয়। উদাহরণস্বরূপ, একটি কারখানায় গবেষণা করে ঠিক করা হয় একজন শ্রমিক একটি নির্দিষ্ট কাজ কতক্ষণে সম্পন্ন করতে পারবেন, এবং সেই অনুযায়ী কাজ বণ্টন করা হয়। এই পদ্ধতিতে উৎপাদনশীলতা ও দক্ষতা উভয়ই বৃদ্ধি পায়।</p>
+</div>
+<div class="cheat-wrap compare-wrap">
+<div class="sec-label">📊 তুলনামূলক টেবিল</div>
+<div class="table-scroll">
+<table class="cheat-table">
+  <thead>
+    <tr>
+      <th>বিষয়</th>
+      <th>গতানুগতিক ব্যবস্থাপনা</th>
+      <th>বৈজ্ঞানিক ব্যবস্থাপনা</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>ভিত্তি</td>
+      <td>অভিজ্ঞতা ও অনুমান</td>
+      <td>গবেষণা ও বিশ্লেষণ</td>
+    </tr>
+    <tr>
+      <td>সিদ্ধান্ত গ্রহণ</td>
+      <td>ব্যক্তিগত বিচার-বুদ্ধির ওপর নির্ভরশীল</td>
+      <td>তথ্য ও পরীক্ষার ওপর নির্ভরশীল</td>
+    </tr>
+    <tr>
+      <td>কাজের পদ্ধতি</td>
+      <td>নির্দিষ্ট মানদণ্ড নেই</td>
+      <td>টাইম অ্যান্ড মোশন স্টাডির মাধ্যমে মানদণ্ড নির্ধারিত</td>
+    </tr>
+    <tr>
+      <td>শ্রমিক নির্বাচন</td>
+      <td>নির্দিষ্ট নিয়ম ছাড়াই</td>
+      <td>বৈজ্ঞানিক পদ্ধতিতে যোগ্যতা যাচাই করে</td>
+    </tr>
+    <tr>
+      <td>মজুরি ব্যবস্থা</td>
+      <td>নির্দিষ্ট হারে বা প্রথাগতভাবে</td>
+      <td>উৎপাদনের ভিত্তিতে ভিন্নমুখী হার (Differential Rate)</td>
+    </tr>
+    <tr>
+      <td>উৎপাদনশীলতা</td>
+      <td>তুলনামূলক কম</td>
+      <td>তুলনামূলক বেশি</td>
+    </tr>
+    <tr>
+      <td>শ্রমিক-ব্যবস্থাপনা সম্পর্ক</td>
+      <td>প্রায়ই দ্বন্দ্বপূর্ণ</td>
+      <td>সহযোগিতামূলক</td>
+    </tr>
+    <tr>
+      <td>দায়িত্ব বণ্টন</td>
+      <td>স্পষ্ট বিভাজন থাকে না</td>
+      <td>ব্যবস্থাপক ও শ্রমিকের মধ্যে দায়িত্ব স্পষ্টভাবে বিভক্ত</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+<div class="conclusion-box">
+<div class="sec-label">উপসংহার</div>
+<p>সংক্ষেপে বলা যায়, গতানুগতিক ব্যবস্থাপনা অভিজ্ঞতা ও অনুমাননির্ভর হলেও বৈজ্ঞানিক ব্যবস্থাপনা যুক্তি, গবেষণা ও বিশ্লেষণের ভিত্তিতে পরিচালিত হয়। এই কারণেই বৈজ্ঞানিক ব্যবস্থাপনা প্রতিষ্ঠানের উৎপাদনশীলতা ও দক্ষতা বৃদ্ধিতে অনেক বেশি কার্যকর ভূমিকা রাখে।</p>
+</div>
+<div class="cheat-wrap">
+<div class="sec-label">📋 চিট শীট</div>
+<div class="table-scroll">
+<table class="cheat-table">
+  <thead>
+    <tr>
+      <th>পয়েন্ট</th>
+      <th>ইশারা</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>ভিত্তি</td>
+      <td>অভিজ্ঞতা ও অনুমান / গবেষণা ও বিশ্লেষণ</td>
+    </tr>
+    <tr>
+      <td>সিদ্ধান্ত গ্রহণ</td>
+      <td>ব্যক্তিগত বিচার-বুদ্ধির ওপর নির্ভরশীল / তথ্য ও পরীক্ষার ওপর</td>
+    </tr>
+    <tr>
+      <td>কাজের পদ্ধতি</td>
+      <td>নির্দিষ্ট মানদণ্ড নেই / টাইম অ্যান্ড মোশন স্টাডির মাধ্যমে</td>
+    </tr>
+    <tr>
+      <td>শ্রমিক নির্বাচন</td>
+      <td>নির্দিষ্ট নিয়ম ছাড়াই / বৈজ্ঞানিক পদ্ধতিতে যোগ্যতা যাচাই করে</td>
+    </tr>
+    <tr>
+      <td>মজুরি ব্যবস্থা</td>
+      <td>নির্দিষ্ট হারে বা প্রথাগতভাবে / উৎপাদনের ভিত্তিতে ভিন্নমুখী হার</td>
+    </tr>
+    <tr>
+      <td>উৎপাদনশীলতা</td>
+      <td>তুলনামূলক কম / তুলনামূলক বেশি</td>
+    </tr>
+    <tr>
+      <td>শ্রমিক-ব্যবস্থাপনা সম্পর্ক</td>
+      <td>প্রায়ই দ্বন্দ্বপূর্ণ / সহযোগিতামূলক</td>
+    </tr>
+    <tr>
+      <td>দায়িত্ব বণ্টন</td>
+      <td>স্পষ্ট বিভাজন থাকে না / ব্যবস্থাপক ও শ্রমিকের মধ্যে</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+        </div>
+      </details>
+
+      <details class="qcard" id="q-11" data-chapter="2">
+        <summary class="qsummary">
+          <span class="qtext">2.7: আদেশের ঐক্য ও নির্দেশনার ঐক্যের মধ্যে পার্থক্য দেখাও।</span>
+          <span class="chev">▼</span>
+        </summary>
+        <div class="qbody">
+<div class="intro-box">
+<div class="sec-label">ভূমিকা</div>
+<p>হেনরী ফেয়লের প্রণীত চৌদ্দটি ব্যবস্থাপনা নীতির মধ্যে "আদেশের ঐক্য" ও "নির্দেশনার ঐক্য" দুটি গুরুত্বপূর্ণ নীতি। নাম প্রায় কাছাকাছি হওয়ায় এই দুটি ধারণা প্রায়ই একে অপরের সাথে গুলিয়ে ফেলা হয়, কিন্তু এদের অর্থ ও প্রয়োগক্ষেত্র সম্পূর্ণ ভিন্ন। একটি সম্পর্কযুক্ত কর্তৃত্বের সাথে, অন্যটি সম্পর্কযুক্ত লক্ষ্য ও পরিকল্পনার সাথে।</p>
+</div>
+<div class="sub-section">
+<h3 class="sub-title">আদেশের ঐক্য (Unity of Command)</h3>
+<p>আদেশের ঐক্য বলতে বোঝায় একজন কর্মচারী শুধুমাত্র একজন ঊর্ধ্বতন কর্মকর্তার কাছ থেকে আদেশ গ্রহণ করবে এবং তার কাছেই জবাবদিহি করবে। একাধিক ঊর্ধ্বতনের কাছ থেকে আদেশ পেলে কর্মচারীর মধ্যে বিভ্রান্তি সৃষ্টি হয় এবং দায়িত্ব নির্ধারণ কঠিন হয়ে পড়ে। উদাহরণস্বরূপ, একজন সেলস এক্সিকিউটিভ শুধু সেলস ম্যানেজারের কাছ থেকেই নির্দেশ পাবেন, অন্য কোনো বিভাগের ম্যানেজারের কাছ থেকে নয় — এটাই আদেশের ঐক্য।</p>
+</div>
+<div class="sub-section">
+<h3 class="sub-title">নির্দেশনার ঐক্য (Unity of Direction)</h3>
+<p>নির্দেশনার ঐক্য বলতে বোঝায় একই লক্ষ্য অর্জনের জন্য পরিচালিত সকল কার্যক্রমের একটিমাত্র পরিকল্পনা ও একজন নেতা থাকা উচিত। অর্থাৎ, একই উদ্দেশ্যে কাজ করা সকল বিভাগ বা কার্যক্রম একটি সমন্বিত পরিকল্পনার অধীনে পরিচালিত হবে, যাতে প্রচেষ্টার মধ্যে দ্বৈততা বা বিভ্রান্তি না হয়। উদাহরণস্বরূপ, একটি কোম্পানির নতুন পণ্য বাজারজাতকরণের জন্য বিপণন বিভাগের সকল উপ-কার্যক্রম (বিজ্ঞাপন, প্রচার, বিক্রয়) একটি একক পরিকল্পনার অধীনে পরিচালিত হবে — এটাই নির্দেশনার ঐক্য।</p>
+</div>
+<div class="cheat-wrap compare-wrap">
+<div class="sec-label">📊 তুলনামূলক টেবিল</div>
+<div class="table-scroll">
+<table class="cheat-table">
+  <thead>
+    <tr>
+      <th>বিষয়</th>
+      <th>আদেশের ঐক্য</th>
+      <th>নির্দেশনার ঐক্য</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>সম্পর্কিত বিষয়</td>
+      <td>কর্তৃত্ব ও জবাবদিহিতার সাথে সম্পর্কিত</td>
+      <td>লক্ষ্য ও পরিকল্পনার সাথে সম্পর্কিত</td>
+    </tr>
+    <tr>
+      <td>মূল বিষয়বস্তু</td>
+      <td>একজন কর্মচারী একজন ঊর্ধ্বতনের কাছ থেকে আদেশ পাবে</td>
+      <td>একই লক্ষ্যে পরিচালিত কাজের একটিমাত্র পরিকল্পনা থাকবে</td>
+    </tr>
+    <tr>
+      <td>প্রয়োগ ক্ষেত্র</td>
+      <td>ব্যক্তি পর্যায়ে প্রযোজ্য</td>
+      <td>কার্যক্রম বা বিভাগ পর্যায়ে প্রযোজ্য</td>
+    </tr>
+    <tr>
+      <td>উদ্দেশ্য</td>
+      <td>বিভ্রান্তি ও দ্বৈত অধীনতা রোধ করা</td>
+      <td>প্রচেষ্টার সমন্বয় ও পুনরাবৃত্তি রোধ করা</td>
+    </tr>
+    <tr>
+      <td>লঙ্ঘনের ফল</td>
+      <td>কর্মচারীর মধ্যে দ্বিধা ও শৃঙ্খলাহীনতা দেখা দেয়</td>
+      <td>কার্যক্রমে সাংঘর্ষিকতা ও সম্পদের অপচয় হয়</td>
+    </tr>
+    <tr>
+      <td>সংগঠনের সাথে সম্পর্ক</td>
+      <td>সাংগঠনিক কাঠামো (Organization Structure) সম্পর্কিত</td>
+      <td>পরিকল্পনা প্রক্রিয়া (Planning Process) সম্পর্কিত</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+<div class="conclusion-box">
+<div class="sec-label">উপসংহার</div>
+<p>সংক্ষেপে বলা যায়, আদেশের ঐক্য নিশ্চিত করে একজন কর্মচারী কার কাছে জবাবদিহি করবে, আর নির্দেশনার ঐক্য নিশ্চিত করে একই লক্ষ্যে পরিচালিত সকল কার্যক্রম একটি পরিকল্পনার অধীনে চলবে। দুটি নীতিই প্রতিষ্ঠানে শৃঙ্খলা ও সমন্বয় বজায় রাখতে গুরুত্বপূর্ণ ভূমিকা পালন করে।</p>
+</div>
+<div class="cheat-wrap">
+<div class="sec-label">📋 চিট শীট</div>
+<div class="table-scroll">
+<table class="cheat-table">
+  <thead>
+    <tr>
+      <th>পয়েন্ট</th>
+      <th>ইশারা</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>সম্পর্কিত বিষয়</td>
+      <td>কর্তৃত্ব ও জবাবদিহিতার সাথে সম্পর্কিত / লক্ষ্য ও পরিকল্পনার</td>
+    </tr>
+    <tr>
+      <td>মূল বিষয়বস্তু</td>
+      <td>একজন কর্মচারী একজন ঊর্ধ্বতনের কাছ থেকে আদেশ পাবে /</td>
+    </tr>
+    <tr>
+      <td>প্রয়োগ ক্ষেত্র</td>
+      <td>ব্যক্তি পর্যায়ে প্রযোজ্য / কার্যক্রম বা বিভাগ পর্যায়ে প্রযোজ্য</td>
+    </tr>
+    <tr>
+      <td>উদ্দেশ্য</td>
+      <td>বিভ্রান্তি ও দ্বৈত অধীনতা রোধ করা / প্রচেষ্টার সমন্বয়</td>
+    </tr>
+    <tr>
+      <td>লঙ্ঘনের ফল</td>
+      <td>কর্মচারীর মধ্যে দ্বিধা ও শৃঙ্খলাহীনতা দেখা দেয় / কার্যক্রমে</td>
+    </tr>
+    <tr>
+      <td>সংগঠনের সাথে সম্পর্ক</td>
+      <td>সাংগঠনিক কাঠামো (Organization Structure) সম্পর্কিত / পরিকল্পনা প্রক্রিয়া (Planning</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+        </div>
+      </details>
+
+      <details class="qcard" id="q-12" data-chapter="3">
+        <summary class="qsummary">
+          <span class="qtext">3.1: পরিকল্পনা কী?</span>
+          <span class="chev">▼</span>
+        </summary>
+        <div class="qbody">
+<div class="intro-box">
+<div class="sec-label">ভূমিকা</div>
+<p>প্রতিষ্ঠানের যেকোনো কাজ শুরু করার আগে ভবিষ্যতে কী করতে হবে, কীভাবে করতে হবে তা আগে থেকে ঠিক করে নেওয়া প্রয়োজন। এই কাজটিই ব্যবস্থাপনার প্রথম ও সবচেয়ে গুরুত্বপূর্ণ ধাপ, যাকে বলা হয় পরিকল্পনা। পরিকল্পনা ছাড়া কোনো প্রতিষ্ঠানের পক্ষে সুশৃঙ্খলভাবে কাজ করা সম্ভব হয় না।</p>
+</div>
+<div class="sub-section">
+<h3 class="sub-title">সংজ্ঞা</h3>
+<p>পরিকল্পনা হলো ব্যবস্থাপনার এমন একটি প্রাথমিক কাজ, যার মাধ্যমে প্রতিষ্ঠানের ভবিষ্যৎ লক্ষ্য নির্ধারণ করা হয় এবং সেই লক্ষ্য অর্জনের জন্য সর্বোত্তম পথ বা উপায় আগে থেকে ঠিক করে রাখা হয়। সহজ ভাষায় বলা যায়, পরিকল্পনা হলো "কী করতে হবে, কীভাবে করতে হবে, কখন করতে হবে এবং কে করবে" — এসব প্রশ্নের আগাম উত্তর ঠিক করে রাখার প্রক্রিয়া। উদাহরণস্বরূপ, একটি কোম্পানি আগামী বছরে কতটি পণ্য উৎপাদন করবে, কী পরিমাণ বাজেট লাগবে, কোন বাজারে বিক্রি করবে — এসব আগে থেকে ঠিক করে রাখাই পরিকল্পনা।</p>
+</div>
+<div class="sub-section">
+<h3 class="sub-title">পরিকল্পনার বৈশিষ্ট্যসমূহ</h3>
+<ol class="points-list">
+  <li class="point"><b>১. ভবিষ্যৎমুখী কাজ</b> পরিকল্পনা সবসময় ভবিষ্যতকে কেন্দ্র করে করা হয়। এটি ভবিষ্যতে কী ঘটতে পারে তা অনুমান করে সে অনুযায়ী প্রস্তুতি নেওয়ার প্রক্রিয়া।</li>
+  <li class="point"><b>২. প্রাথমিক কাজ</b> ব্যবস্থাপনার পাঁচটি কাজের মধ্যে পরিকল্পনা সবার প্রথমে করা হয়, কারণ বাকি সব কাজ (সংগঠন, নির্দেশনা, নিয়ন্ত্রণ) পরিকল্পনার ওপর ভিত্তি করেই পরিচালিত হয়।</li>
+  <li class="point"><b>৩. লক্ষ্য নির্ধারণমুখী</b> প্রতিটি পরিকল্পনা একটি নির্দিষ্ট লক্ষ্য অর্জনের জন্য তৈরি করা হয়। লক্ষ্য ছাড়া পরিকল্পনার কোনো অর্থ থাকে না।</li>
+  <li class="point"><b>৪. চিন্তাভাবনার প্রক্রিয়া</b> পরিকল্পনা মূলত একটি বুদ্ধিবৃত্তিক ও চিন্তাভাবনার কাজ, যেখানে বিভিন্ন সম্ভাবনা বিশ্লেষণ করে সবচেয়ে ভালো সিদ্ধান্তে পৌঁছানো হয়।</li>
+  <li class="point"><b>৫. ধারাবাহিক প্রক্রিয়া</b> পরিকল্পনা একবার করেই শেষ হয়ে যায় না, বরং পরিবেশ ও পরিস্থিতির পরিবর্তনের সাথে সাথে এটি নিয়মিত পর্যালোচনা ও পরিবর্তন করতে হয়।</li>
+  <li class="point"><b>৬. সর্বস্তরে প্রযোজ্য</b> প্রতিষ্ঠানের উচ্চ, মধ্যম ও নিম্ন — সব স্তরের ব্যবস্থাপকদেরই পরিকল্পনা করতে হয়, তবে পরিকল্পনার ধরন ও পরিসর স্তরভেদে ভিন্ন হয়।</li>
+  <li class="point"><b>৭. নমনীয়তা</b> একটি ভালো পরিকল্পনা নমনীয় হয়, যাতে পরিস্থিতি পরিবর্তন হলে প্রয়োজনমতো পরিকল্পনায় পরিবর্তন আনা যায়।</li>
+</ol>
+</div>
+<div class="conclusion-box">
+<div class="sec-label">উপসংহার</div>
+<p>সংক্ষেপে বলা যায়, পরিকল্পনা হলো ব্যবস্থাপনার ভিত্তি, যা প্রতিষ্ঠানকে তার লক্ষ্য অর্জনের জন্য সঠিক পথ দেখায়। পরিকল্পনা ছাড়া প্রতিষ্ঠানের অন্য কোনো কাজ সুষ্ঠুভাবে পরিচালনা করা সম্ভব নয়।</p>
+</div>
+<div class="cheat-wrap">
+<div class="sec-label">📋 চিট শীট</div>
+<div class="table-scroll">
+<table class="cheat-table">
+  <thead>
+    <tr>
+      <th>পয়েন্ট</th>
+      <th>ইশারা</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>ভবিষ্যৎমুখী কাজ</td>
+      <td>পরিকল্পনা সবসময় ভবিষ্যতকে কেন্দ্র করে করা হয়। এটি</td>
+    </tr>
+    <tr>
+      <td>প্রাথমিক কাজ</td>
+      <td>ব্যবস্থাপনার পাঁচটি কাজের মধ্যে পরিকল্পনা সবার প্রথমে করা</td>
+    </tr>
+    <tr>
+      <td>লক্ষ্য নির্ধারণমুখী</td>
+      <td>প্রতিটি পরিকল্পনা একটি নির্দিষ্ট লক্ষ্য অর্জনের জন্য তৈরি</td>
+    </tr>
+    <tr>
+      <td>চিন্তাভাবনার প্রক্রিয়া</td>
+      <td>পরিকল্পনা মূলত একটি বুদ্ধিবৃত্তিক ও চিন্তাভাবনার কাজ</td>
+    </tr>
+    <tr>
+      <td>ধারাবাহিক প্রক্রিয়া</td>
+      <td>পরিকল্পনা একবার করেই শেষ হয়ে যায় না</td>
+    </tr>
+    <tr>
+      <td>সর্বস্তরে প্রযোজ্য</td>
+      <td>প্রতিষ্ঠানের উচ্চ</td>
+    </tr>
+    <tr>
+      <td>নমনীয়তা</td>
+      <td>একটি ভালো পরিকল্পনা নমনীয় হয়</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+        </div>
+      </details>
+
+      <details class="qcard" id="q-13" data-chapter="3">
+        <summary class="qsummary">
+          <span class="qtext">3.3: একটি উত্তম পরিকল্পনার বৈশিষ্ট্য লেখ।</span>
+          <span class="chev">▼</span>
+        </summary>
+        <div class="qbody">
+<div class="intro-box">
+<div class="sec-label">ভূমিকা</div>
+<p>শুধু পরিকল্পনা করলেই চলবে না, পরিকল্পনাটি কার্যকর ও ফলপ্রসূ হতে হলে এতে কিছু নির্দিষ্ট গুণাবলী থাকা প্রয়োজন। একটি দুর্বল পরিকল্পনা প্রতিষ্ঠানের সময়, অর্থ ও শ্রম নষ্ট করতে পারে, তাই একটি উত্তম পরিকল্পনার বৈশিষ্ট্য জানা অত্যন্ত গুরুত্বপূর্ণ।</p>
+</div>
+<div class="sub-section">
+<h3 class="sub-title">একটি উত্তম পরিকল্পনার বৈশিষ্ট্য</h3>
+<ol class="points-list">
+  <li class="point"><b>১. স্পষ্ট লক্ষ্য</b> একটি উত্তম পরিকল্পনার সবচেয়ে গুরুত্বপূর্ণ বৈশিষ্ট্য হলো এর লক্ষ্য স্পষ্ট ও নির্দিষ্ট হতে হবে। অস্পষ্ট লক্ষ্য নিয়ে তৈরি পরিকল্পনা বাস্তবায়ন করা কঠিন হয়ে পড়ে।</li>
+  <li class="point"><b>২. সহজ ও বোধগম্য</b> পরিকল্পনা এমনভাবে তৈরি করতে হবে যাতে প্রতিষ্ঠানের সকল কর্মী তা সহজে বুঝতে পারে। জটিল ভাষায় লেখা পরিকল্পনা বাস্তবায়নে বিভ্রান্তি সৃষ্টি করে।</li>
+  <li class="point"><b>৩. নমনীয়তা</b> পরিস্থিতি পরিবর্তনের সাথে সাথে পরিকল্পনায় প্রয়োজনীয় পরিবর্তন আনার সুযোগ থাকতে হবে। অতিরিক্ত কঠোর পরিকল্পনা অপ্রত্যাশিত পরিস্থিতিতে ব্যর্থ হতে পারে।</li>
+  <li class="point"><b>৪. বাস্তবভিত্তিক</b> পরিকল্পনা প্রতিষ্ঠানের প্রকৃত সামর্থ্য, সম্পদ ও পরিবেশের সাথে সামঞ্জস্যপূর্ণ হতে হবে। অবাস্তব লক্ষ্য নিয়ে তৈরি পরিকল্পনা বাস্তবায়ন করা সম্ভব হয় না।</li>
+  <li class="point"><b>৫. অর্থনৈতিক দিক থেকে সাশ্রয়ী</b> একটি উত্তম পরিকল্পনা ন্যূনতম খরচে সর্বোচ্চ ফলাফল অর্জনের চেষ্টা করে। অতিরিক্ত ব্যয়বহুল পরিকল্পনা প্রতিষ্ঠানের জন্য বোঝা হয়ে দাঁড়াতে পারে।</li>
+  <li class="point"><b>৬. সময়োপযোগী</b> পরিকল্পনা সঠিক সময়ে প্রণয়ন ও বাস্তবায়ন করতে হবে। সময়মতো পরিকল্পনা না করলে বা দেরিতে বাস্তবায়ন করলে তার কার্যকারিতা কমে যায়।</li>
+  <li class="point"><b>৭. পরিমাপযোগ্য</b> একটি ভালো পরিকল্পনার লক্ষ্য এমনভাবে নির্ধারণ করতে হবে যাতে তার অগ্রগতি ও সাফল্য পরিমাপ করা যায়। পরিমাপযোগ্য না হলে পরিকল্পনা কতটা কার্যকর হলো তা বোঝা যায় না।</li>
+  <li class="point"><b>৮. স্থিতিস্থাপকতা</b> পরিকল্পনায় সামান্য পরিবর্তন হলেও যেন সম্পূর্ণ পরিকল্পনা ভেঙে না পড়ে, এমন সহনশীলতা থাকতে হবে।</li>
+  <li class="point"><b>৯. সমন্বিত পদ্ধতি</b> প্রতিষ্ঠানের বিভিন্ন বিভাগের পরিকল্পনার মধ্যে সমন্বয় থাকতে হবে, যাতে একটি বিভাগের পরিকল্পনা অন্য বিভাগের কাজে বাধা সৃষ্টি না করে।</li>
+  <li class="point"><b>১০. অংশগ্রহণমূলক</b> পরিকল্পনা তৈরির সময় সংশ্লিষ্ট কর্মী ও বিভাগের মতামত নেওয়া উচিত। এতে পরিকল্পনা বাস্তবসম্মত হয় এবং কর্মীরা এটি বাস্তবায়নে বেশি আগ্রহী হয়।</li>
+  <li class="point"><b>১১. অগ্রাধিকারভিত্তিক</b> কোন কাজ আগে করতে হবে আর কোনটি পরে, তা পরিকল্পনায় স্পষ্টভাবে উল্লেখ থাকতে হবে, যাতে সম্পদের সঠিক ব্যবহার নিশ্চিত হয়।</li>
+  <li class="point"><b>১২. ঝুঁকি বিশ্লেষণ</b> একটি উত্তম পরিকল্পনায় সম্ভাব্য ঝুঁকি ও বাধাগুলো আগে থেকে চিহ্নিত করে সেগুলো মোকাবিলার বিকল্প ব্যবস্থা রাখতে হয়।</li>
+  <li class="point"><b>১৩. স্থায়িত্ব</b> পরিকল্পনা এমনভাবে তৈরি করতে হবে যাতে তা দীর্ঘ সময় ধরে প্রাসঙ্গিক থাকে এবং ঘন ঘন পরিবর্তনের প্রয়োজন না পড়ে।</li>
+  <li class="point"><b>১৪. সরলতা</b> পরিকল্পনার কাঠামো যত সহজ হবে, তত সহজে তা বাস্তবায়ন করা যাবে। অহেতুক জটিলতা পরিকল্পনার কার্যকারিতা কমিয়ে দেয়।</li>
+</ol>
+</div>
+<div class="conclusion-box">
+<div class="sec-label">উপসংহার</div>
+<p>সংক্ষেপে বলা যায়, একটি উত্তম পরিকল্পনা হতে হবে স্পষ্ট, বাস্তবভিত্তিক, নমনীয় ও পরিমাপযোগ্য। এই বৈশিষ্ট্যগুলো থাকলেই একটি পরিকল্পনা প্রতিষ্ঠানকে তার লক্ষ্য অর্জনে সঠিকভাবে সাহায্য করতে পারে।</p>
+</div>
+<div class="cheat-wrap">
+<div class="sec-label">📋 চিট শীট</div>
+<div class="table-scroll">
+<table class="cheat-table">
+  <thead>
+    <tr>
+      <th>পয়েন্ট</th>
+      <th>ইশারা</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>স্পষ্ট লক্ষ্য</td>
+      <td>একটি উত্তম পরিকল্পনার সবচেয়ে গুরুত্বপূর্ণ বৈশিষ্ট্য হলো এর</td>
+    </tr>
+    <tr>
+      <td>সহজ ও বোধগম্য</td>
+      <td>পরিকল্পনা এমনভাবে তৈরি করতে হবে যাতে প্রতিষ্ঠানের সকল</td>
+    </tr>
+    <tr>
+      <td>নমনীয়তা</td>
+      <td>পরিস্থিতি পরিবর্তনের সাথে সাথে পরিকল্পনায় প্রয়োজনীয় পরিবর্তন আনার</td>
+    </tr>
+    <tr>
+      <td>বাস্তবভিত্তিক</td>
+      <td>পরিকল্পনা প্রতিষ্ঠানের প্রকৃত সামর্থ্য</td>
+    </tr>
+    <tr>
+      <td>অর্থনৈতিক দিক থেকে সাশ্রয়ী</td>
+      <td>একটি উত্তম পরিকল্পনা ন্যূনতম খরচে সর্বোচ্চ ফলাফল অর্জনের</td>
+    </tr>
+    <tr>
+      <td>সময়োপযোগী</td>
+      <td>পরিকল্পনা সঠিক সময়ে প্রণয়ন ও বাস্তবায়ন করতে হবে।</td>
+    </tr>
+    <tr>
+      <td>পরিমাপযোগ্য</td>
+      <td>একটি ভালো পরিকল্পনার লক্ষ্য এমনভাবে নির্ধারণ করতে হবে</td>
+    </tr>
+    <tr>
+      <td>স্থিতিস্থাপকতা</td>
+      <td>পরিকল্পনায় সামান্য পরিবর্তন হলেও যেন সম্পূর্ণ পরিকল্পনা ভেঙে</td>
+    </tr>
+    <tr>
+      <td>সমন্বিত পদ্ধতি</td>
+      <td>প্রতিষ্ঠানের বিভিন্ন বিভাগের পরিকল্পনার মধ্যে সমন্বয় থাকতে হবে</td>
+    </tr>
+    <tr>
+      <td>অংশগ্রহণমূলক</td>
+      <td>পরিকল্পনা তৈরির সময় সংশ্লিষ্ট কর্মী ও বিভাগের মতামত</td>
+    </tr>
+    <tr>
+      <td>অগ্রাধিকারভিত্তিক</td>
+      <td>কোন কাজ আগে করতে হবে আর কোনটি পরে</td>
+    </tr>
+    <tr>
+      <td>ঝুঁকি বিশ্লেষণ</td>
+      <td>একটি উত্তম পরিকল্পনায় সম্ভাব্য ঝুঁকি ও বাধাগুলো আগে</td>
+    </tr>
+    <tr>
+      <td>স্থায়িত্ব</td>
+      <td>পরিকল্পনা এমনভাবে তৈরি করতে হবে যাতে তা দীর্ঘ</td>
+    </tr>
+    <tr>
+      <td>সরলতা</td>
+      <td>পরিকল্পনার কাঠামো যত সহজ হবে</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+        </div>
+      </details>
+
+      <details class="qcard" id="q-14" data-chapter="3">
+        <summary class="qsummary">
+          <span class="qtext">3.4: পরিকল্পনা কীভাবে লক্ষ্য অর্জনে সহায়তা করে?</span>
+          <span class="chev">▼</span>
+        </summary>
+        <div class="qbody">
+<div class="intro-box">
+<div class="sec-label">ভূমিকা</div>
+<p>ব্যবস্থাপনার সবচেয়ে গুরুত্বপূর্ণ কাজ হলো পরিকল্পনা। পরিকল্পনা হলো ভবিষ্যতে কী করতে হবে, কীভাবে করতে হবে এবং কখন করতে হবে তা আগে থেকে ঠিক করে রাখা। একটি প্রতিষ্ঠান তার লক্ষ্য অর্জনে সফল হবে কিনা তা অনেকাংশে নির্ভর করে পরিকল্পনা কতটা সুষ্ঠু ও বাস্তবসম্মত তার ওপর। নিচে দেখানো হলো পরিকল্পনা কীভাবে লক্ষ্য অর্জনে সহায়তা করে।</p>
+</div>
+<div class="sub-section">
+<h3 class="sub-title">মূল আলোচনা</h3>
+<ol class="points-list">
+  <li class="point"><b>১. স্পষ্ট লক্ষ্য নির্ধারণ</b> পরিকল্পনার মাধ্যমে প্রতিষ্ঠানের লক্ষ্য শুরুতেই স্পষ্টভাবে নির্ধারিত হয়। ফলে কর্মীরা জানে ঠিক কী অর্জন করতে হবে এবং কোন দিকে কাজ করতে হবে।</li>
+  <li class="point"><b>২. কার্যক্রমের দিকনির্দেশনা</b> পরিকল্পনা প্রতিটি কাজের জন্য একটি পথ বা দিকনির্দেশনা দেয়। এতে সবাই একই লক্ষ্যের দিকে সমন্বিতভাবে এগিয়ে যেতে পারে, বিশৃঙ্খলা কমে।</li>
+  <li class="point"><b>৩. সম্পদের সঠিক ব্যবহার</b> পরিকল্পনা আগে থেকেই ঠিক করে দেয় কোন কাজে কতটুকু অর্থ, জনবল ও সময় লাগবে। ফলে সম্পদের অপচয় কম হয় এবং সর্বোচ্চ ব্যবহার নিশ্চিত হয়।</li>
+  <li class="point"><b>৪. অনিশ্চয়তা হ্রাস</b> ভবিষ্যৎ সবসময় অনিশ্চিত। পরিকল্পনা সম্ভাব্য সমস্যা আগে থেকে অনুমান করে প্রস্তুতি নিতে সাহায্য করে, ফলে অনিশ্চয়তার ঝুঁকি কমে যায়।</li>
+  <li class="point"><b>৫. সময়ের সাশ্রয়</b> কী করতে হবে তা আগে থেকে ঠিক থাকলে কাজ শুরু করতে দেরি হয় না। এতে অপ্রয়োজনীয় সময় নষ্ট হয় না এবং লক্ষ্য দ্রুত অর্জন করা যায়।</li>
+  <li class="point"><b>৬. সিদ্ধান্ত গ্রহণে সহায়তা</b> পরিকল্পনা ব্যবস্থাপকদের একাধিক বিকল্পের মধ্য থেকে সবচেয়ে উপযুক্ত সিদ্ধান্তটি বেছে নিতে সাহায্য করে, যা লক্ষ্য অর্জনকে সহজ করে।</li>
+  <li class="point"><b>৭. কাজের সমন্বয় সাধন</b> প্রতিষ্ঠানের বিভিন্ন বিভাগ ও ব্যক্তির কাজের মধ্যে সমন্বয় তৈরি করে পরিকল্পনা। এতে সবার প্রচেষ্টা একটি অভিন্ন লক্ষ্যে কেন্দ্রীভূত হয়।</li>
+  <li class="point"><b>৮. নিয়ন্ত্রণের ভিত্তি তৈরি</b> পরিকল্পনায় নির্ধারিত মানদণ্ডের সাথে প্রকৃত কাজের ফলাফল তুলনা করে ভুল-ত্রুটি ধরা যায় এবং তা সংশোধন করে লক্ষ্যের দিকে এগোনো যায়।</li>
+  <li class="point"><b>৯. অগ্রাধিকার নির্ধারণ</b> কোন কাজ আগে করতে হবে আর কোনটি পরে, তা পরিকল্পনার মাধ্যমে ঠিক করা যায়। এতে গুরুত্বপূর্ণ কাজগুলো সময়মতো সম্পন্ন হয়।</li>
+  <li class="point"><b>১০. ঝুঁকি মোকাবেলায় প্রস্তুতি</b> আগে থেকে বিকল্প পরিকল্পনা (contingency plan) তৈরি থাকলে হঠাৎ কোনো সমস্যা এলেও প্রতিষ্ঠান সহজে তা মোকাবেলা করে লক্ষ্য থেকে বিচ্যুত হয় না।</li>
+  <li class="point"><b>১১. উদ্ভাবন ও সৃজনশীলতা বৃদ্ধি</b> পরিকল্পনা তৈরির সময় নতুন নতুন উপায় ও পদ্ধতি খোঁজা হয়, যা প্রতিষ্ঠানকে উদ্ভাবনী চিন্তায় এগিয়ে নিয়ে যায় এবং লক্ষ্য অর্জন সহজ করে।</li>
+  <li class="point"><b>১২. কর্মীদের মনোবল বৃদ্ধি</b> যখন কর্মীরা জানে প্রতিষ্ঠানের লক্ষ্য কী এবং তাদের ভূমিকা কী, তখন তারা আত্মবিশ্বাসের সাথে কাজ করে, যা সামগ্রিক কর্মদক্ষতা বাড়ায়।</li>
+  <li class="point"><b>১৩. অপচয় রোধ</b> পরিকল্পনাহীন কাজে ভুল সিদ্ধান্ত ও পুনরাবৃত্তির কারণে সম্পদ নষ্ট হয়। সুপরিকল্পিত কাজে এই অপচয় এড়ানো যায়, ফলে লক্ষ্য দ্রুত অর্জিত হয়।</li>
+  <li class="point"><b>১৪. প্রতিযোগিতামূলক সুবিধা অর্জন</b> যেসব প্রতিষ্ঠান সুষ্ঠু পরিকল্পনা করে তারা বাজারের পরিবর্তন আগে থেকে বুঝতে পেরে প্রতিদ্বন্দ্বীদের চেয়ে এগিয়ে থাকে এবং লক্ষ্য অর্জনে সুবিধা পায়।</li>
+  <li class="point"><b>১৫. সামগ্রিক কর্মদক্ষতা বৃদ্ধি</b> সবশেষে, পরিকল্পনা প্রতিষ্ঠানের প্রতিটি স্তরে কর্মদক্ষতা বাড়ায়। প্রতিটি কাজ সঠিক পথে, সঠিক সময়ে সম্পন্ন হওয়ায় লক্ষ্য অর্জন সহজ ও নিশ্চিত হয়।</li>
+</ol>
+</div>
+<div class="conclusion-box">
+<div class="sec-label">উপসংহার</div>
+<p>উপরের আলোচনা থেকে দেখা যায়, পরিকল্পনা শুধু একটি প্রক্রিয়া নয়, বরং লক্ষ্য অর্জনের মূল চাবিকাঠি। সঠিক পরিকল্পনা ছাড়া কোনো প্রতিষ্ঠানের পক্ষে সীমিত সম্পদ দিয়ে কাঙ্ক্ষিত লক্ষ্যে পৌঁছানো প্রায় অসম্ভব। তাই সফলতার জন্য প্রতিটি প্রতিষ্ঠানেরই কার্যকর পরিকল্পনা তৈরি করা অত্যন্ত জরুরি।</p>
+</div>
+<div class="cheat-wrap">
+<div class="sec-label">📋 চিট শীট</div>
+<div class="table-scroll">
+<table class="cheat-table">
+  <thead>
+    <tr>
+      <th>পয়েন্ট</th>
+      <th>ইশারা</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>স্পষ্ট লক্ষ্য নির্ধারণ</td>
+      <td>পরিকল্পনার মাধ্যমে প্রতিষ্ঠানের লক্ষ্য শুরুতেই স্পষ্টভাবে নির্ধারিত হয়।</td>
+    </tr>
+    <tr>
+      <td>কার্যক্রমের দিকনির্দেশনা</td>
+      <td>পরিকল্পনা প্রতিটি কাজের জন্য একটি পথ বা দিকনির্দেশনা</td>
+    </tr>
+    <tr>
+      <td>সম্পদের সঠিক ব্যবহার</td>
+      <td>পরিকল্পনা আগে থেকেই ঠিক করে দেয় কোন কাজে কতটুকু অর্থ</td>
+    </tr>
+    <tr>
+      <td>অনিশ্চয়তা হ্রাস</td>
+      <td>ভবিষ্যৎ সবসময় অনিশ্চিত। পরিকল্পনা সম্ভাব্য সমস্যা আগে থেকে</td>
+    </tr>
+    <tr>
+      <td>সময়ের সাশ্রয়</td>
+      <td>কী করতে হবে তা আগে থেকে ঠিক থাকলে</td>
+    </tr>
+    <tr>
+      <td>সিদ্ধান্ত গ্রহণে সহায়তা</td>
+      <td>পরিকল্পনা ব্যবস্থাপকদের একাধিক বিকল্পের মধ্য থেকে সবচেয়ে উপযুক্ত</td>
+    </tr>
+    <tr>
+      <td>কাজের সমন্বয় সাধন</td>
+      <td>প্রতিষ্ঠানের বিভিন্ন বিভাগ ও ব্যক্তির কাজের মধ্যে সমন্বয়</td>
+    </tr>
+    <tr>
+      <td>নিয়ন্ত্রণের ভিত্তি তৈরি</td>
+      <td>পরিকল্পনায় নির্ধারিত মানদণ্ডের সাথে প্রকৃত কাজের ফলাফল তুলনা</td>
+    </tr>
+    <tr>
+      <td>অগ্রাধিকার নির্ধারণ</td>
+      <td>কোন কাজ আগে করতে হবে আর কোনটি পরে</td>
+    </tr>
+    <tr>
+      <td>ঝুঁকি মোকাবেলায় প্রস্তুতি</td>
+      <td>আগে থেকে বিকল্প পরিকল্পনা (contingency plan) তৈরি থাকলে</td>
+    </tr>
+    <tr>
+      <td>উদ্ভাবন ও সৃজনশীলতা বৃদ্ধি</td>
+      <td>পরিকল্পনা তৈরির সময় নতুন নতুন উপায় ও পদ্ধতি খোঁজা হয়</td>
+    </tr>
+    <tr>
+      <td>কর্মীদের মনোবল বৃদ্ধি</td>
+      <td>যখন কর্মীরা জানে প্রতিষ্ঠানের লক্ষ্য কী এবং তাদের ভূমিকা কী</td>
+    </tr>
+    <tr>
+      <td>অপচয় রোধ</td>
+      <td>পরিকল্পনাহীন কাজে ভুল সিদ্ধান্ত ও পুনরাবৃত্তির কারণে সম্পদ</td>
+    </tr>
+    <tr>
+      <td>প্রতিযোগিতামূলক সুবিধা অর্জন</td>
+      <td>যেসব প্রতিষ্ঠান সুষ্ঠু পরিকল্পনা করে তারা বাজারের পরিবর্তন</td>
+    </tr>
+    <tr>
+      <td>সামগ্রিক কর্মদক্ষতা বৃদ্ধি</td>
+      <td>সবশেষে, পরিকল্পনা প্রতিষ্ঠানের প্রতিটি স্তরে কর্মদক্ষতা বাড়ায়। প্রতিটি</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+        </div>
+      </details>
+
+      <details class="qcard" id="q-15" data-chapter="3">
+        <summary class="qsummary">
+          <span class="qtext">3.6: পরিকল্পনার কার্যাবলি বর্ণনা কর।</span>
+          <span class="chev">▼</span>
+        </summary>
+        <div class="qbody">
+<div class="intro-box">
+<div class="sec-label">ভূমিকা</div>
+<p>পরিকল্পনা হলো ব্যবস্থাপনার প্রথম ও সবচেয়ে গুরুত্বপূর্ণ কাজ, যেখানে ভবিষ্যতের লক্ষ্য ঠিক করে তা অর্জনের পথ আগে থেকে নির্ধারণ করা হয়। একটি পূর্ণাঙ্গ পরিকল্পনা তৈরি করতে হলে ব্যবস্থাপককে বেশ কয়েকটি ধারাবাহিক কাজ বা ধাপ সম্পন্ন করতে হয়। এই কাজগুলোকেই পরিকল্পনার কার্যাবলি বলা হয়। নিচে এই কার্যাবলি আলোচনা করা হলো।</p>
+</div>
+<div class="sub-section">
+<h3 class="sub-title">মূল আলোচনা</h3>
+<ol class="points-list">
+  <li class="point"><b>১. লক্ষ্য নির্ধারণ</b> পরিকল্পনার প্রথম কাজ হলো প্রতিষ্ঠানের সুনির্দিষ্ট লক্ষ্য ঠিক করা। কী অর্জন করতে হবে তা পরিষ্কারভাবে নির্ধারণ না করলে পরবর্তী কোনো কাজই সঠিক দিকে এগোতে পারে না। যেমন, একটি কোম্পানি ঠিক করতে পারে আগামী এক বছরে বিক্রয় ২০% বাড়ানো হবে। এই লক্ষ্যকে কেন্দ্র করেই বাকি সব পরিকল্পনা তৈরি হয়।</li>
+  <li class="point"><b>২. পূর্বাভাস প্রদান</b> ভবিষ্যতে কী ঘটতে পারে তা আগে থেকে অনুমান করাই পূর্বাভাস। বাজারের চাহিদা, প্রতিযোগিতা, অর্থনৈতিক অবস্থা ইত্যাদি বিশ্লেষণ করে ব্যবস্থাপক ভবিষ্যতের একটি ধারণা তৈরি করেন। সঠিক পূর্বাভাস ছাড়া বাস্তবসম্মত পরিকল্পনা করা সম্ভব নয়।</li>
+  <li class="point"><b>৩. স্বীকার্য নির্ধারণ (Premises)</b> পরিকল্পনা তৈরির ক্ষেত্রে কিছু অনুমান বা ভিত্তি ধরে নিতে হয়, যেমন ভবিষ্যতে কাঁচামালের দাম কেমন থাকবে বা সরকারি নীতি কী হবে। এই অনুমানগুলোকেই পরিকল্পনার স্বীকার্য বলা হয়, এবং এর ওপর ভিত্তি করেই পরিকল্পনা সাজানো হয়।</li>
+  <li class="point"><b>৪. বিকল্প পথ চিহ্নিতকরণ</b> লক্ষ্য অর্জনের জন্য সাধারণত একাধিক পথ বা উপায় থাকে। এই ধাপে ব্যবস্থাপক সম্ভাব্য সব বিকল্প উপায় খুঁজে বের করেন, যাতে সবচেয়ে ভালো পথটি বেছে নেওয়া যায়।</li>
+  <li class="point"><b>৫. বিকল্প মূল্যায়ন</b> চিহ্নিত করা বিকল্পগুলোর প্রতিটির সুবিধা, অসুবিধা, খরচ ও ঝুঁকি বিশ্লেষণ করা হয় এই ধাপে। কোন বিকল্পটি সবচেয়ে কম খরচে ও কম ঝুঁকিতে লক্ষ্য অর্জনে সহায়ক হবে তা যাচাই করা হয়।</li>
+  <li class="point"><b>৬. সর্বোত্তম বিকল্প নির্বাচন</b> মূল্যায়নের পর সবচেয়ে উপযুক্ত ও কার্যকর বিকল্পটি বেছে নেওয়া হয়। এটি পরিকল্পনার মূল সিদ্ধান্তমূলক ধাপ, কারণ এখান থেকেই প্রকৃত কর্মপরিকল্পনা তৈরি শুরু হয়।</li>
+  <li class="point"><b>৭. সহায়ক পরিকল্পনা প্রণয়ন</b> মূল পরিকল্পনাকে বাস্তবায়ন করতে সাহায্যের জন্য কিছু ছোট ছোট সহায়ক পরিকল্পনা তৈরি করা হয়, যেমন বাজেট পরিকল্পনা, জনবল পরিকল্পনা, উৎপাদন পরিকল্পনা ইত্যাদি। এগুলো মূল লক্ষ্য অর্জনকে সহজ করে তোলে।</li>
+  <li class="point"><b>৮. বাজেট প্রণয়ন</b> পরিকল্পনা বাস্তবায়নের জন্য কী পরিমাণ অর্থ প্রয়োজন তা নির্ধারণ করে বাজেট তৈরি করা হয়। এটি পরিকল্পনাকে সংখ্যাগত রূপ দেয় এবং সম্পদের সুষ্ঠু ব্যবহার নিশ্চিত করে।</li>
+  <li class="point"><b>৯. বাস্তবায়ন ও পর্যালোচনা</b> সবশেষে পরিকল্পনাটি কার্যে রূপান্তর করা হয় এবং কাজ চলাকালীন তার অগ্রগতি নিয়মিত পর্যালোচনা করা হয়। কোথাও ত্রুটি দেখা দিলে তা সংশোধন করে লক্ষ্যের দিকে এগিয়ে যাওয়া হয়।</li>
+</ol>
+</div>
+<div class="conclusion-box">
+<div class="sec-label">উপসংহার</div>
+<p>উপরের আলোচনা থেকে বোঝা যায়, পরিকল্পনা একটি ধারাবাহিক ও যুক্তিসংগত প্রক্রিয়া, যেখানে লক্ষ্য নির্ধারণ থেকে শুরু করে বাস্তবায়ন পর্যন্ত একাধিক গুরুত্বপূর্ণ কাজ সম্পন্ন করতে হয়। এই কার্যাবলি সঠিকভাবে পালন করলে প্রতিষ্ঠানের লক্ষ্য অর্জন সহজ ও নিশ্চিত হয়।</p>
+</div>
+<div class="cheat-wrap">
+<div class="sec-label">📋 চিট শীট</div>
+<div class="table-scroll">
+<table class="cheat-table">
+  <thead>
+    <tr>
+      <th>পয়েন্ট</th>
+      <th>ইশারা</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>লক্ষ্য নির্ধারণ</td>
+      <td>পরিকল্পনার প্রথম কাজ হলো প্রতিষ্ঠানের সুনির্দিষ্ট লক্ষ্য ঠিক</td>
+    </tr>
+    <tr>
+      <td>পূর্বাভাস প্রদান</td>
+      <td>ভবিষ্যতে কী ঘটতে পারে তা আগে থেকে অনুমান</td>
+    </tr>
+    <tr>
+      <td>স্বীকার্য নির্ধারণ (Premises)</td>
+      <td>পরিকল্পনা তৈরির ক্ষেত্রে কিছু অনুমান বা ভিত্তি ধরে নিতে হয়</td>
+    </tr>
+    <tr>
+      <td>বিকল্প পথ চিহ্নিতকরণ</td>
+      <td>লক্ষ্য অর্জনের জন্য সাধারণত একাধিক পথ বা উপায়</td>
+    </tr>
+    <tr>
+      <td>বিকল্প মূল্যায়ন</td>
+      <td>চিহ্নিত করা বিকল্পগুলোর প্রতিটির সুবিধা</td>
+    </tr>
+    <tr>
+      <td>সর্বোত্তম বিকল্প নির্বাচন</td>
+      <td>মূল্যায়নের পর সবচেয়ে উপযুক্ত ও কার্যকর বিকল্পটি বেছে</td>
+    </tr>
+    <tr>
+      <td>সহায়ক পরিকল্পনা প্রণয়ন</td>
+      <td>মূল পরিকল্পনাকে বাস্তবায়ন করতে সাহায্যের জন্য কিছু ছোট</td>
+    </tr>
+    <tr>
+      <td>বাজেট প্রণয়ন</td>
+      <td>পরিকল্পনা বাস্তবায়নের জন্য কী পরিমাণ অর্থ প্রয়োজন তা</td>
+    </tr>
+    <tr>
+      <td>বাস্তবায়ন ও পর্যালোচনা</td>
+      <td>সবশেষে পরিকল্পনাটি কার্যে রূপান্তর করা হয় এবং কাজ</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+        </div>
+      </details>
+
+      <details class="qcard" id="q-16" data-chapter="3">
+        <summary class="qsummary">
+          <span class="qtext">3.7: পরিকল্পনায় প্রভাববিস্তারকারী উপাদানসমূহ বর্ণনা কর।</span>
+          <span class="chev">▼</span>
+        </summary>
+        <div class="qbody">
+<div class="intro-box">
+<div class="sec-label">ভূমিকা</div>
+<p>পরিকল্পনা তৈরি করার সময় ব্যবস্থাপককে বিভিন্ন অভ্যন্তরীণ ও বাহ্যিক বিষয় বিবেচনায় রাখতে হয়। এই বিষয়গুলোই পরিকল্পনার মান, সফলতা ও বাস্তবায়নযোগ্যতাকে প্রভাবিত করে। এই উপাদানগুলো সঠিকভাবে বিশ্লেষণ না করলে পরিকল্পনা বাস্তবসম্মত হয় না এবং লক্ষ্য অর্জনও কঠিন হয়ে পড়ে। নিচে পরিকল্পনায় প্রভাববিস্তারকারী প্রধান উপাদানসমূহ আলোচনা করা হলো।</p>
+</div>
+<div class="sub-section">
+<h3 class="sub-title">মূল আলোচনা</h3>
+<ol class="points-list">
+  <li class="point"><b>১. লক্ষ্যের স্পষ্টতা</b> লক্ষ্য যদি স্পষ্ট ও সুনির্দিষ্ট না হয়, তাহলে পরিকল্পনাও অস্পষ্ট হয়ে যায়। তাই পরিকল্পনার শুরুতেই লক্ষ্য কতটা স্পষ্টভাবে নির্ধারণ করা হয়েছে তা একটি গুরুত্বপূর্ণ প্রভাবক।</li>
+  <li class="point"><b>২. অর্থনৈতিক অবস্থা</b> দেশের বা বাজারের সামগ্রিক অর্থনৈতিক পরিস্থিতি, যেমন মুদ্রাস্ফীতি, সুদের হার, ক্রয়ক্ষমতা ইত্যাদি পরিকল্পনাকে সরাসরি প্রভাবিত করে।</li>
+  <li class="point"><b>৩. রাজনৈতিক ও আইনগত পরিবেশ</b> সরকারি নীতি, আইন, কর ব্যবস্থা এবং রাজনৈতিক স্থিতিশীলতা পরিকল্পনার সিদ্ধান্তে বড় প্রভাব ফেলে। প্রতিকূল আইন বা নীতি পরিবর্তন পরিকল্পনাকে ব্যর্থ করে দিতে পারে।</li>
+  <li class="point"><b>৪. প্রযুক্তিগত পরিবর্তন</b> দ্রুত পরিবর্তনশীল প্রযুক্তি একটি প্রতিষ্ঠানের পরিকল্পনাকে প্রভাবিত করে। নতুন প্রযুক্তি না মেনে চললে পুরনো পরিকল্পনা অকার্যকর হয়ে যেতে পারে।</li>
+  <li class="point"><b>৫. প্রতিযোগিতার অবস্থা</b> বাজারে প্রতিদ্বন্দ্বী প্রতিষ্ঠানের সংখ্যা, তাদের কৌশল ও শক্তি বিবেচনায় নিয়ে পরিকল্পনা করতে হয়। প্রতিযোগিতা বেশি হলে পরিকল্পনায় বাড়তি সতর্কতা প্রয়োজন হয়।</li>
+  <li class="point"><b>৬. সম্পদের সহজলভ্যতা</b> অর্থ, জনবল, কাঁচামাল ও সময়ের মতো সম্পদ কতটা সহজে পাওয়া যাবে তার ওপর নির্ভর করে পরিকল্পনার আকার ও ধরন নির্ধারিত হয়।</li>
+  <li class="point"><b>৭. সামাজিক ও সাংস্কৃতিক পরিবেশ</b> সমাজের রীতিনীতি, মূল্যবোধ, ভোক্তার রুচি ও অভ্যাস পরিকল্পনায় বিবেচনা করতে হয়, কারণ এগুলো পণ্য বা সেবার চাহিদাকে প্রভাবিত করে।</li>
+  <li class="point"><b>৮. সময়সীমা</b> পরিকল্পনা কত সময়ের জন্য তৈরি করা হচ্ছে (স্বল্পমেয়াদি নাকি দীর্ঘমেয়াদি) তার ওপর ভিত্তি করে পরিকল্পনার বিস্তারিততা ও কৌশল ভিন্ন হয়।</li>
+  <li class="point"><b>৯. প্রতিষ্ঠানের অভ্যন্তরীণ নীতি</b> প্রতিষ্ঠানের নিজস্ব নিয়মকানুন, কাঠামো ও ব্যবস্থাপনার দর্শন পরিকল্পনার ধরন নির্ধারণে গুরুত্বপূর্ণ ভূমিকা রাখে।</li>
+  <li class="point"><b>১০. ঝুঁকির মাত্রা</b> পরিকল্পনায় জড়িত ঝুঁকির পরিমাণ বিবেচনা করা জরুরি। বেশি ঝুঁকিপূর্ণ সিদ্ধান্তে বিকল্প ব্যবস্থা রাখতে হয়, যা পরিকল্পনার কাঠামোকে প্রভাবিত করে।</li>
+  <li class="point"><b>১১. তথ্যের নির্ভরযোগ্যতা</b> সঠিক ও নির্ভরযোগ্য তথ্য না পেলে পরিকল্পনা বাস্তবসম্মত হয় না। তাই তথ্যের মান ও প্রাপ্যতা একটি গুরুত্বপূর্ণ প্রভাবক উপাদান।</li>
+  <li class="point"><b>১২. ব্যবস্থাপকের দক্ষতা ও দৃষ্টিভঙ্গি</b> ব্যবস্থাপকের অভিজ্ঞতা, জ্ঞান ও সিদ্ধান্ত গ্রহণের ক্ষমতা পরিকল্পনার মান নির্ধারণে সরাসরি প্রভাব ফেলে।</li>
+</ol>
+</div>
+<div class="conclusion-box">
+<div class="sec-label">উপসংহার</div>
+<p>উপরের আলোচনা থেকে বোঝা যায়, পরিকল্পনা কোনো বিচ্ছিন্ন কাজ নয়, বরং অসংখ্য অভ্যন্তরীণ ও বাহ্যিক উপাদানের সমন্বয়ে তৈরি হয়। এসব উপাদান সঠিকভাবে বিশ্লেষণ করলেই একটি বাস্তবসম্মত ও কার্যকর পরিকল্পনা তৈরি করা সম্ভব, যা প্রতিষ্ঠানকে সফলতার দিকে এগিয়ে নিয়ে যায়।</p>
+</div>
+<div class="cheat-wrap">
+<div class="sec-label">📋 চিট শীট</div>
+<div class="table-scroll">
+<table class="cheat-table">
+  <thead>
+    <tr>
+      <th>পয়েন্ট</th>
+      <th>ইশারা</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>লক্ষ্যের স্পষ্টতা</td>
+      <td>লক্ষ্য যদি স্পষ্ট ও সুনির্দিষ্ট না হয়</td>
+    </tr>
+    <tr>
+      <td>অর্থনৈতিক অবস্থা</td>
+      <td>দেশের বা বাজারের সামগ্রিক অর্থনৈতিক পরিস্থিতি</td>
+    </tr>
+    <tr>
+      <td>রাজনৈতিক ও আইনগত পরিবেশ</td>
+      <td>সরকারি নীতি</td>
+    </tr>
+    <tr>
+      <td>প্রযুক্তিগত পরিবর্তন</td>
+      <td>দ্রুত পরিবর্তনশীল প্রযুক্তি একটি প্রতিষ্ঠানের পরিকল্পনাকে প্রভাবিত করে।</td>
+    </tr>
+    <tr>
+      <td>প্রতিযোগিতার অবস্থা</td>
+      <td>বাজারে প্রতিদ্বন্দ্বী প্রতিষ্ঠানের সংখ্যা</td>
+    </tr>
+    <tr>
+      <td>সম্পদের সহজলভ্যতা</td>
+      <td>অর্থ, জনবল</td>
+    </tr>
+    <tr>
+      <td>সামাজিক ও সাংস্কৃতিক পরিবেশ</td>
+      <td>সমাজের রীতিনীতি</td>
+    </tr>
+    <tr>
+      <td>সময়সীমা</td>
+      <td>পরিকল্পনা কত সময়ের জন্য তৈরি করা হচ্ছে (স্বল্পমেয়াদি</td>
+    </tr>
+    <tr>
+      <td>প্রতিষ্ঠানের অভ্যন্তরীণ নীতি</td>
+      <td>প্রতিষ্ঠানের নিজস্ব নিয়মকানুন</td>
+    </tr>
+    <tr>
+      <td>ঝুঁকির মাত্রা</td>
+      <td>পরিকল্পনায় জড়িত ঝুঁকির পরিমাণ বিবেচনা করা জরুরি। বেশি</td>
+    </tr>
+    <tr>
+      <td>তথ্যের নির্ভরযোগ্যতা</td>
+      <td>সঠিক ও নির্ভরযোগ্য তথ্য না পেলে পরিকল্পনা বাস্তবসম্মত</td>
+    </tr>
+    <tr>
+      <td>ব্যবস্থাপকের দক্ষতা ও দৃষ্টিভঙ্গি</td>
+      <td>ব্যবস্থাপকের অভিজ্ঞতা</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+        </div>
+      </details>
+
+      <details class="qcard" id="q-17" data-chapter="3">
+        <summary class="qsummary">
+          <span class="qtext">3.10: একার্থিক ও স্থায়ী পরিকল্পনার পার্থক্য বর্ণনা কর।</span>
+          <span class="chev">▼</span>
+        </summary>
+        <div class="qbody">
+<div class="intro-box">
+<div class="sec-label">ভূমিকা</div>
+<p>প্রতিষ্ঠানের বিভিন্ন প্রয়োজন অনুযায়ী পরিকল্পনাকে বিভিন্ন শ্রেণিতে ভাগ করা যায়, যার মধ্যে একার্থিক পরিকল্পনা ও স্থায়ী পরিকল্পনা উল্লেখযোগ্য। একার্থিক পরিকল্পনা একবার ব্যবহারের জন্য তৈরি করা হয়, আর স্থায়ী পরিকল্পনা বারবার ব্যবহারের উদ্দেশ্যে তৈরি করা হয়। এই দুই ধরনের পরিকল্পনার প্রকৃতি ও উদ্দেশ্য একেবারেই আলাদা, যা নিচে আলোচনা করা হলো।</p>
+</div>
+<div class="sub-section">
+<h3 class="sub-title">একার্থিক পরিকল্পনা</h3>
+<p>একার্থিক পরিকল্পনা হলো এমন পরিকল্পনা যা একটি নির্দিষ্ট লক্ষ্য অর্জনের জন্য একবারই তৈরি করা হয় এবং লক্ষ্য অর্জিত হলে এই পরিকল্পনার প্রয়োজনীয়তা শেষ হয়ে যায়। এটি সাধারণত অনন্য (unique) কোনো পরিস্থিতি বা কাজের জন্য প্রণয়ন করা হয়, যা ভবিষ্যতে হুবহু আবার নাও ঘটতে পারে। যেমন, একটি প্রতিষ্ঠান যদি নতুন একটি শাখা অফিস স্থাপনের জন্য পরিকল্পনা তৈরি করে, তাহলে অফিস স্থাপন সম্পন্ন হওয়ার পর সেই পরিকল্পনার আর কোনো প্রয়োজন থাকে না। বাজেট, প্রকল্প (project), এবং প্রোগ্রাম এই শ্রেণির উদাহরণ।</p>
+</div>
+<div class="sub-section">
+<h3 class="sub-title">স্থায়ী পরিকল্পনা</h3>
+<p>স্থায়ী পরিকল্পনা হলো এমন পরিকল্পনা যা একবার তৈরি করার পর বারবার একই ধরনের পরিস্থিতিতে ব্যবহার করা যায়। এটি দীর্ঘমেয়াদি ভিত্তিতে প্রতিষ্ঠানের নিয়মিত কার্যক্রম পরিচালনার জন্য তৈরি করা হয় এবং একবার তৈরি হলে তা বহুদিন ধরে কার্যকর থাকে। যেমন, একটি প্রতিষ্ঠানের নিয়োগ নীতিমালা (recruitment policy) একবার তৈরি হলে প্রতিবার নতুন কর্মী নিয়োগের সময় সেই একই নীতি অনুসরণ করা হয়। নীতি (policy), পদ্ধতি (procedure), এবং নিয়ম (rule) এই শ্রেণির উদাহরণ।</p>
+</div>
+<div class="cheat-wrap compare-wrap">
+<div class="sec-label">📊 তুলনামূলক টেবিল</div>
+<div class="table-scroll">
+<table class="cheat-table">
+  <thead>
+    <tr>
+      <th>তুলনার বিষয়</th>
+      <th>একার্থিক পরিকল্পনা</th>
+      <th>স্থায়ী পরিকল্পনা</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>সংজ্ঞা</td>
+      <td>একবার ব্যবহারের জন্য তৈরি পরিকল্পনা</td>
+      <td>বারবার ব্যবহারের জন্য তৈরি পরিকল্পনা</td>
+    </tr>
+    <tr>
+      <td>ব্যবহারের সংখ্যা</td>
+      <td>একবার ব্যবহারযোগ্য</td>
+      <td>বহুবার ব্যবহারযোগ্য</td>
+    </tr>
+    <tr>
+      <td>মেয়াদ</td>
+      <td>স্বল্পমেয়াদি</td>
+      <td>দীর্ঘমেয়াদি</td>
+    </tr>
+    <tr>
+      <td>প্রকৃতি</td>
+      <td>অনন্য ও নির্দিষ্ট কাজের জন্য</td>
+      <td>নিয়মিত ও পুনরাবৃত্তিমূলক কাজের জন্য</td>
+    </tr>
+    <tr>
+      <td>উদাহরণ</td>
+      <td>বাজেট, প্রকল্প, প্রোগ্রাম</td>
+      <td>নীতি, পদ্ধতি, নিয়ম</td>
+    </tr>
+    <tr>
+      <td>লক্ষ্য অর্জনের পর</td>
+      <td>পরিকল্পনার সমাপ্তি ঘটে</td>
+      <td>পরিকল্পনা চালু থাকে</td>
+    </tr>
+    <tr>
+      <td>নমনীয়তা</td>
+      <td>তুলনামূলক কম নমনীয়</td>
+      <td>তুলনামূলক বেশি নমনীয়</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+<div class="conclusion-box">
+<div class="sec-label">উপসংহার</div>
+<p>সুতরাং দেখা যায়, একার্থিক পরিকল্পনা ও স্থায়ী পরিকল্পনা তাদের ব্যবহার, মেয়াদ ও প্রকৃতির দিক থেকে সম্পূর্ণ ভিন্ন। প্রতিষ্ঠানের প্রয়োজন অনুযায়ী এই দুই ধরনের পরিকল্পনাই গুরুত্বপূর্ণ ভূমিকা পালন করে এবং যথাযথভাবে ব্যবহার করলে প্রতিষ্ঠানের কার্যক্রম সুষ্ঠুভাবে পরিচালিত হয়।</p>
+</div>
+<div class="cheat-wrap">
+<div class="sec-label">📋 চিট শীট</div>
+<div class="table-scroll">
+<table class="cheat-table">
+  <thead>
+    <tr>
+      <th>পয়েন্ট</th>
+      <th>ইশারা</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>সংজ্ঞা</td>
+      <td>একবার ব্যবহারের জন্য তৈরি পরিকল্পনা / বারবার ব্যবহারের জন্য</td>
+    </tr>
+    <tr>
+      <td>ব্যবহারের সংখ্যা</td>
+      <td>একবার ব্যবহারযোগ্য / বহুবার ব্যবহারযোগ্য</td>
+    </tr>
+    <tr>
+      <td>মেয়াদ</td>
+      <td>স্বল্পমেয়াদি / দীর্ঘমেয়াদি</td>
+    </tr>
+    <tr>
+      <td>প্রকৃতি</td>
+      <td>অনন্য ও নির্দিষ্ট কাজের জন্য / নিয়মিত ও পুনরাবৃত্তিমূলক</td>
+    </tr>
+    <tr>
+      <td>উদাহরণ</td>
+      <td>বাজেট, প্রকল্প</td>
+    </tr>
+    <tr>
+      <td>লক্ষ্য অর্জনের পর</td>
+      <td>পরিকল্পনার সমাপ্তি ঘটে / পরিকল্পনা চালু থাকে</td>
+    </tr>
+    <tr>
+      <td>নমনীয়তা</td>
+      <td>তুলনামূলক কম নমনীয় / তুলনামূলক বেশি নমনীয়</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+        </div>
+      </details>
+
+      <details class="qcard" id="q-18" data-chapter="3">
+        <summary class="qsummary">
+          <span class="qtext">3.12: কৌশলগত পরিকল্পনা নির্ধারণে বিবেচ্য বিষয়সমূহ কী কী?</span>
+          <span class="chev">▼</span>
+        </summary>
+        <div class="qbody">
+<div class="intro-box">
+<div class="sec-label">ভূমিকা</div>
+<p>কৌশলগত পরিকল্পনা হলো প্রতিষ্ঠানের দীর্ঘমেয়াদি লক্ষ্য অর্জনের জন্য প্রণীত সর্বোচ্চ পর্যায়ের পরিকল্পনা, যা সাধারণত শীর্ষ ব্যবস্থাপনা কর্তৃক প্রণয়ন করা হয়। এই পরিকল্পনা প্রতিষ্ঠানের সামগ্রিক দিকনির্দেশনা ঠিক করে দেয় বলে এটি তৈরির সময় অনেক গুরুত্বপূর্ণ বিষয় বিবেচনায় রাখতে হয়। নিচে কৌশলগত পরিকল্পনা নির্ধারণে বিবেচ্য প্রধান বিষয়গুলো আলোচনা করা হলো।</p>
+</div>
+<div class="sub-section">
+<h3 class="sub-title">মূল আলোচনা</h3>
+<ol class="points-list">
+  <li class="point"><b>১. প্রতিষ্ঠানের লক্ষ্য ও উদ্দেশ্য</b> কৌশলগত পরিকল্পনা তৈরির আগে প্রতিষ্ঠানের দীর্ঘমেয়াদি লক্ষ্য ও উদ্দেশ্য স্পষ্টভাবে নির্ধারণ করতে হয়, কারণ এই লক্ষ্যকে কেন্দ্র করেই পুরো কৌশল সাজানো হয়।</li>
+  <li class="point"><b>২. প্রতিষ্ঠানের মিশন ও ভিশন</b> প্রতিষ্ঠান কেন প্রতিষ্ঠিত হয়েছে এবং ভবিষ্যতে কোথায় পৌঁছাতে চায়, তা বিবেচনা করে কৌশলগত পরিকল্পনা তৈরি করতে হয়, যাতে তা প্রতিষ্ঠানের মূল উদ্দেশ্যের সাথে সামঞ্জস্যপূর্ণ হয়।</li>
+  <li class="point"><b>৩. অভ্যন্তরীণ শক্তি ও দুর্বলতা বিশ্লেষণ</b> প্রতিষ্ঠানের নিজস্ব সম্পদ, দক্ষতা, সীমাবদ্ধতা ও দুর্বলতা বিশ্লেষণ করা জরুরি, যাতে বাস্তবসম্মত ও নিজস্ব সক্ষমতার সাথে মানানসই কৌশল গ্রহণ করা যায়।</li>
+  <li class="point"><b>৪. বাহ্যিক সুযোগ ও হুমকি বিশ্লেষণ</b> বাজারে বিদ্যমান সুযোগ এবং প্রতিযোগী বা পরিবেশগত হুমকি বিশ্লেষণ করে কৌশল নির্ধারণ করতে হয়, যাতে প্রতিষ্ঠান বাহ্যিক ঝুঁকি মোকাবেলায় প্রস্তুত থাকতে পারে।</li>
+  <li class="point"><b>৫. প্রতিযোগিতামূলক পরিবেশ</b> বাজারে প্রতিদ্বন্দ্বী প্রতিষ্ঠানের সংখ্যা, তাদের কৌশল ও বাজার অবস্থান বিবেচনায় নিয়ে নিজের প্রতিযোগিতামূলক সুবিধা তৈরির দিকে নজর দিতে হয়।</li>
+  <li class="point"><b>৬. সম্পদের সহজলভ্যতা</b> অর্থ, জনবল, প্রযুক্তি ও কাঁচামালের মতো প্রয়োজনীয় সম্পদ কতটা পাওয়া যাবে তার ভিত্তিতে কৌশল নির্ধারণ করা উচিত, নাহলে পরিকল্পনা বাস্তবায়নযোগ্য হবে না।</li>
+  <li class="point"><b>৭. অর্থনৈতিক পরিবেশ</b> দেশের সামগ্রিক অর্থনৈতিক অবস্থা, বাজার চাহিদা ও ক্রয়ক্ষমতা বিবেচনা করে কৌশল নির্ধারণ করতে হয়, যাতে তা বাস্তবতার সাথে সামঞ্জস্যপূর্ণ হয়।</li>
+  <li class="point"><b>৮. রাজনৈতিক ও আইনগত পরিবেশ</b> সরকারি নীতি, আইন ও রাজনৈতিক স্থিতিশীলতা কৌশলগত সিদ্ধান্তকে প্রভাবিত করে, তাই এসব বিষয় আগে থেকে বিশ্লেষণ করা প্রয়োজন।</li>
+  <li class="point"><b>৯. প্রযুক্তিগত পরিবর্তন</b> বর্তমান বাজারে প্রযুক্তি দ্রুত পরিবর্তিত হচ্ছে বলে কৌশল নির্ধারণের সময় নতুন প্রযুক্তির প্রভাব ও সম্ভাবনা বিবেচনায় রাখতে হয়।</li>
+  <li class="point"><b>১০. সময়সীমা নির্ধারণ</b> কৌশলগত পরিকল্পনা কত বছরের জন্য তৈরি করা হবে তা স্পষ্টভাবে ঠিক করতে হয়, কারণ সময়সীমার ওপর ভিত্তি করেই কৌশলের গভীরতা ও ধরন নির্ধারিত হয়।</li>
+  <li class="point"><b>১১. ঝুঁকি মূল্যায়ন</b> কৌশল বাস্তবায়নে সম্ভাব্য ঝুঁকিগুলো আগে থেকে চিহ্নিত করে তা মোকাবেলার বিকল্প ব্যবস্থা রাখা প্রয়োজন, যাতে অপ্রত্যাশিত সমস্যায় প্রতিষ্ঠান ক্ষতিগ্রস্ত না হয়।</li>
+  <li class="point"><b>১২. শীর্ষ ব্যবস্থাপনার দৃষ্টিভঙ্গি</b> কৌশলগত পরিকল্পনা যেহেতু শীর্ষ ব্যবস্থাপনা কর্তৃক তৈরি হয়, তাই তাদের অভিজ্ঞতা, দূরদর্শিতা ও সিদ্ধান্ত গ্রহণের ক্ষমতা এই পরিকল্পনার মান নির্ধারণে গুরুত্বপূর্ণ ভূমিকা রাখে।</li>
+  <li class="point"><b>১৩. সামাজিক ও সাংস্কৃতিক পরিবর্তন</b> ভোক্তার রুচি, অভ্যাস ও সামাজিক মূল্যবোধের পরিবর্তন বিবেচনায় রেখে কৌশল ঠিক করতে হয়, যাতে তা বাজারের চাহিদার সাথে সামঞ্জস্যপূর্ণ থাকে।</li>
+</ol>
+</div>
+<div class="conclusion-box">
+<div class="sec-label">উপসংহার</div>
+<p>উপরের আলোচনা থেকে বোঝা যায়, কৌশলগত পরিকল্পনা তৈরি করা একটি জটিল ও বহুমাত্রিক প্রক্রিয়া, যেখানে অভ্যন্তরীণ ও বাহ্যিক নানা বিষয় বিবেচনায় রাখতে হয়। এসব বিষয় সঠিকভাবে বিশ্লেষণ করলেই একটি বাস্তবসম্মত ও কার্যকর কৌশলগত পরিকল্পনা তৈরি করা সম্ভব, যা প্রতিষ্ঠানকে দীর্ঘমেয়াদি সফলতার দিকে নিয়ে যায়।</p>
+</div>
+<div class="cheat-wrap">
+<div class="sec-label">📋 চিট শীট</div>
+<div class="table-scroll">
+<table class="cheat-table">
+  <thead>
+    <tr>
+      <th>পয়েন্ট</th>
+      <th>ইশারা</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>প্রতিষ্ঠানের লক্ষ্য ও উদ্দেশ্য</td>
+      <td>কৌশলগত পরিকল্পনা তৈরির আগে প্রতিষ্ঠানের দীর্ঘমেয়াদি লক্ষ্য ও</td>
+    </tr>
+    <tr>
+      <td>প্রতিষ্ঠানের মিশন ও ভিশন</td>
+      <td>প্রতিষ্ঠান কেন প্রতিষ্ঠিত হয়েছে এবং ভবিষ্যতে কোথায় পৌঁছাতে</td>
+    </tr>
+    <tr>
+      <td>অভ্যন্তরীণ শক্তি ও দুর্বলতা বিশ্লেষণ</td>
+      <td>প্রতিষ্ঠানের নিজস্ব সম্পদ</td>
+    </tr>
+    <tr>
+      <td>বাহ্যিক সুযোগ ও হুমকি বিশ্লেষণ</td>
+      <td>বাজারে বিদ্যমান সুযোগ এবং প্রতিযোগী বা পরিবেশগত হুমকি</td>
+    </tr>
+    <tr>
+      <td>প্রতিযোগিতামূলক পরিবেশ</td>
+      <td>বাজারে প্রতিদ্বন্দ্বী প্রতিষ্ঠানের সংখ্যা</td>
+    </tr>
+    <tr>
+      <td>সম্পদের সহজলভ্যতা</td>
+      <td>অর্থ, জনবল</td>
+    </tr>
+    <tr>
+      <td>অর্থনৈতিক পরিবেশ</td>
+      <td>দেশের সামগ্রিক অর্থনৈতিক অবস্থা</td>
+    </tr>
+    <tr>
+      <td>রাজনৈতিক ও আইনগত পরিবেশ</td>
+      <td>সরকারি নীতি</td>
+    </tr>
+    <tr>
+      <td>প্রযুক্তিগত পরিবর্তন</td>
+      <td>বর্তমান বাজারে প্রযুক্তি দ্রুত পরিবর্তিত হচ্ছে বলে কৌশল</td>
+    </tr>
+    <tr>
+      <td>সময়সীমা নির্ধারণ</td>
+      <td>কৌশলগত পরিকল্পনা কত বছরের জন্য তৈরি করা হবে</td>
+    </tr>
+    <tr>
+      <td>ঝুঁকি মূল্যায়ন</td>
+      <td>কৌশল বাস্তবায়নে সম্ভাব্য ঝুঁকিগুলো আগে থেকে চিহ্নিত করে</td>
+    </tr>
+    <tr>
+      <td>শীর্ষ ব্যবস্থাপনার দৃষ্টিভঙ্গি</td>
+      <td>কৌশলগত পরিকল্পনা যেহেতু শীর্ষ ব্যবস্থাপনা কর্তৃক তৈরি হয়</td>
+    </tr>
+    <tr>
+      <td>সামাজিক ও সাংস্কৃতিক পরিবর্তন</td>
+      <td>ভোক্তার রুচি</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+        </div>
+      </details>
+
+      <details class="qcard" id="q-19" data-chapter="3">
+        <summary class="qsummary">
+          <span class="qtext">3.14: উদ্দেশ্যভিত্তিক ব্যবস্থাপনা কী?</span>
+          <span class="chev">▼</span>
+        </summary>
+        <div class="qbody">
+<div class="intro-box">
+<div class="sec-label">ভূমিকা</div>
+<p>আধুনিক ব্যবস্থাপনায় লক্ষ্য অর্জনকে আরও কার্যকর ও সুনির্দিষ্ট করার জন্য বিভিন্ন কৌশল ব্যবহার করা হয়, যার মধ্যে উদ্দেশ্যভিত্তিক ব্যবস্থাপনা (Management by Objectives - MBO) অন্যতম গুরুত্বপূর্ণ একটি পদ্ধতি। এই পদ্ধতিতে ব্যবস্থাপক ও কর্মীরা যৌথভাবে লক্ষ্য নির্ধারণ করে কাজ করেন।</p>
+</div>
+<div class="sub-section">
+<h3 class="sub-title">সংজ্ঞা</h3>
+<p>উদ্দেশ্যভিত্তিক ব্যবস্থাপনা হলো এমন একটি ব্যবস্থাপনা পদ্ধতি, যেখানে ঊর্ধ্বতন ও অধস্তন কর্মকর্তারা একসাথে বসে নির্দিষ্ট সময়ের জন্য স্পষ্ট ও পরিমাপযোগ্য লক্ষ্য ঠিক করেন, এবং পরবর্তীতে সেই লক্ষ্যের ভিত্তিতেই কর্মীদের কাজের মূল্যায়ন করা হয়। যেমন, একজন বিক্রয় ব্যবস্থাপক ও তার অধীনস্থ কর্মীরা মিলে ঠিক করতে পারেন যে আগামী ৬ মাসে বিক্রয় ১৫% বাড়াতে হবে, এবং এই লক্ষ্যের ভিত্তিতেই পরবর্তীতে কর্মীর কর্মক্ষমতা মূল্যায়ন করা হবে।</p>
+</div>
+<div class="sub-section">
+<h3 class="sub-title">মূল বৈশিষ্ট্য</h3>
+<ol class="points-list">
+  <li class="point"><b>১. যৌথ লক্ষ্য নির্ধারণ</b> এই পদ্ধতিতে লক্ষ্য একা ঊর্ধ্বতন কর্মকর্তা ঠিক করেন না, বরং ঊর্ধ্বতন ও অধস্তন উভয়ে আলোচনার মাধ্যমে যৌথভাবে লক্ষ্য নির্ধারণ করেন।</li>
+  <li class="point"><b>২. সুনির্দিষ্ট ও পরিমাপযোগ্য লক্ষ্য</b> লক্ষ্যগুলো এমনভাবে ঠিক করা হয় যাতে তা স্পষ্ট, নির্দিষ্ট ও সংখ্যাগতভাবে পরিমাপ করা যায়, যেমন বিক্রয় বৃদ্ধি বা উৎপাদন লক্ষ্য।</li>
+  <li class="point"><b>৩. নির্দিষ্ট সময়সীমা</b> প্রতিটি লক্ষ্য অর্জনের জন্য একটি নির্দিষ্ট সময়সীমা বেঁধে দেওয়া হয়, যাতে কর্মীরা সেই সময়ের মধ্যে লক্ষ্য পূরণে মনোযোগী থাকে।</li>
+  <li class="point"><b>৪. নিয়মিত পর্যালোচনা</b> লক্ষ্য অর্জনের অগ্রগতি নির্দিষ্ট বিরতিতে পর্যালোচনা করা হয়, যাতে প্রয়োজনে সংশোধনমূলক ব্যবস্থা নেওয়া যায়।</li>
+  <li class="point"><b>৫. কর্মক্ষমতার মূল্যায়ন</b> নির্ধারিত লক্ষ্যের সাথে প্রকৃত ফলাফল তুলনা করে কর্মীর কর্মক্ষমতা মূল্যায়ন করা হয়, যা পদোন্নতি বা পুরস্কারের ভিত্তি হতে পারে।</li>
+  <li class="point"><b>৬. কর্মীর সম্পৃক্ততা বৃদ্ধি</b> লক্ষ্য নির্ধারণে কর্মীরা সরাসরি অংশগ্রহণ করায় তাদের মধ্যে দায়িত্ববোধ ও কাজের প্রতি আগ্রহ বৃদ্ধি পায়।</li>
+</ol>
+</div>
+<div class="conclusion-box">
+<div class="sec-label">উপসংহার</div>
+<p>সংক্ষেপে বলা যায়, উদ্দেশ্যভিত্তিক ব্যবস্থাপনা একটি ফলাফলমুখী পদ্ধতি, যেখানে যৌথভাবে নির্ধারিত সুনির্দিষ্ট লক্ষ্যের ভিত্তিতে কর্মীর কর্মক্ষমতা মূল্যায়ন করা হয়। এই পদ্ধতি প্রতিষ্ঠানের লক্ষ্য অর্জন ও কর্মীর দক্ষতা বৃদ্ধি উভয় ক্ষেত্রেই গুরুত্বপূর্ণ ভূমিকা পালন করে।</p>
+</div>
+<div class="cheat-wrap">
+<div class="sec-label">📋 চিট শীট</div>
+<div class="table-scroll">
+<table class="cheat-table">
+  <thead>
+    <tr>
+      <th>পয়েন্ট</th>
+      <th>ইশারা</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>যৌথ লক্ষ্য নির্ধারণ</td>
+      <td>এই পদ্ধতিতে লক্ষ্য একা ঊর্ধ্বতন কর্মকর্তা ঠিক করেন না</td>
+    </tr>
+    <tr>
+      <td>সুনির্দিষ্ট ও পরিমাপযোগ্য লক্ষ্য</td>
+      <td>লক্ষ্যগুলো এমনভাবে ঠিক করা হয় যাতে তা স্পষ্ট</td>
+    </tr>
+    <tr>
+      <td>নির্দিষ্ট সময়সীমা</td>
+      <td>প্রতিটি লক্ষ্য অর্জনের জন্য একটি নির্দিষ্ট সময়সীমা বেঁধে</td>
+    </tr>
+    <tr>
+      <td>নিয়মিত পর্যালোচনা</td>
+      <td>লক্ষ্য অর্জনের অগ্রগতি নির্দিষ্ট বিরতিতে পর্যালোচনা করা হয়</td>
+    </tr>
+    <tr>
+      <td>কর্মক্ষমতার মূল্যায়ন</td>
+      <td>নির্ধারিত লক্ষ্যের সাথে প্রকৃত ফলাফল তুলনা করে কর্মীর</td>
+    </tr>
+    <tr>
+      <td>কর্মীর সম্পৃক্ততা বৃদ্ধি</td>
+      <td>লক্ষ্য নির্ধারণে কর্মীরা সরাসরি অংশগ্রহণ করায় তাদের মধ্যে</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+        </div>
+      </details>
+
+      <details class="qcard" id="q-20" data-chapter="3">
+        <summary class="qsummary">
+          <span class="qtext">3.18: ব্যবস্থাপনা হলো সিদ্ধান্ত গ্রহণ প্রক্রিয়া-ব্যাখ্যা কর।</span>
+          <span class="chev">▼</span>
+        </summary>
+        <div class="qbody">
+<div class="intro-box">
+<div class="sec-label">ভূমিকা</div>
+<p>ব্যবস্থাপনার প্রতিটি স্তরে, প্রতিটি কাজে ব্যবস্থাপককে ক্রমাগত সিদ্ধান্ত নিতে হয়। পরিকল্পনা তৈরি থেকে শুরু করে নিয়ন্ত্রণ পর্যন্ত প্রতিটি ধাপেই বিভিন্ন বিকল্পের মধ্য থেকে সবচেয়ে উপযুক্তটি বেছে নিতে হয়। এই কারণেই বলা হয়, ব্যবস্থাপনা মূলত একটি সিদ্ধান্ত গ্রহণ প্রক্রিয়া।</p>
+</div>
+<div class="sub-section">
+<h3 class="sub-title">মূল আলোচনা</h3>
+<ol class="points-list">
+  <li class="point"><b>১. পরিকল্পনায় সিদ্ধান্ত গ্রহণ</b> পরিকল্পনা তৈরির সময় লক্ষ্য নির্ধারণ থেকে শুরু করে বিকল্প পথ বেছে নেওয়া পর্যন্ত প্রতিটি ধাপে সিদ্ধান্ত নিতে হয়। কোন লক্ষ্য নির্ধারণ করা হবে, কোন পথে এগোনো হবে—এসবই সিদ্ধান্তের ফলাফল।</li>
+  <li class="point"><b>২. সংগঠনে সিদ্ধান্ত গ্রহণ</b> প্রতিষ্ঠানের কাঠামো তৈরি, বিভাগ বিভাজন, দায়িত্ব বণ্টন—এসব ক্ষেত্রেও ব্যবস্থাপককে বিভিন্ন বিকল্প বিবেচনা করে সিদ্ধান্ত নিতে হয়।</li>
+  <li class="point"><b>৩. জনবল নিয়োগে সিদ্ধান্ত গ্রহণ</b> কোন প্রার্থীকে নিয়োগ দেওয়া হবে, কীভাবে প্রশিক্ষণ দেওয়া হবে—এই ধরনের সিদ্ধান্তও ব্যবস্থাপনার একটি নিয়মিত অংশ।</li>
+  <li class="point"><b>৪. নির্দেশনা প্রদানে সিদ্ধান্ত গ্রহণ</b> কর্মীদের কীভাবে নির্দেশনা দেওয়া হবে, কোন পদ্ধতিতে অনুপ্রাণিত করা হবে—এসব বিষয়েও ব্যবস্থাপককে সিদ্ধান্ত নিতে হয়।</li>
+  <li class="point"><b>৫. সমস্যা সমাধানে সিদ্ধান্ত গ্রহণ</b> প্রতিষ্ঠানের দৈনন্দিন কাজে বিভিন্ন সমস্যা দেখা দেয়, আর প্রতিটি সমস্যার সমাধানের জন্য উপযুক্ত সিদ্ধান্ত নেওয়াই ব্যবস্থাপকের মূল দায়িত্ব।</li>
+  <li class="point"><b>৬. নিয়ন্ত্রণে সিদ্ধান্ত গ্রহণ</b> কাজের অগ্রগতি পর্যালোচনা করে কোথাও ভুল দেখা দিলে তা সংশোধনের জন্য কী পদক্ষেপ নেওয়া হবে, তাও একটি সিদ্ধান্ত গ্রহণ প্রক্রিয়া।</li>
+  <li class="point"><b>৭. সম্পদ বরাদ্দে সিদ্ধান্ত গ্রহণ</b> সীমিত সম্পদ—অর্থ, জনবল, সময়—কোন কাজে কতটুকু ব্যবহার করা হবে তা নির্ধারণ করাও ব্যবস্থাপনার একটি গুরুত্বপূর্ণ সিদ্ধান্তমূলক কাজ।</li>
+  <li class="point"><b>৮. যোগাযোগে সিদ্ধান্ত গ্রহণ</b> প্রতিষ্ঠানে কোন তথ্য কার কাছে, কোন মাধ্যমে ও কখন পাঠানো হবে তা ঠিক করাও একধরনের সিদ্ধান্ত, যা কাজের সমন্বয়ে গুরুত্বপূর্ণ ভূমিকা রাখে।</li>
+  <li class="point"><b>৯. বাজেট নির্ধারণে সিদ্ধান্ত গ্রহণ</b> কোন খাতে কত টাকা বরাদ্দ হবে, কোথায় খরচ কমানো যাবে—এই ধরনের আর্থিক সিদ্ধান্তও নিয়মিতভাবে নিতে হয়।</li>
+  <li class="point"><b>১০. ঝুঁকি মোকাবেলায় সিদ্ধান্ত গ্রহণ</b> অনিশ্চিত পরিস্থিতিতে কোন পদক্ষেপ নিলে ঝুঁকি কম হবে তা যাচাই করে সিদ্ধান্ত নেওয়া ব্যবস্থাপনার একটি চ্যালেঞ্জিং দিক।</li>
+  <li class="point"><b>১১. উদ্ভাবন ও পরিবর্তনে সিদ্ধান্ত গ্রহণ</b> নতুন পণ্য চালু করা, পুরনো পদ্ধতি বদলানো বা নতুন প্রযুক্তি গ্রহণ করা—এসব সিদ্ধান্তও প্রতিষ্ঠানের ভবিষ্যৎ নির্ধারণ করে।</li>
+  <li class="point"><b>১২. প্রতিটি স্তরে সিদ্ধান্তের উপস্থিতি</b> শীর্ষ, মধ্যম ও নিম্ন—ব্যবস্থাপনার প্রতিটি স্তরেই ভিন্ন ভিন্ন মাত্রার সিদ্ধান্ত নিতে হয়, যা প্রমাণ করে সিদ্ধান্ত গ্রহণ ব্যবস্থাপনার সর্বত্র বিদ্যমান।</li>
+  <li class="point"><b>১৩. সময়োপযোগী সিদ্ধান্তের গুরুত্ব</b> সঠিক সময়ে সঠিক সিদ্ধান্ত না নিলে সুযোগ হাতছাড়া হয়ে যেতে পারে, তাই দ্রুত ও সময়োপযোগী সিদ্ধান্ত গ্রহণ ব্যবস্থাপনার সফলতার একটি বড় শর্ত।</li>
+  <li class="point"><b>১৪. প্রতিযোগিতামূলক পরিস্থিতিতে সিদ্ধান্ত গ্রহণ</b> বাজারে টিকে থাকতে প্রতিদ্বন্দ্বীদের তুলনায় ভালো কৌশল কোনটি তা নির্ধারণ করাও একটি ক্রমাগত সিদ্ধান্তমূলক প্রক্রিয়া।</li>
+</ol>
+</div>
+<div class="conclusion-box">
+<div class="sec-label">উপসংহার</div>
+<p>উপরের আলোচনা থেকে স্পষ্ট, ব্যবস্থাপনার প্রতিটি কাজ—পরিকল্পনা, সংগঠন, নিয়োগ, নির্দেশনা ও নিয়ন্ত্রণ—আসলে ধারাবাহিক সিদ্ধান্ত গ্রহণেরই ফলাফল। তাই যথার্থই বলা হয়, ব্যবস্থাপনা মূলত একটি সিদ্ধান্ত গ্রহণ প্রক্রিয়া।</p>
+</div>
+<div class="cheat-wrap">
+<div class="sec-label">📋 চিট শীট</div>
+<div class="table-scroll">
+<table class="cheat-table">
+  <thead>
+    <tr>
+      <th>পয়েন্ট</th>
+      <th>ইশারা</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>পরিকল্পনায় সিদ্ধান্ত গ্রহণ</td>
+      <td>পরিকল্পনা তৈরির সময় লক্ষ্য নির্ধারণ থেকে শুরু করে</td>
+    </tr>
+    <tr>
+      <td>সংগঠনে সিদ্ধান্ত গ্রহণ</td>
+      <td>প্রতিষ্ঠানের কাঠামো তৈরি</td>
+    </tr>
+    <tr>
+      <td>জনবল নিয়োগে সিদ্ধান্ত গ্রহণ</td>
+      <td>কোন প্রার্থীকে নিয়োগ দেওয়া হবে</td>
+    </tr>
+    <tr>
+      <td>নির্দেশনা প্রদানে সিদ্ধান্ত গ্রহণ</td>
+      <td>কর্মীদের কীভাবে নির্দেশনা দেওয়া হবে</td>
+    </tr>
+    <tr>
+      <td>সমস্যা সমাধানে সিদ্ধান্ত গ্রহণ</td>
+      <td>প্রতিষ্ঠানের দৈনন্দিন কাজে বিভিন্ন সমস্যা দেখা দেয়</td>
+    </tr>
+    <tr>
+      <td>নিয়ন্ত্রণে সিদ্ধান্ত গ্রহণ</td>
+      <td>কাজের অগ্রগতি পর্যালোচনা করে কোথাও ভুল দেখা দিলে</td>
+    </tr>
+    <tr>
+      <td>সম্পদ বরাদ্দে সিদ্ধান্ত গ্রহণ</td>
+      <td>সীমিত সম্পদ</td>
+    </tr>
+    <tr>
+      <td>যোগাযোগে সিদ্ধান্ত গ্রহণ</td>
+      <td>প্রতিষ্ঠানে কোন তথ্য কার কাছে</td>
+    </tr>
+    <tr>
+      <td>বাজেট নির্ধারণে সিদ্ধান্ত গ্রহণ</td>
+      <td>কোন খাতে কত টাকা বরাদ্দ হবে</td>
+    </tr>
+    <tr>
+      <td>ঝুঁকি মোকাবেলায় সিদ্ধান্ত গ্রহণ</td>
+      <td>অনিশ্চিত পরিস্থিতিতে কোন পদক্ষেপ নিলে ঝুঁকি কম হবে</td>
+    </tr>
+    <tr>
+      <td>উদ্ভাবন ও পরিবর্তনে সিদ্ধান্ত গ্রহণ</td>
+      <td>নতুন পণ্য চালু করা</td>
+    </tr>
+    <tr>
+      <td>প্রতিটি স্তরে সিদ্ধান্তের উপস্থিতি</td>
+      <td>শীর্ষ, মধ্যম ও নিম্ন</td>
+    </tr>
+    <tr>
+      <td>সময়োপযোগী সিদ্ধান্তের গুরুত্ব</td>
+      <td>সঠিক সময়ে সঠিক সিদ্ধান্ত না নিলে সুযোগ হাতছাড়া</td>
+    </tr>
+    <tr>
+      <td>প্রতিযোগিতামূলক পরিস্থিতিতে সিদ্ধান্ত গ্রহণ</td>
+      <td>বাজারে টিকে থাকতে প্রতিদ্বন্দ্বীদের তুলনায় ভালো কৌশল কোনটি</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+        </div>
+      </details>
+
+    </div>
+
+  </div>
+
+  <script>
+    document.getElementById('expandAll').onclick = function () {
+      document.querySelectorAll('.qcard').forEach(d => d.open = true);
+    };
+    document.getElementById('collapseAll').onclick = function () {
+      document.querySelectorAll('.qcard').forEach(d => d.open = false);
+    };
+
+    let activeChapter = 'all';
+
+    function applyFilters() {
+      const q = searchBox.value.trim().toLowerCase();
+      document.querySelectorAll('.qcard').forEach(card => {
+        const text = card.textContent.toLowerCase();
+        const chapterMatch = activeChapter === 'all' || card.getAttribute('data-chapter') === activeChapter;
+        const searchMatch = q === '' || text.includes(q);
+        if (chapterMatch && searchMatch) {
+          card.classList.remove('hidden');
+          if (q !== '') card.open = true;
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+      document.querySelectorAll('.toc-item').forEach(item => {
+        const text = item.textContent.toLowerCase();
+        const chapterMatch = activeChapter === 'all' || item.getAttribute('data-chapter') === activeChapter;
+        const searchMatch = q === '' || text.includes(q);
+        item.style.display = (chapterMatch && searchMatch) ? '' : 'none';
+      });
+    }
+
+    const searchBox = document.getElementById('searchBox');
+    searchBox.addEventListener('input', applyFilters);
+
+    document.getElementById('chapterFilter').addEventListener('click', function (e) {
+      const btn = e.target.closest('button[data-chapter]');
+      if (!btn) return;
+      activeChapter = btn.getAttribute('data-chapter');
+      document.querySelectorAll('#chapterFilter button').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      applyFilters();
+    });
+
+    document.querySelectorAll('.toc-item').forEach(item => {
+      item.addEventListener('click', function (e) {
+        const id = this.getAttribute('data-target');
+        const card = document.getElementById(id);
+        if (card) card.open = true;
+      });
+    });
+
+    (function () {
+      const STORAGE_KEY = 'exam-notes-done-management-v1';
+      const allCards = Array.from(document.querySelectorAll('.qcard'));
+      const totalCount = allCards.length;
+
+      function loadDone() {
+        try {
+          const raw = localStorage.getItem(STORAGE_KEY);
+          return raw ? JSON.parse(raw) : {};
+        } catch (e) {
+          return {};
+        }
+      }
+
+      function saveDone(state) {
+        try {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+        } catch (e) { }
+      }
+
+      let doneState = loadDone();
+
+      function updateProgress() {
+        const doneCount = Object.values(doneState).filter(Boolean).length;
+        const pct = totalCount ? Math.round((doneCount / totalCount) * 100) : 0;
+        const label = document.getElementById('progressLabel');
+        const pctEl = document.getElementById('progressPct');
+        const fill = document.getElementById('progressFill');
+        if (label) label.textContent = `সম্পন্ন: ${doneCount} / ${totalCount}`;
+        if (pctEl) pctEl.textContent = pct + '%';
+        if (fill) fill.style.width = pct + '%';
+      }
+
+      function setDone(id, isDone) {
+        doneState[id] = isDone;
+        saveDone(doneState);
+        applyVisual(id, isDone);
+        updateProgress();
+        if (isDone) {
+          const card = document.getElementById(id);
+          if (card) {
+            card.open = false;
+            requestAnimationFrame(() => {
+              card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+          }
+        }
+      }
+
+      function applyVisual(id, isDone) {
+        const card = document.getElementById(id);
+        const tocItem = document.querySelector(`.toc-item[data-target="${id}"]`);
+        if (card) card.classList.toggle('is-done', !!isDone);
+        if (tocItem) {
+          tocItem.classList.toggle('is-done', !!isDone);
+          const cb = tocItem.querySelector('.done-check');
+          if (cb) cb.checked = !!isDone;
+        }
+        if (card) {
+          const cb = card.querySelector('.qsummary .done-check');
+          if (cb) cb.checked = !!isDone;
+          const btn = card.querySelector('.done-bottom-btn');
+          if (btn) {
+            btn.classList.toggle('is-marked', !!isDone);
+            btn.textContent = isDone
+              ? '✅ সম্পন্ন হয়েছে (আনমার্ক করতে ক্লিক করুন)'
+              : '✓ পড়া শেষ, সম্পন্ন হিসেবে চিহ্নিত করি';
+          }
+        }
+      }
+
+      document.querySelectorAll('.toc-item').forEach(item => {
+        const id = item.getAttribute('data-target');
+        const cb = document.createElement('input');
+        cb.type = 'checkbox';
+        cb.className = 'done-check';
+        cb.title = 'সম্পন্ন হিসেবে চিহ্নিত করুন';
+        cb.checked = !!doneState[id];
+        cb.addEventListener('click', function (e) {
+          e.preventDefault();
+          e.stopPropagation();
+        });
+        cb.addEventListener('change', function (e) {
+          setDone(id, cb.checked);
+        });
+        item.insertBefore(cb, item.firstChild);
+      });
+
+      allCards.forEach(card => {
+        const id = card.id;
+        const summary = card.querySelector('.qsummary');
+        if (!summary) return;
+        const cb = document.createElement('input');
+        cb.type = 'checkbox';
+        cb.className = 'done-check';
+        cb.title = 'সম্পন্ন হিসেবে চিহ্নিত করুন';
+        cb.checked = !!doneState[id];
+        cb.addEventListener('click', function (e) {
+          e.stopPropagation();
+        });
+        cb.addEventListener('change', function (e) {
+          setDone(id, cb.checked);
+        });
+        summary.insertBefore(cb, summary.firstChild);
+      });
+
+      allCards.forEach(card => {
+        const id = card.id;
+        const qbody = card.querySelector('.qbody');
+        if (!qbody) return;
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'done-bottom-btn';
+        if (doneState[id]) btn.classList.add('is-marked');
+        btn.textContent = doneState[id]
+          ? '✅ সম্পন্ন হয়েছে (আনমার্ক করতে ক্লিক করুন)'
+          : '✓ পড়া শেষ, সম্পন্ন হিসেবে চিহ্নিত করি';
+        btn.addEventListener('click', function () {
+          setDone(id, !doneState[id]);
+        });
+        qbody.appendChild(btn);
+      });
+
+      const resetBtn = document.getElementById('resetDone');
+      if (resetBtn) {
+        resetBtn.addEventListener('click', function () {
+          if (!confirm('সব প্রশ্নের "সম্পন্ন" চিহ্ন মুছে ফেলতে চান?')) return;
+          doneState = {};
+          saveDone(doneState);
+          allCards.forEach(card => applyVisual(card.id, false));
+          updateProgress();
+        });
+      }
+
+      allCards.forEach(card => applyVisual(card.id, !!doneState[card.id]));
+      updateProgress();
+    })();
+  </script>
+
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function () {
+        navigator.serviceWorker.register('sw.js').catch(function () {
+        });
+      });
+    }
+  </script>
+
+  <script>
+    document.addEventListener('contextmenu', function (e) { e.preventDefault(); });
+    document.addEventListener('selectstart', function (e) { e.preventDefault(); });
+    document.addEventListener('copy', function (e) { e.preventDefault(); });
+    document.addEventListener('keydown', function (e) {
+      const key = e.key.toLowerCase();
+      if ((e.ctrlKey || e.metaKey) && (key === 'c' || key === 'a' || key === 'x' || key === 'u')) {
+        e.preventDefault();
+      }
+    });
+  </script>
+
+</body>
+
