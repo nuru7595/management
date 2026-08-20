@@ -1,4 +1,4 @@
-const CACHE_NAME = 'management-notes-v2';
+const CACHE_NAME = 'management-notes-v3';
 const FILES_TO_CACHE = [
   './',
   './index.html',
